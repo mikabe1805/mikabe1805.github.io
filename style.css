@@ -1,0 +1,62 @@
+body, html {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  color: black;
+}
+
+li {
+  display: inline-block;
+  margin: 0 20px 0 0;
+}
+
+header {
+  text-align: center;
+  background: rgb(243, 219, 184);
+  padding: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color:white;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.bcaPic {
+  width: 50%;
+  height: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  display: block;
+}
+
+.bcaPic:hover {
+  opacity: 50%
+}
+
+footer {
+  background: rgb(243, 219, 184);
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+  display: block;
+  text-transform: uppercase;
+}
