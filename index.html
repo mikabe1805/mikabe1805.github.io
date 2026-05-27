@@ -798,15 +798,40 @@ footer {
 .tts-box-label.bad  { color: #903020; }
 .tts-box-label.good { color: #1a5c3a; }
 .tts-box-content { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--ink); line-height: 1.65; }
-.tts-play-row { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
 .tts-play-btn {
   font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600;
   border: 1.5px solid var(--accent); background: #fff; color: var(--accent);
   padding: 8px 18px; border-radius: 3px; cursor: pointer; transition: all 0.15s;
 }
 .tts-play-btn:hover, .tts-play-btn.playing { background: var(--accent); color: #fff; }
-.tts-disclaimer { font-size: 0.72rem; color: var(--muted); font-style: italic; }
-
+.tts-play-row { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.4rem; }
+.tts-model-sample {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+.tts-model-sample-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.tts-model-sample-desc {
+  font-size: 0.75rem;
+  color: var(--muted);
+  flex: 1;
+  min-width: 160px;
+  line-height: 1.5;
+}
+.tts-model-btn {
+  white-space: nowrap;
+}
 
 @media (max-width: 640px) {
   .tts-panels { grid-template-columns: 1fr; }
@@ -1299,7 +1324,7 @@ footer {
 <section class="section" id="tryit">
   <div class="section-inner">
     <div class="section-label">Try It</div>
-    <p class="demo-intro">Design elements and real interactions from my projects — click around.</p>
+    <p class="demo-intro">A few pieces of real work, made interactive — a better look at how I think about design than any bullet list.</p>
     <div class="demo-tabs">
       <button class="demo-tab active"  onclick="switchDemo('datescape',this)">DateScape</button>
       <button class="demo-tab"         onclick="switchDemo('thisis',this)">this.is</button>
@@ -1444,7 +1469,11 @@ footer {
         <div class="tts-play-row">
           <button class="tts-play-btn" id="btnRaw"       onclick="ttsPlay('raw')">&#9654; Hear raw</button>
           <button class="tts-play-btn" id="btnNarration" onclick="ttsPlay('narration')">&#9654; Hear narration</button>
-          <span class="tts-disclaimer">★ = plays the actual fine-tuned Kuiper-TTS model · trained on 649 voice recordings · VITS2 / Piper ONNX</span>
+        </div>
+        <div class="tts-model-sample">
+          <div class="tts-model-sample-label">Real model output</div>
+          <div class="tts-model-sample-desc">Actual audio from the fine-tuned Kuiper-TTS model — 649 voice recordings · VITS2 / Piper ONNX</div>
+          <button class="tts-play-btn tts-model-btn" id="btnModel" onclick="ttsPlayModel()">&#9654; Hear the model</button>
         </div>
       </div>
     </div>
@@ -1766,7 +1795,6 @@ footer {
       label: 'Gaussian Integral',
       raw:   '\\int_0^{\\infty} e^{-x^2}\\,dx = \\tfrac{\\sqrt{\\pi}}{2}',
       narration: 'The integral from zero to infinity of e to the negative x squared, d x, equals the square root of pi over two.',
-      audioSrc: 'audio/gaussian.wav',
     },
     {
       label: 'Power Rule',
@@ -1784,13 +1812,10 @@ footer {
   function ttsRender() {
     const eq = ttsEqs[ttsIdx];
     document.getElementById('ttsPicker').innerHTML = ttsEqs.map((e,i) =>
-      `<button class="tts-eq-btn ${i===ttsIdx?'active':''}" onclick="ttsSelect(${i})">${e.label}${e.audioSrc?' ★':''}</button>`
+      `<button class="tts-eq-btn ${i===ttsIdx?'active':''}" onclick="ttsSelect(${i})">${e.label}</button>`
     ).join('');
     document.getElementById('ttsRaw').textContent = eq.raw;
     document.getElementById('ttsNarration').textContent = eq.narration;
-    // Swap label on narration button to flag actual model audio
-    const btnN = document.getElementById('btnNarration');
-    btnN.textContent = eq.audioSrc ? '▶ Hear narration (actual model)' : '▶ Hear narration (browser TTS)';
   }
 
   function ttsSelect(i) {
@@ -1805,35 +1830,49 @@ footer {
 
     const eq  = ttsEqs[ttsIdx];
     const btn = document.getElementById(mode === 'raw' ? 'btnRaw' : 'btnNarration');
-    const orig = btn.textContent;
     btn.classList.add('playing');
     btn.textContent = '⏹ Stop';
     const reset = () => {
       btn.classList.remove('playing');
-      ttsCurrentAudio = null;
-      ttsRender(); // restore button label
+      btn.textContent = mode === 'raw' ? '▶ Hear raw' : '▶ Hear narration';
       btn.onclick = () => ttsPlay(mode);
     };
     btn.onclick = () => {
       window.speechSynthesis && window.speechSynthesis.cancel();
+      reset();
+    };
+
+    if (!window.speechSynthesis) { reset(); return; }
+    const text = mode === 'raw' ? eq.raw : eq.narration;
+    const utt  = new SpeechSynthesisUtterance(text);
+    utt.rate   = mode === 'narration' ? 0.88 : 1.0;
+    utt.onend  = reset; utt.onerror = reset;
+    window.speechSynthesis.speak(utt);
+  }
+
+  function ttsPlayModel() {
+    window.speechSynthesis && window.speechSynthesis.cancel();
+    if (ttsCurrentAudio) { ttsCurrentAudio.pause(); ttsCurrentAudio.currentTime = 0; ttsCurrentAudio = null; }
+
+    const btn = document.getElementById('btnModel');
+    btn.classList.add('playing');
+    btn.textContent = '⏹ Stop';
+    const reset = () => {
+      btn.classList.remove('playing');
+      btn.textContent = '▶ Hear the model';
+      ttsCurrentAudio = null;
+      btn.onclick = ttsPlayModel;
+    };
+    btn.onclick = () => {
       if (ttsCurrentAudio) { ttsCurrentAudio.pause(); ttsCurrentAudio.currentTime = 0; }
       reset();
     };
 
-    if (mode === 'narration' && eq.audioSrc) {
-      const audio = new Audio(eq.audioSrc);
-      ttsCurrentAudio = audio;
-      audio.onended = reset;
-      audio.onerror = reset;
-      audio.play().catch(reset);
-    } else {
-      if (!window.speechSynthesis) { reset(); return; }
-      const text = mode === 'raw' ? eq.raw : eq.narration;
-      const utt  = new SpeechSynthesisUtterance(text);
-      utt.rate   = mode === 'narration' ? 0.88 : 1.0;
-      utt.onend  = reset; utt.onerror = reset;
-      window.speechSynthesis.speak(utt);
-    }
+    const audio = new Audio('audio/gaussian.wav');
+    ttsCurrentAudio = audio;
+    audio.onended = reset;
+    audio.onerror = reset;
+    audio.play().catch(reset);
   }
 
   ttsRender();
