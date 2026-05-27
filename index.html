@@ -833,6 +833,90 @@ footer {
   white-space: nowrap;
 }
 
+/* ── PAPER CARD ── */
+.paper-card {
+  max-width: 680px;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  padding: 2rem 2.2rem;
+  background: #fff;
+}
+.paper-venue-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+.paper-venue {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--tag-bg);
+  border: 1px solid var(--rule);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+.paper-venue-dot { color: var(--rule); font-size: 0.85rem; }
+.paper-venue-sub {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.paper-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.18rem;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+.paper-abstract {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1.4rem;
+}
+.paper-meta-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.paper-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.paper-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.64rem;
+  color: var(--muted);
+  background: var(--tag-bg);
+  border: 1px solid var(--rule);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+.paper-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+  padding: 7px 16px;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+.paper-pdf-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
 @media (max-width: 640px) {
   .tts-panels { grid-template-columns: 1fr; }
 }
@@ -1454,26 +1538,25 @@ footer {
 
     <!-- TTS Research -->
     <div class="demo-panel" id="demo-tts">
-      <div class="tts-wrap">
-        <div class="tts-picker" id="ttsPicker"></div>
-        <div class="tts-panels">
-          <div class="tts-box">
-            <div class="tts-box-label bad">What a screen reader gets</div>
-            <div class="tts-box-content" id="ttsRaw"></div>
-          </div>
-          <div class="tts-box">
-            <div class="tts-box-label good">What our system narrates</div>
-            <div class="tts-box-content" id="ttsNarration"></div>
-          </div>
+      <div class="paper-card">
+        <div class="paper-venue-row">
+          <span class="paper-venue">IEEE ISEC 2024</span>
+          <span class="paper-venue-dot">·</span>
+          <span class="paper-venue-sub">Peer-reviewed · Presented at Princeton</span>
         </div>
-        <div class="tts-play-row">
-          <button class="tts-play-btn" id="btnRaw"       onclick="ttsPlay('raw')">&#9654; Hear raw</button>
-          <button class="tts-play-btn" id="btnNarration" onclick="ttsPlay('narration')">&#9654; Hear narration</button>
-        </div>
-        <div class="tts-model-sample">
-          <div class="tts-model-sample-label">Real model output</div>
-          <div class="tts-model-sample-desc">Actual audio from the fine-tuned Kuiper-TTS model — 649 voice recordings · VITS2 / Piper ONNX</div>
-          <button class="tts-play-btn tts-model-btn" id="btnModel" onclick="ttsPlayModel()">&#9654; Hear the model</button>
+        <h3 class="paper-title">Kuiper-TTS: Fine-Tuned Text-to-Speech for Mathematical Narration of Scientific Documents</h3>
+        <p class="paper-abstract">Most scientific PDFs contain LaTeX-rendered equations that screen readers either skip entirely or read as raw markup — rendering decades of published research inaccessible to visually impaired readers. This paper presents Kuiper-TTS, a VITS2-based model fine-tuned on 649 voice recordings and a custom LaTeX-to-speech prosody layer that converts structural math notation into natural, listener-friendly narration. We describe the full GPU training pipeline on Jetstream infrastructure, the prosody system's handling of operator grouping and pause timing, and evaluation using MCD, F0 RMSE, STOI, and PESQ metrics.</p>
+        <div class="paper-meta-row">
+          <div class="paper-tags">
+            <span class="paper-tag">VITS2 / Piper ONNX</span>
+            <span class="paper-tag">LaTeX-to-speech</span>
+            <span class="paper-tag">Accessibility</span>
+            <span class="paper-tag">PyTorch Lightning</span>
+          </div>
+          <a class="paper-pdf-btn" href="kuiper-tts-paper.pdf" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            Read the paper
+          </a>
         </div>
       </div>
     </div>
