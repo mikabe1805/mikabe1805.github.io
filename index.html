@@ -841,6 +841,21 @@ footer {
   padding: 2rem 2.2rem;
   background: #fff;
 }
+.paper-award-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #7a4f00;
+  background: #fef3cd;
+  border: 1px solid #e8cc7a;
+  border-radius: 4px;
+  padding: 4px 10px;
+  margin-bottom: 1rem;
+}
 .paper-venue-row {
   display: flex;
   align-items: center;
@@ -875,8 +890,16 @@ footer {
   font-size: 0.82rem;
   color: var(--muted);
   line-height: 1.7;
-  margin-bottom: 1.4rem;
+  margin-bottom: 0.8rem;
 }
+.paper-authors {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+.paper-authors strong { color: var(--accent); }
 .paper-meta-row {
   display: flex;
   align-items: flex-end;
@@ -1539,13 +1562,18 @@ footer {
     <!-- TTS Research -->
     <div class="demo-panel" id="demo-tts">
       <div class="paper-card">
-        <div class="paper-venue-row">
-          <span class="paper-venue">IEEE ISEC 2024</span>
-          <span class="paper-venue-dot">·</span>
-          <span class="paper-venue-sub">Peer-reviewed · Presented at Princeton</span>
+        <div class="paper-award-banner">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          2nd Best Full Paper — IEEE ISEC 2026
         </div>
-        <h3 class="paper-title">Kuiper-TTS: Fine-Tuned Text-to-Speech for Mathematical Narration of Scientific Documents</h3>
-        <p class="paper-abstract">Most scientific PDFs contain LaTeX-rendered equations that screen readers either skip entirely or read as raw markup — rendering decades of published research inaccessible to visually impaired readers. This paper presents Kuiper-TTS, a VITS2-based model fine-tuned on 649 voice recordings and a custom LaTeX-to-speech prosody layer that converts structural math notation into natural, listener-friendly narration. We describe the full GPU training pipeline on Jetstream infrastructure, the prosody system's handling of operator grouping and pause timing, and evaluation using MCD, F0 RMSE, STOI, and PESQ metrics.</p>
+        <div class="paper-venue-row">
+          <span class="paper-venue">IEEE ISEC 2026</span>
+          <span class="paper-venue-dot">·</span>
+          <span class="paper-venue-sub">16th Integrated STEM Education Conference · Princeton University · March 2026</span>
+        </div>
+        <h3 class="paper-title">Making Legacy Scientific Papers Accessible by Converting Equations into Spoken Language</h3>
+        <p class="paper-abstract">Most scientific PDFs contain LaTeX-rendered equations that screen readers either skip entirely or render as raw markup — making decades of published research inaccessible to visually impaired readers. This paper describes a VITS2-based TTS model fine-tuned on 649 voice recordings, paired with a LaTeX-to-speech prosody layer that converts structural math notation into natural, listener-friendly narration. Covers the full GPU training pipeline on Jetstream infrastructure, operator grouping and pause-timing heuristics, and evaluation via MCD, F0 RMSE, STOI, and PESQ.</p>
+        <div class="paper-authors">K. August, D. Kruger, D. Lambropoulos, T. Willis III, J. Komitas, J. Li, V. Lawrence, A. Dhillon, Y. Kumar, S. Ghosh, <strong>M. Be</strong></div>
         <div class="paper-meta-row">
           <div class="paper-tags">
             <span class="paper-tag">VITS2 / Piper ONNX</span>
