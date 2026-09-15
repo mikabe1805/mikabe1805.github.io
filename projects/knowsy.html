@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Knowsy Breadboard Lab — Mika Be</title>
+    <meta
+      name="description"
+      content="A browser-based breadboard module connecting circuit construction, simulation, and feedback."
+    />
+    <link
+      rel="canonical"
+      href="https://mikabe1805.github.io/projects/knowsy.html"
+    />
+    <meta name="theme-color" content="#f5f3ed" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Knowsy Breadboard Lab — Mika Be" />
+    <meta
+      property="og:description"
+      content="A browser-based breadboard module connecting circuit construction, simulation, and feedback."
+    />
+    <meta
+      property="og:image"
+      content="https://mikabe1805.github.io/assets/social-preview.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="../assets/instrument-serif.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="../assets/site.css?v=144e8aa5ec" />
+    <script src="../assets/site.js?v=028b2a53f7" defer></script>
+    <noscript
+      ><style>
+        @media (max-width: 600px) {
+          .site-header {
+            height: auto;
+            min-height: 76px;
+          }
+          .header-inner {
+            flex-wrap: wrap;
+            padding-block: 18px;
+            gap: 14px;
+          }
+          .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+          }
+          .nav a {
+            font: 12px var(--sans);
+            padding: 0;
+            border: 0;
+          }
+          .nav .resume-link {
+            padding: 0;
+            border: 0;
+          }
+          .menu-toggle {
+            display: none;
+          }
+        }
+      </style></noscript
+    >
+  <link rel="stylesheet" href="../assets/project-demos.css?v=ae2a647586" />
+    <script src="../assets/project-demos.js?v=career-20260913" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="../index.html" aria-label="Mika Be, home"
+          >mika be<span>.</span></a
+        >
+        <button
+          class="menu-toggle"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          Menu +
+        </button>
+        <nav class="nav" id="site-nav" aria-label="Main navigation">
+          <a href="../index.html#work">Work</a
+          ><a href="../index.html#about">About</a
+          ><a href="../index.html#contact">Contact</a>
+          <a
+            class="resume-link"
+            href="../Mika-Be_Resume.pdf"
+            target="_blank"
+            rel="noopener"
+            >Résumé <span class="arrow" aria-hidden="true">↗</span></a
+          >
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <section class="case-hero">
+        <div class="wrap">
+          <a class="breadcrumb" href="../index.html#work"
+            ><span aria-hidden="true">←</span> Back to selected work</a
+          >
+          <div class="case-title-grid">
+            <div>
+              <p class="eyebrow muted">
+                04 / Engineering education · simulation
+              </p>
+              <h1>Understand it<br />by building it.</h1>
+              <p class="case-deck">
+                A browser-based breadboard module connecting circuit
+                construction, simulation, and feedback.
+              </p>
+            </div>
+            <dl class="case-meta">
+              <div>
+                <dt>Role</dt>
+                <dd>Module lead · three-person team</dd>
+              </div>
+              <div>
+                <dt>Context</dt>
+                <dd>Rutgers · Professor Kruger</dd>
+              </div>
+              <div>
+                <dt>Stack</dt>
+                <dd>JavaScript · digital simulation · MNA</dd>
+              </div>
+              <div>
+                <dt>Focus</dt>
+                <dd>Interactive learning &amp; validation</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="case-cover knowsy-cover">
+            <div>
+              <p class="eyebrow">Inside the simulator</p>
+              <h2>Build → simulate → understand</h2>
+              <p>Digital logic · circuit topology · analog analysis</p>
+            </div>
+          </div>
+          <p class="caption">
+            Architecture overview of the breadboard module; this diagram is
+            explanatory, not a product screenshot.
+          </p>
+        </div>
+      </section>
+      <div class="wrap case-layout">
+        <aside class="case-nav" aria-label="On this page">
+          <a href="#problem">Learn a circuit by working with it.</a
+          ><a href="#try-circuit">Try a circuit.</a><a href="#system">Make the simulation explainable.</a
+          ><a href="#validation">Compare against something independent.</a
+          ><a href="#takeaway">Software fundamentals travel well.</a>
+        </aside>
+        <div>
+          <section class="case-section" id="problem">
+            <h2>Learn a circuit by working with it.</h2>
+            <p>
+              A breadboard is easier to understand when students can build a
+              circuit and observe what changes. Knowsy’s breadboard lab brings
+              component placement, wiring, and simulation into a browser-based
+              learning environment.
+            </p>
+            <p>
+              My responsibility is the breadboard module, working with Professor
+              Kruger and managing a three-person team including me.
+            </p>
+          </section>
+          <section class="case-section" id="try-circuit"><h2>Change a circuit. See why it changes.</h2><p>Keep the supply at 5 volts and adjust either resistor. The output changes with their ratio; the netlist shows the same circuit as connections and values.</p><section class="project-demo knowsy-demo" data-knowsy-demo aria-label="Knowsy interactive voltage divider model">
+  <div class="knowsy-demo__intro">
+    <p class="knowsy-demo__eyebrow">Interactive circuit model</p>
+    <h3>Find the voltage at the middle.</h3>
+    <p>A small illustration of the circuit reasoning behind Knowsy.</p>
+  </div>
+
+  <div class="knowsy-demo__workspace">
+    <div class="knowsy-demo__circuit" aria-label="A five volt voltage divider with two adjustable resistors">
+      <svg viewBox="0 0 480 350" role="img" aria-label="Voltage divider circuit. A five volt source feeds R1, the output node, R2, and ground in one closed series loop." focusable="false">
+        <path class="knowsy-demo__wire" d="M130 50H240V75M240 175V185M240 185V195M240 295V300H130M130 50V141M130 209V300" />
+        <circle class="knowsy-demo__source" cx="130" cy="175" r="34" />
+        <path class="knowsy-demo__resistor" d="M240 75v12l-16 10 32 14-32 14 32 14-32 14 16 10v12" />
+        <path class="knowsy-demo__resistor" d="M240 195v12l-16 10 32 14-32 14 32 14-32 14 16 10v12" />
+        <circle class="knowsy-demo__node-halo" data-knowsy-node-halo cx="240" cy="185" r="10" />
+        <circle class="knowsy-demo__node" cx="240" cy="185" r="5.5" />
+        <path class="knowsy-demo__ground" d="M130 300v8m-21 0h42m-33 8h24m-15 8h6" />
+        <path class="knowsy-demo__output-lead" d="M240 185h118" />
+        <text x="130" y="164" text-anchor="middle" class="knowsy-demo__source-mark">+</text>
+        <text x="130" y="186" text-anchor="middle" class="knowsy-demo__source-voltage">5 V</text>
+        <text x="130" y="201" text-anchor="middle" class="knowsy-demo__source-mark">−</text>
+        <text x="270" y="121" class="knowsy-demo__label">R1</text>
+        <text x="270" y="140" class="knowsy-demo__value" data-knowsy-r1-label>1.0 kΩ</text>
+        <text x="270" y="242" class="knowsy-demo__label">R2</text>
+        <text x="270" y="261" class="knowsy-demo__value" data-knowsy-r2-label>1.0 kΩ</text>
+        <text x="370" y="177" class="knowsy-demo__label">VOUT</text>
+        <text x="370" y="202" class="knowsy-demo__output-value" data-knowsy-vout-label>2.50 V</text>
+        <text x="83" y="342" class="knowsy-demo__label">GND</text>
+      </svg>
+      <p class="knowsy-demo__current">Circuit current <output data-knowsy-current>2.50 mA</output></p>
+    </div>
+
+    <div class="knowsy-demo__controls">
+      <div class="knowsy-demo__presets" aria-label="Voltage divider presets">
+        <button type="button" data-knowsy-preset="1000,1000" aria-pressed="true">Half voltage</button>
+        <button type="button" data-knowsy-preset="4700,1000" aria-pressed="false">Lower output</button>
+        <button type="button" data-knowsy-preset="1000,4700" aria-pressed="false">Higher output</button>
+      </div>
+
+      <label class="knowsy-demo__slider-label">
+        <span>R1 <output data-knowsy-r1-output>1.0 kΩ</output></span>
+        <input type="range" min="100" max="10000" step="100" value="1000" data-knowsy-r1 aria-label="R1 resistance, in ohms">
+      </label>
+      <label class="knowsy-demo__slider-label">
+        <span>R2 <output data-knowsy-r2-output>1.0 kΩ</output></span>
+        <input type="range" min="100" max="10000" step="100" value="1000" data-knowsy-r2 aria-label="R2 resistance, in ohms">
+      </label>
+
+      <div class="knowsy-demo__reading" aria-label="Calculated output">
+        <span>Output voltage</span>
+        <output data-knowsy-vout>2.50 V</output>
+      </div>
+      <p class="knowsy-demo__formula">The lower resistor takes its share of the 5 V supply: V<sub>out</sub> = 5 × R2 ÷ (R1 + R2).</p>
+      <p class="knowsy-demo__status" data-knowsy-status aria-live="polite">R1 and R2 match, so the output is half the supply.</p>
+
+      <details class="knowsy-demo__netlist">
+        <summary>View circuit netlist</summary>
+        <pre data-knowsy-netlist>V1 VIN 0 DC 5
+R1 VIN OUT 1000
+R2 OUT 0 1000</pre>
+      </details>
+    </div>
+  </div>
+</section>
+<p class="caption">This example calculates a simple voltage divider in the browser. The breadboard lab supports a broader set of circuits through its own simulation engine.</p><noscript><p class="caption">Enable JavaScript to try this interactive example. You can still explore the project details and captures on this page.</p></noscript></section>
+          <section class="case-section" id="system">
+            <h2>Make the simulation explainable.</h2>
+            <p>
+              The digital simulation represents HIGH, LOW, FLOAT, and CONFLICT
+              explicitly, alongside behavior for 74LS-series components. Keeping
+              these states separate helps distinguish an undriven signal from an
+              actual logical low or competing drivers.
+            </p>
+            <div class="flow">
+              <div>
+                <small>01 / Build</small><strong>Components &amp; wires</strong
+                ><span>An interactive breadboard.</span>
+              </div>
+              <div>
+                <small>02 / Model</small><strong>Connectivity</strong
+                ><span>Track the circuit topology.</span>
+              </div>
+              <div>
+                <small>03 / Solve</small><strong>Digital / analog state</strong
+                ><span>Logic propagation and circuit analysis.</span>
+              </div>
+              <div>
+                <small>04 / Observe</small
+                ><strong>Scopes &amp; validation</strong
+                ><span>Connect a result to its cause.</span>
+              </div>
+            </div>
+            <p>
+              The module also includes an analog solver using Modified Nodal
+              Analysis over complex admittances, plus Bode analysis for
+              frequency response. This is analytical software work where the
+              expected behavior can be checked against known circuit formulas.
+            </p>
+          </section>
+          <section class="case-section" id="validation">
+            <h2>Compare against something independent.</h2>
+            <p>
+              Tests cover known circuits such as dividers and filters, as well
+              as frequency-response calculations. Formula-based expectations
+              help prevent a visually plausible simulation from quietly teaching
+              the wrong behavior.
+            </p>
+            <p>
+              The next step in evaluating a learning tool is observing students
+              use it: where the explanation helps, where they get stuck, and
+              whether the feedback supports their understanding.
+            </p>
+          </section>
+          <section class="case-section" id="takeaway">
+            <h2>Software fundamentals travel well.</h2>
+            <p>
+              Explicit state, inspectable behavior, and independent checks
+              matter in AI systems too. This project is part of the software
+              foundation I bring to that work, along with experience owning a
+              module and coordinating a small team.
+            </p>
+          </section>
+        </div>
+      </div>
+      <section class="next-project">
+        <div class="wrap next-inner">
+          <div>
+            <p class="eyebrow muted">Keep exploring</p>
+            <h2>Kuiper TTS</h2>
+          </div>
+          <a class="text-link" href="kuiper-tts.html"
+            >Next project <span class="arrow" aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <span>© 2026 Mika Be · made with care.</span>
+        <div class="footer-links">
+          <a href="https://github.com/mikabe1805" target="_blank" rel="noopener"
+            >GitHub <span class="arrow" aria-hidden="true">↗</span></a
+          ><a
+            href="https://linkedin.com/in/mika-be"
+            target="_blank"
+            rel="noopener"
+            >LinkedIn <span class="arrow" aria-hidden="true">↗</span></a
+          ><a href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener"
+            >Résumé <span class="arrow" aria-hidden="true">↗</span></a
+          ><a href="#main">Back to top ↑</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

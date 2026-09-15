@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Room Notes — Mika Be</title>
+    <meta
+      name="description"
+      content="Solo-developed notebook with desktop, iPad, and phone views; local-first document and sync architecture. Shared lecture notes are in development."
+    />
+    <link
+      rel="canonical"
+      href="https://mikabe1805.github.io/projects/room-notes.html"
+    />
+    <meta name="theme-color" content="#f5f3ed" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Room Notes — Mika Be" />
+    <meta
+      property="og:description"
+      content="Solo-developed notebook with desktop, iPad, and phone views; local-first document and sync architecture. Shared lecture notes are in development."
+    />
+    <meta
+      property="og:image"
+      content="https://mikabe1805.github.io/assets/social-preview.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="../assets/instrument-serif.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="../assets/site.css?v=144e8aa5ec" />
+    <script src="../assets/site.js?v=028b2a53f7" defer></script>
+    <noscript
+      ><style>
+        @media (max-width: 600px) {
+          .site-header {
+            height: auto;
+            min-height: 76px;
+          }
+          .header-inner {
+            flex-wrap: wrap;
+            padding-block: 18px;
+            gap: 14px;
+          }
+          .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+          }
+          .nav a {
+            font: 12px var(--sans);
+            padding: 0;
+            border: 0;
+          }
+          .nav .resume-link {
+            padding: 0;
+            border: 0;
+          }
+          .menu-toggle {
+            display: none;
+          }
+        }
+      </style></noscript
+    >
+  <link rel="stylesheet" href="../assets/project-demos.css?v=ae2a647586" />
+    <script src="../assets/project-demos.js?v=career-20260913" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="../index.html" aria-label="Mika Be, home"
+          >mika be<span>.</span></a
+        >
+        <button
+          class="menu-toggle"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          Menu +
+        </button>
+        <nav class="nav" id="site-nav" aria-label="Main navigation">
+          <a href="../index.html#work">Work</a
+          ><a href="../index.html#about">About</a
+          ><a href="../index.html#contact">Contact</a>
+          <a
+            class="resume-link"
+            href="../Mika-Be_Resume.pdf"
+            target="_blank"
+            rel="noopener"
+            >Résumé <span class="arrow" aria-hidden="true">↗</span></a
+          >
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <section class="case-hero">
+        <div class="wrap">
+          <a class="breadcrumb" href="../index.html#work"
+            ><span aria-hidden="true">←</span> Back to selected work</a
+          >
+          <div class="case-title-grid">
+            <div>
+              <p class="eyebrow muted">
+                02 / Room Notes · cross-device notebook
+              </p>
+              <h1>Room Notes</h1>
+              <p class="case-deck">
+                I built a Flutter notebook for text, ink, equations, code and
+                diagrams, with a shared document model and interfaces tailored
+                to desktop, iPad and phone.
+              </p>
+            </div>
+            <dl class="case-meta">
+              <div>
+                <dt>Role</dt>
+                <dd>Solo developer · product &amp; engineering</dd>
+              </div>
+              <div>
+                <dt>Scope</dt>
+                <dd>Editor · device-specific UX · storage &amp; sync</dd>
+              </div>
+              <div>
+                <dt>Stack</dt>
+                <dd>Flutter · Drift / SQLite · Firebase</dd>
+              </div>
+              <div>
+                <dt>Direction</dt>
+                <dd>Personal notebooks · shared lecture notes in development</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="notes-desktop-hero">
+            <figure class="capture">
+              <a
+                class="capture-link"
+                href="../assets/notes-desktop-edit-20260907.png"
+                data-gallery="notes"
+                data-caption="Desktop text-editing view with formatting controls open on selected course notes."
+                aria-label="Enlarge: Desktop text-editing view with formatting controls open on selected course notes"
+                ><img
+                  src="../assets/notes-desktop-edit-20260907.png"
+                  width="1440"
+                  height="900"
+                  alt="Desktop text-editing view with formatting controls open on selected course notes"
+                  loading="eager"
+                /><span class="capture-open" aria-hidden="true">↗</span></a
+              >
+              <figcaption>
+                Desktop text-editing view with formatting controls open on
+                selected course notes.
+              </figcaption>
+            </figure>
+          </div>
+          <p class="caption">
+            Fresh captures from the current app with sample coursework. Open any
+            image for a closer look.
+          </p>
+        </div>
+      </section>
+      <div class="wrap case-layout">
+        <aside class="case-nav" aria-label="On this page">
+          <a href="#idea">The notebook should follow you.</a
+          ><a href="#try-notebook">Try a page.</a><a href="#devices">Device layouts</a
+          ><a href="#editor">More than one kind of content.</a
+          ><a href="#architecture">Document model, storage &amp; sync</a
+          ><a href="#next">In development: shared lecture notes</a>
+        </aside>
+        <div>
+          <section class="case-section" id="idea">
+            <h2>The notebook should follow you.</h2>
+            <p>
+              A student’s work rarely stays in one mode. A longer explanation,
+              an equation, a diagram, and a quick review need different kinds of
+              space and controls.
+            </p>
+            <p>
+              I built Room Notes around one document model with interfaces that
+              can make room for those different tasks.
+            </p>
+            <div class="ownership-note">
+              <span class="eyebrow">End-to-end ownership</span>
+              <p>
+                As the solo developer, I own the product direction, Flutter
+                editor, device layouts, local database, synchronization, and the
+                validation that connects them.
+              </p>
+            </div>
+          </section>
+          <section class="case-section" id="try-notebook"><h2>Try a page.</h2><p>Use words and a sketch together. Edit the note, choose an ink color, and draw with a mouse, touch, or pen. You can undo a mark or reset the page.</p><div class="project-demo notes-demo" data-notes-demo>
+  <div class="demo-heading"><div><p class="demo-kicker">Room Notes / interactive page</p><h4>Put an idea on paper.</h4></div><p>Type a note, then sketch below.</p></div>
+  <div class="notes-desk">
+    <div class="notes-demo-toolbar" role="group" aria-label="Notebook tools">
+      <span class="notes-tool-label">Ink</span>
+      <button type="button" data-ink="#454139" class="ink-swatch graphite" aria-label="Graphite ink" aria-pressed="true"><span></span></button>
+      <button type="button" data-ink="#a55939" class="ink-swatch terracotta" aria-label="Terracotta ink" aria-pressed="false"><span></span></button>
+      <button type="button" data-ink="#507465" class="ink-swatch sage" aria-label="Sage ink" aria-pressed="false"><span></span></button>
+      <span class="notes-toolbar-spacer"></span>
+      <button type="button" data-notes-undo disabled>Undo ink</button>
+      <button type="button" data-notes-reset>Reset page</button>
+    </div>
+    <div class="demo-paper">
+      <div class="paper-heading"><span>Signals &amp; Systems</span><span>01 / Working notes</span></div>
+      <label class="paper-note-label">Your note<textarea data-notes-text rows="3" maxlength="350" spellcheck="false" aria-label="Edit the notebook note">A capacitor reaches about 63% of its final voltage after one time constant.
+Sketch the charging curve below.</textarea></label>
+      <div class="sketch-area">
+        <svg data-notes-ink viewBox="0 0 800 270" role="img" aria-label="Drawing area. Drag to draw, or use Sketch a curve below.">
+          <g class="sketch-guide" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M65 30V220H745"/><path d="M59 39L65 29L71 39M735 214L745 220L735 226"/></g>
+          <g class="sketch-labels" fill="currentColor"><text x="39" y="39">V</text><text x="749" y="242">t</text></g>
+          <g data-notes-strokes fill="none" stroke-linecap="round" stroke-linejoin="round"></g>
+          <text class="draw-prompt" x="405" y="126" text-anchor="middle">Draw something here.</text>
+        </svg>
+      </div>
+      <div class="paper-footer"><span data-notes-status role="status">Ready for your first mark.</span><button type="button" data-notes-curve>Sketch a curve <span aria-hidden="true">↗</span></button></div>
+    </div>
+  </div>
+  <p class="demo-note">A small browser illustration of text and ink sharing a page. The app captures below show Room Notes itself.</p>
+</div>
+<noscript><p class="caption">Enable JavaScript to try this interactive example. You can still explore the project details and captures on this page.</p></noscript></section>
+          <section class="case-section" id="devices">
+            <h2>Device layouts</h2>
+            <p>
+              The desktop puts text formatting around the document. The iPad puts
+              pen tools within reach of the page. The phone makes room for
+              bringing in PDFs, paper notes, photos, and clipboard content.
+            </p>
+            <p>
+              A fixed page gives each item a consistent position. The layouts
+              change the tools around that page without reflowing its contents.
+            </p>
+            <div class="notes-device-pair">
+              <figure class="capture">
+                <a
+                  class="capture-link"
+                  href="../assets/notes-ipad-ink-20260907.png"
+                  data-gallery="notes"
+                  data-caption="iPad ink page with typed circuit notes, a drawn charging curve, and pen annotations."
+                  aria-label="Enlarge: iPad ink page with typed circuit notes, a drawn charging curve, and pen annotations"
+                  ><img
+                    src="../assets/notes-ipad-ink-20260907.png"
+                    width="1024"
+                    height="1366"
+                    alt="iPad ink page with typed circuit notes, a drawn charging curve, and pen annotations"
+                    loading="lazy"
+                  /><span class="capture-open" aria-hidden="true">↗</span></a
+                >
+                <figcaption>
+                  iPad: typed circuit notes and an ink charging curve share the
+                  same page. Pen controls sit below the graph paper.
+                </figcaption>
+              </figure>
+              <figure class="capture">
+                <a
+                  class="capture-link"
+                  href="../assets/notes-phone-import-20260907.png"
+                  data-gallery="notes"
+                  data-caption="Phone Add material screen with PDF, scan, photo, image, and clipboard choices."
+                  aria-label="Enlarge: Phone Add material screen with PDF, scan, photo, image, and clipboard choices"
+                  ><img
+                    src="../assets/notes-phone-import-20260907.png"
+                    width="430"
+                    height="932"
+                    alt="Phone Add material screen with PDF, scan, photo, image, and clipboard choices"
+                    loading="lazy"
+                  /><span class="capture-open" aria-hidden="true">↗</span></a
+                >
+                <figcaption>
+                  Phone: the Add material sheet gathers PDF, scan, photo, image,
+                  and clipboard choices.
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+          <section class="case-section" id="editor">
+            <h2>More than one kind of content.</h2>
+            <p>
+              A technical explanation can need prose, an equation, code, and a
+              diagram together. Room Notes supports those blocks within the
+              same notebook, with a component picker for engineering symbols.
+            </p>
+            <div class="notes-depth-gallery">
+              <figure class="capture">
+                <a
+                  class="capture-link"
+                  href="../assets/notes-code-20260907.png"
+                  data-gallery="notes"
+                  data-caption="Desktop page with convolution notes, a rendered equation, and a complete Python code block."
+                  aria-label="Enlarge: Desktop page with convolution notes, a rendered equation, and a complete Python code block"
+                  ><img
+                    src="../assets/notes-code-20260907.png"
+                    width="1440"
+                  height="1000"
+                    alt="Desktop page with convolution notes, a rendered equation, and a complete Python code block"
+                    loading="lazy"
+                  /><span class="capture-open" aria-hidden="true">↗</span></a
+                >
+                <figcaption>
+                  Desktop: typed convolution notes, a rendered equation, and a
+                  complete Python example with line numbers.
+                </figcaption>
+              </figure>
+              <figure class="capture">
+                <a
+                  class="capture-link"
+                  href="../assets/notes-components-20260907.png"
+                  data-gallery="notes"
+                  data-caption="iPad Engineering Components picker with logic-gate and breadboard choices."
+                  aria-label="Enlarge: iPad Engineering Components picker with logic-gate and breadboard choices"
+                  ><img
+                    src="../assets/notes-components-20260907.png"
+                    width="1024"
+                    height="1366"
+                    alt="iPad Engineering Components picker with logic-gate and breadboard choices"
+                    loading="lazy"
+                  /><span class="capture-open" aria-hidden="true">↗</span></a
+                >
+                <figcaption>
+                  iPad Engineering Components picker with logic-gate and breadboard choices.
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+          <section class="case-section" id="architecture">
+            <p class="eyebrow muted">Source-backed implementation</p>
+            <h2>Document model, storage &amp; sync</h2>
+            <p>
+              A notebook earns its place by keeping the work. I built the
+              editing and synchronization around that responsibility, with local
+              persistence, restart-safe pending work, and explicit handling for
+              competing revisions.
+            </p>
+            <div class="flow">
+              <div>
+                <small>01 / Edit</small><strong>One fixed page</strong
+                ><span>Ink and blocks share canonical coordinates.</span>
+              </div>
+              <div>
+                <small>02 / Save</small><strong>Local transaction</strong
+                ><span
+                  >Store the edit and its pending sync operation together.</span
+                >
+              </div>
+              <div>
+                <small>03 / Resume</small><strong>Durable outbox</strong
+                ><span>Unsent work survives an app restart.</span>
+              </div>
+              <div>
+                <small>04 / Continue</small><strong>Cloud operations</strong
+                ><span>Queue changes for another signed-in device.</span>
+              </div>
+            </div>
+            <h3>Stable geometry</h3>
+            <p>
+              Authored pages use a fixed 900 × 1200 coordinate system. Each
+              device scales and pans that page, so changing screens does not
+              rearrange a diagram or detach an annotation from its subject.
+            </p>
+            <h3>Local work comes first</h3>
+            <p>
+              Drift/SQLite stores edits alongside queued synchronization work in
+              one transaction. A slow connection does not need to interrupt
+              writing, and a restart does not erase the queue.
+            </p>
+            <h3>Conflicts preserve work</h3>
+            <p>
+              Append-only cloud operations and alternate-copy preservation give
+              competing revisions a recovery path. The design makes uncertainty
+              visible instead of silently discarding a version.
+            </p>
+            <h3>Validation follows the risk</h3>
+            <p>
+              I check save-and-reopen behavior, interrupted synchronization,
+              document geometry, and cloud access rules. Rendered interface
+              review complements physical Pencil testing for latency, pressure,
+              and palm behavior.
+            </p>
+          </section>
+          <section class="case-section" id="next">
+            <h2>In development: shared lecture notes</h2>
+            <div class="future-note">
+              <span class="eyebrow"
+                >In development / shared notes per lecture</span
+              >
+              <h3>One lecture. More than one way to understand it.</h3>
+              <p>
+                I’m extending Room Notes toward shared lecture pages: a way for
+                classmates to contribute useful perspectives, compare
+                explanations, and find what they missed.
+              </p>
+              <p>
+                The foundation stays personal. Sharing a page is an intentional
+                action; joining a class should never publish someone’s notebook.
+                This direction is in development, building on the document and
+                sync architecture already in the app.
+              </p>
+            </div>
+            <p>
+              The larger ambition is a notebook that supports the whole learning
+              process: capture an idea, work it through in the right medium,
+              return to it anywhere, and eventually learn from the people
+              studying alongside you.
+            </p>
+          </section>
+        </div>
+      </div>
+      <section class="next-project">
+        <div class="wrap next-inner">
+          <div>
+            <p class="eyebrow muted">Keep exploring</p>
+            <h2>Room of Days</h2>
+          </div>
+          <a class="text-link" href="room-of-days.html"
+            >Next project <span class="arrow" aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <span>© 2026 Mika Be · made with care.</span>
+        <div class="footer-links">
+          <a href="https://github.com/mikabe1805" target="_blank" rel="noopener"
+            >GitHub <span class="arrow" aria-hidden="true">↗</span></a
+          ><a
+            href="https://linkedin.com/in/mika-be"
+            target="_blank"
+            rel="noopener"
+            >LinkedIn <span class="arrow" aria-hidden="true">↗</span></a
+          ><a href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener"
+            >Résumé <span class="arrow" aria-hidden="true">↗</span></a
+          ><a href="#main">Back to top ↑</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kuiper TTS — Mika Be</title>
+    <meta
+      name="description"
+      content="A document-to-speech research project that puts mathematical structure before the voice reading it."
+    />
+    <link
+      rel="canonical"
+      href="https://mikabe1805.github.io/projects/kuiper-tts.html"
+    />
+    <meta name="theme-color" content="#f5f3ed" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Kuiper TTS — Mika Be" />
+    <meta
+      property="og:description"
+      content="A document-to-speech research project that puts mathematical structure before the voice reading it."
+    />
+    <meta
+      property="og:image"
+      content="https://mikabe1805.github.io/assets/social-preview.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="../assets/instrument-serif.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="../assets/site.css?v=144e8aa5ec" />
+    <script src="../assets/site.js?v=028b2a53f7" defer></script>
+    <noscript
+      ><style>
+        @media (max-width: 600px) {
+          .site-header {
+            height: auto;
+            min-height: 76px;
+          }
+          .header-inner {
+            flex-wrap: wrap;
+            padding-block: 18px;
+            gap: 14px;
+          }
+          .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+          }
+          .nav a {
+            font: 12px var(--sans);
+            padding: 0;
+            border: 0;
+          }
+          .nav .resume-link {
+            padding: 0;
+            border: 0;
+          }
+          .menu-toggle {
+            display: none;
+          }
+        }
+      </style></noscript
+    >
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="../index.html" aria-label="Mika Be, home"
+          >mika be<span>.</span></a
+        >
+        <button
+          class="menu-toggle"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          Menu +
+        </button>
+        <nav class="nav" id="site-nav" aria-label="Main navigation">
+          <a href="../index.html#work">Work</a
+          ><a href="../index.html#about">About</a
+          ><a href="../index.html#contact">Contact</a>
+          <a
+            class="resume-link"
+            href="../Mika-Be_Resume.pdf"
+            target="_blank"
+            rel="noopener"
+            >Résumé <span class="arrow" aria-hidden="true">↗</span></a
+          >
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <section class="case-hero">
+        <div class="wrap">
+          <a class="breadcrumb" href="../index.html#work"
+            ><span aria-hidden="true">←</span> Back to selected work</a
+          >
+          <div class="case-title-grid">
+            <div>
+              <p class="eyebrow muted">
+                01 / Applied AI · accessibility research
+              </p>
+              <h1>Equations,<br />spoken with meaning.</h1>
+              <p class="case-deck">
+                A document-to-speech research project that puts mathematical
+                structure before the voice reading it.
+              </p>
+            </div>
+            <dl class="case-meta">
+              <div>
+                <dt>Role</dt>
+                <dd>Undergraduate researcher &amp; co-author</dd>
+              </div>
+              <div>
+                <dt>Context</dt>
+                <dd>Rutgers collaboration · 18-member team</dd>
+              </div>
+              <div>
+                <dt>Stack</dt>
+                <dd>Python · PyTorch Lightning · Piper/VITS · ONNX</dd>
+              </div>
+              <div>
+                <dt>Recognition</dt>
+                <dd>2nd Place Best Full Paper Award · IEEE ISEC 2026</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="case-cover research">
+            <div>
+              <p class="eyebrow">The research</p>
+              <h2>Make the meaning<br />audible.</h2>
+              <p>
+                Recover the document. Preserve the equation. Give the listener a
+                way into the science.
+              </p>
+              <a class="text-link" href="#listen"
+                >Explore the speech example ↓</a
+              >
+            </div>
+            <img
+              src="../assets/kuiper-paper.webp"
+              width="1082"
+              height="1400"
+              alt="First page of the co-authored Kuiper TTS research paper"
+            />
+          </div>
+          <p class="caption">
+            Research paper and working examples. The conference system and
+            continued custom voice development are described separately below.
+          </p>
+        </div>
+      </section>
+      <div class="wrap case-layout">
+        <aside class="case-nav" aria-label="On this page">
+          <a href="#problem">A voice needs something worth saying.</a
+          ><a href="#contribution">My part in the work.</a
+          ><a href="#system">Structure before synthesis.</a
+          ><a href="#listen">Hear the idea.</a
+          ><a href="#evaluation">What the evidence tells us.</a
+          ><a href="#evidence">Paper &amp; recognition.</a>
+        </aside>
+        <div>
+          <section class="case-section" id="problem">
+            <h2>A voice needs something worth saying.</h2>
+            <p>
+              A scientific paper can look perfectly readable while its extracted
+              text loses the equations. And even when the symbols survive,
+              reading them one at a time can hide their meaning.
+            </p>
+            <p>
+              Kuiper TTS explores a more useful path: recover structure from the
+              document, express the mathematics as language, and pass that
+              language to a speech engine. The work focuses on access for blind
+              and low-vision readers, with potential uses for anyone who
+              benefits from listening.
+            </p>
+          </section>
+          <section class="case-section" id="contribution">
+            <h2>My part in the work.</h2>
+            <p>
+              I led an 18-member interdisciplinary team through manuscript
+              preparation and reproducibility work, co-authored the IEEE ISEC
+              2026 paper, and built speech and training tooling around the
+              project. That included a Piper synthesis wrapper, dataset
+              preparation and recording workflows, a testbench runner, and a
+              reproducible GPU training and ONNX export pipeline.
+            </p>
+            <p>
+              In the equation-to-speech work, I built Python utilities that
+              extract narration segments from LaTeX, rewrite mathematical
+              expressions into speech-oriented text, and write audio with output
+              manifests. That makes the intermediate result visible before
+              evaluating the voice.
+            </p>
+            <div class="callout">
+              <p>
+                <strong>Two related pieces of work:</strong> The conference
+                paper describes the document-conversion and eSpeak/Piper
+                narration system. My custom voice and training work is continued
+                project development. The saved audio below is from that custom
+                voice workflow.
+              </p>
+            </div>
+          </section>
+          <section class="case-section" id="system">
+            <h2>Structure before synthesis.</h2>
+            <p>
+              The research pipeline renders a PDF page by page, uses a
+              vision-language model to recover an intermediate LaTeX
+              representation, and cleans and validates that output before
+              preparing the narration.
+            </p>
+            <div class="flow">
+              <div>
+                <small>01 / Input</small><strong>Scientific PDF</strong
+                ><span>Render one page at a time.</span>
+              </div>
+              <div>
+                <small>02 / Recovery</small><strong>Structured LaTeX</strong
+                ><span>VLM extraction and deterministic cleanup.</span>
+              </div>
+              <div>
+                <small>03 / Meaning</small><strong>Equation narration</strong
+                ><span>Express grouping and operators in language.</span>
+              </div>
+              <div>
+                <small>04 / Output</small><strong>Local speech</strong
+                ><span>eSpeak NG / Piper, then audio assembly.</span>
+              </div>
+            </div>
+            <h3>Why preserve an intermediate representation?</h3>
+            <p>
+              It gives the system something people and code can inspect. A
+              transcription error can be examined separately from a narration
+              error, and the speech backend can change without redesigning the
+              document-conversion stages.
+            </p>
+            <h3>Why process pages individually?</h3>
+            <p>
+              Long documents can exceed model context limits. Page-level
+              conversion isolates a problematic page and lets rendering
+              resolution change when equations or small text need more detail.
+            </p>
+            <h3>Why deterministic narration rules?</h3>
+            <p>
+              A derivative is an operation, not just letters separated by a bar.
+              Explicit phrasing and grouping let the speech stage receive
+              clearer language without depending on the voice model to infer the
+              mathematics.
+            </p>
+          </section>
+          <section class="case-section" id="listen">
+            <h2>Hear the idea.</h2>
+            <p>
+              The examples below illustrate narration decisions described in the
+              paper. Select one to see how mathematical structure becomes
+              language.
+            </p>
+            <div class="narration-demo">
+              <p class="demo-label">Equation → narration</p>
+              <div
+                class="demo-tabs"
+                role="group"
+                aria-label="Choose an equation example"
+              >
+                <button data-example="derivative" aria-pressed="true">
+                  Derivative</button
+                ><button data-example="fraction" aria-pressed="false">
+                  Nested grouping</button
+                ><button data-example="chain" aria-pressed="false">
+                  Equalities
+                </button>
+              </div>
+              <div aria-live="polite" aria-atomic="true">
+                <div class="demo-equation">dq / dt</div>
+                <p class="demo-output">the derivative of q with respect to t</p>
+                <p class="demo-reason demo-footnote">
+                  Treat the derivative as one mathematical operator, so the
+                  listener hears the operation rather than a sequence of
+                  letters.
+                </p>
+              </div>
+              <p class="demo-footnote">
+                Illustrative, prewritten examples of the method. No model is
+                running in this page.
+              </p>
+            </div>
+            <div class="audio-block">
+              <p class="eyebrow">Saved output / custom voice workflow</p>
+              <div
+                class="equation"
+                role="img"
+                aria-label="Integral from zero to infinity of e to the negative x squared equals the square root of pi over two"
+              >
+                ∫<sub style="font-size: 0.4em">0</sub><sup>∞</sup> e<sup
+                  >−x²</sup
+                >
+                dx = <span class="fraction"><span>√π</span><span>2</span></span>
+              </div>
+              <audio
+                controls
+                preload="metadata"
+                aria-label="Listen to the saved Gaussian integral speech example"
+              >
+                <source src="../audio/gaussian-v3.wav" type="audio/wav" />
+                Your browser does not support audio.
+                <a href="../audio/gaussian-v3.wav">Download the speech sample</a
+                >.
+              </audio>
+              <h3>Transcript</h3>
+              <p>
+                The integral from zero to infinity of e to the negative x
+                squared, d x, equals the square root of pi over two.
+              </p>
+              <p>
+                Saved example output from the project’s custom voice workflow,
+                using the mika_science_v3 model with the project’s documented
+                inference settings. This is a recorded research example.
+              </p>
+            </div>
+          </section>
+          <section class="case-section" id="evaluation">
+            <h2>What the evidence tells us.</h2>
+            <p>
+              The paper reports that its Qwen-based OCR approach was more useful
+              than the tested DeepSeek OCR approach, while still missing
+              equations near page boundaries. That is an important failure case:
+              successful text extraction does not establish that the mathematics
+              survived.
+            </p>
+            <p>
+              The evaluation described in the paper is limited. OCR throughput
+              and example outputs do not establish equation accuracy across all
+              documents or improved comprehension for listeners. Equation
+              accuracy and listener comprehension need their own evaluation,
+              beyond a successful conversion or a clear-sounding recording.
+            </p>
+            <h3>Engineering lesson</h3>
+            <p>
+              Separate document fidelity, narration fidelity, and voice quality.
+              A convincing voice can make an incorrect equation sound more
+              authoritative; the intermediate text needs its own checks.
+            </p>
+          </section>
+          <section class="case-section" id="evidence">
+            <h2>Paper &amp; recognition.</h2>
+            <p>
+              <em
+                >Making Legacy Scientific Papers Accessible by Converting
+                Equations into Spoken Language</em
+              >
+              received
+              <strong>2nd Place Best Full Paper Award at IEEE ISEC 2026</strong>. I am
+              one of the paper’s co-authors.
+            </p>
+            <div class="evidence-links">
+              <a
+                class="text-link"
+                href="../kuiper-tts-paper.pdf"
+                target="_blank"
+                rel="noopener"
+                >Read the paper
+                <span class="arrow" aria-hidden="true">↗</span></a
+              ><a
+                class="text-link"
+                href="https://ewh.ieee.org/conf/stem/awards.html"
+                target="_blank"
+                rel="noopener"
+                >Official IEEE award
+                <span class="arrow" aria-hidden="true">↗</span></a
+              ><a
+                class="text-link"
+                href="https://ewh.ieee.org/conf/stem/detailed_program.html"
+                target="_blank"
+                rel="noopener"
+                >Conference program
+                <span class="arrow" aria-hidden="true">↗</span></a
+              >
+            </div>
+          </section>
+        </div>
+      </div>
+      <section class="next-project">
+        <div class="wrap next-inner">
+          <div>
+            <p class="eyebrow muted">Keep exploring</p>
+            <h2>Room Notes</h2>
+          </div>
+          <a class="text-link" href="room-notes.html"
+            >Next project <span class="arrow" aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <span>© 2026 Mika Be · made with care.</span>
+        <div class="footer-links">
+          <a href="https://github.com/mikabe1805" target="_blank" rel="noopener"
+            >GitHub <span class="arrow" aria-hidden="true">↗</span></a
+          ><a
+            href="https://linkedin.com/in/mika-be"
+            target="_blank"
+            rel="noopener"
+            >LinkedIn <span class="arrow" aria-hidden="true">↗</span></a
+          ><a href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener"
+            >Résumé <span class="arrow" aria-hidden="true">↗</span></a
+          ><a href="#main">Back to top ↑</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

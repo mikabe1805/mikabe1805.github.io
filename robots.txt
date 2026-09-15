@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mikabe1805.github.io/sitemap.xml
