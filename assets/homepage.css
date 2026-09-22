@@ -1,19 +1,24 @@
 /* Portfolio correction: direct introduction, readable project evidence. */
-.introduction{padding:62px 0 50px}
-.intro-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:end}
+.introduction{padding:48px 0 42px}
+.intro-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:start}
+.intro-name{padding-top:68px}
 .intro-name h1{font:400 clamp(76px,8.2vw,122px)/1 var(--serif);letter-spacing:-.045em;margin:22px 0 0}
 .intro-name h1 span{color:#648479}
 .intro-name .eyebrow{font-size:11px;letter-spacing:.14em}
-.intro-description>p:first-child{font-size:23px;line-height:1.55;max-width:440px}
-.intro-description .intro-proof{font-size:14px;line-height:1.75;color:var(--ink);max-width:440px;margin:16px 0 0}
-.intro-description .intro-availability{font-size:14px;line-height:1.7;color:var(--muted);max-width:400px;margin:16px 0 20px}
+.intro-description>p:first-child{font-size:23px;line-height:1.5;max-width:440px}
+.intro-description .intro-proof{font-size:14px;line-height:1.7;color:var(--ink);max-width:440px;margin:13px 0 0}
+.intro-description .intro-availability{font-size:14px;line-height:1.7;color:var(--muted);max-width:400px;margin:12px 0 18px}
 .intro-description .actions{gap:26px}
 .intro-description .text-link{font-size:13px}
-.proof-ledger{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:44px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.proof-ledger>div{padding:18px 24px 19px 0;display:flex;flex-direction:column;gap:4px}
-.proof-ledger>div+div{border-left:1px solid var(--line);padding-left:24px}
+.proof-ledger{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.proof-ledger>a{padding:18px 24px 19px 0;display:flex;flex-direction:column;gap:4px;text-decoration:none;color:inherit;transition:background-color .18s ease}
+.proof-ledger>a+a{border-left:1px solid var(--line);padding-left:24px}
+.proof-ledger>a:hover{background:rgba(100,132,121,.055)}
+.proof-ledger>a:focus-visible{outline:2px solid #52776b;outline-offset:-3px;background:rgba(100,132,121,.055)}
 .proof-ledger span{font-size:10px;line-height:1.4;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.proof-ledger strong{font:400 21px/1.25 var(--serif);letter-spacing:-.012em;color:var(--ink)}
+.proof-ledger strong{font:400 21px/1.25 var(--serif);letter-spacing:-.012em;color:var(--ink);display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.proof-ledger strong span{font:400 17px/1 var(--sans);letter-spacing:0;color:#648479;transition:transform .18s ease}
+.proof-ledger>a:hover strong span,.proof-ledger>a:focus-visible strong span{transform:translate(2px,-2px)}
 .proof-ledger small{font-size:11px;line-height:1.55;color:var(--muted)}
 .portfolio-home #work{padding-top:18px}
 .portfolio-home #work>.wrap>.section-heading{border-top:1px solid var(--line);padding-top:26px;margin-bottom:26px;align-items:end}
@@ -58,18 +63,23 @@
 .portfolio-home .product-pillars h4{font-size:15px}
 .portfolio-home .product-pillars p{font-size:14px}
 .portfolio-home .days-triptych .capture figcaption{font-size:12px}
-@media(min-width:1500px){.introduction{padding-top:85px}}
+@media(min-width:1500px){.introduction{padding-top:70px}}
 @media(max-width:1000px){
  .intro-layout{gap:40px}.intro-description>p:first-child{font-size:20px}
  .portfolio-home .work-feature{grid-template-columns:1.2fr .9fr}.portfolio-home .work-copy{padding:30px}
  .portfolio-home .paper-scene img{width:285px}.portfolio-home .product-heading{gap:40px}
  .notes-supporting-captures{padding:0;gap:38px}.engineering-facts>div{grid-template-columns:1fr;gap:3px}
 }
+@media(max-width:900px){
+ .intro-layout{grid-template-columns:1fr;gap:22px}.intro-name{padding-top:0}
+ .intro-name h1{font-size:86px;margin-top:14px}
+ .intro-description>p:first-child,.intro-description .intro-proof,.intro-description .intro-availability{max-width:650px}
+}
 @media(max-width:760px){
- .introduction{padding:45px 0 38px}.intro-layout{grid-template-columns:1fr;gap:25px;align-items:start}
+  .introduction{padding:42px 0 34px}.intro-layout{grid-template-columns:1fr;gap:25px;align-items:start}.intro-name{padding-top:0}
  .intro-name h1{font-size:86px;margin-top:14px}.intro-description>p:first-child{font-size:20px;max-width:540px}
  .intro-description .intro-proof{margin-top:12px;max-width:540px}.intro-description .intro-availability{margin:10px 0 16px;max-width:450px}
- .proof-ledger{margin-top:38px;grid-template-columns:1fr}.proof-ledger>div{padding:14px 0}.proof-ledger>div+div{border-left:0;border-top:1px solid var(--line);padding-left:0}
+  .proof-ledger{margin-top:28px;grid-template-columns:1fr}.proof-ledger>a{padding:14px 0}.proof-ledger>a+a{border-left:0;border-top:1px solid var(--line);padding-left:0}
  .portfolio-home .section-heading h2{font-size:33px}.portfolio-home .section-heading>p{display:none}
  .portfolio-home .work-feature{grid-template-columns:1fr}.portfolio-home .paper-scene{min-height:330px;max-height:330px}
  .portfolio-home .paper-scene img{width:280px;transform:translate(20px,68px) rotate(8deg)}
@@ -79,7 +89,7 @@
  .notes-system-note h4{font-size:38px}.engineering-facts>div{grid-template-columns:140px 1fr;gap:17px}
 }
 @media(max-width:420px){
- .introduction{padding:35px 0 30px}.intro-name h1{font-size:76px}.intro-name .eyebrow{font-size:9px}
+  .introduction{padding:34px 0 30px}.intro-name h1{font-size:76px}.intro-name .eyebrow{font-size:9px}
  .intro-description>p:first-child{font-size:19px}.intro-description .intro-proof,.intro-description .intro-availability{font-size:13px}.intro-description .actions{gap:16px 22px}
  .portfolio-home .work-copy{padding:25px}.portfolio-home .work-copy h3{font-size:43px}
  .portfolio-home .work-copy>p{font-size:14px}.project-links{gap:14px;padding-top:24px}
@@ -88,7 +98,7 @@
  .notes-editing-stage{padding:12px}.notes-editing-stage .capture figcaption{font-size:11px}
  .notes-system-note h4{font-size:36px}.engineering-facts>div{grid-template-columns:120px 1fr;gap:12px}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.proof-ledger>a,.proof-ledger strong span{transition:none}}
 
 /* Fresh captures: preserve the whole app state and keep each device readable. */
 .notes-supporting-captures{grid-template-columns:minmax(0,1.63fr) minmax(0,1fr);gap:56px;align-items:start;max-width:940px;margin:44px auto 0;padding:0 28px}

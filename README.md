@@ -1,6 +1,6 @@
 # Mika Be — portfolio
 
-A static portfolio for applied AI, software systems, and computer engineering internships.
+A static portfolio for applied AI and software engineering internships.
 
 ## Preview
 
@@ -21,7 +21,7 @@ Then open `http://localhost:8765`. No build, API key, account, or model service 
 - `assets/`: project renders, paper preview, self-hosted fonts, favicon, and social preview
 - `audio/gaussian-v3.wav`: saved Kuiper custom-voice example; not live inference
 - `kuiper-tts-paper.pdf`: co-authored research paper
-- `Mika-Be_Resume.pdf`: one-page, text-selectable résumé for applied AI, software systems, and computer engineering roles
+- `Mika-Be_Resume.pdf`: one-page, text-selectable résumé for applied AI and software engineering roles
 - `Mika-Be_AI-Project-Portfolio.pdf`: four-page evidence packet for AI internship applications
 - `mika_be_resume3.html`: semantic, mobile-friendly web résumé that preserves the previous URL
 
@@ -38,8 +38,8 @@ Project screens contain sample content. Instrument Serif and DM Sans are self-ho
 ## Homepage and captures
 
 `assets/homepage.css` styles the introduction and project showcases. The homepage opens with
-a compact evidence ledger, puts each project contribution beside its description, and links to
-the fuller case study.
+direct links to the Kuiper, Room Notes, and Knowsy case-study evidence, puts each project
+contribution beside its description, and links to the fuller case study.
 
 The Room Notes images were freshly rendered from the local app on September 7, 2026.
 They show desktop text editing, an iPad ink page, phone import choices, and supplementary
