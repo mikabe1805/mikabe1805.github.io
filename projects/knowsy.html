@@ -110,8 +110,9 @@
               </p>
               <h1>Understand it<br />by building it.</h1>
               <p class="case-deck">
-                A browser-based breadboard module connecting circuit
-                construction, simulation, and feedback.
+                A breadboard in the browser for Rutgers’ Digital Logic and
+                Principles of EE II labs, with digital and analog simulators I
+                wrote from scratch.
               </p>
             </div>
             <dl class="case-meta">
@@ -125,7 +126,7 @@
               </div>
               <div>
                 <dt>Stack</dt>
-                <dd>JavaScript · digital simulation · MNA</dd>
+                <dd>JavaScript · digital simulation · MNA · Verilog export</dd>
               </div>
               <div>
                 <dt>Focus</dt>
@@ -133,17 +134,30 @@
               </div>
             </dl>
           </div>
-          <div class="case-cover knowsy-cover">
-            <div>
-              <p class="eyebrow">Inside the simulator</p>
-              <h2>Build → simulate → understand</h2>
-              <p>Digital logic · circuit topology · analog analysis</p>
-            </div>
+          <div class="notes-desktop-hero">
+            <figure class="capture">
+              <a
+                class="capture-link"
+                href="../assets/knowsy-lab1-20260929.webp"
+                data-gallery="knowsy"
+                data-caption="Lab 1, combinational logic: a powered 74LS04 inverter with a pull-up, DIP switch and LED. The guided checklist has confirmed 11 of the lab’s 17 checks."
+                aria-label="Enlarge: Knowsy Lab 1 bench with a 74LS04, DIP switch and lit LED"
+                ><img
+                  src="../assets/knowsy-lab1-20260929.webp"
+                  width="2160"
+                  height="1417"
+                  alt="Knowsy Breadboard Lab running Lab 1: a bench supply wired to the rails, a 74LS04 hex inverter, a pull-up resistor, a DIP switch and a lit LED, with the guided checklist showing power, inverter and switch-plus-LED steps complete"
+                  loading="eager"
+                /><span class="capture-open" aria-hidden="true">↗</span></a
+              >
+              <figcaption>
+                The real lab running Lab 1: a 74LS04 inverter with a pull-up, a
+                DIP switch and an LED. Closing the switch pulls the inverter’s
+                input low, so the LED lights, and the guided checklist has
+                confirmed 11 of the lab’s 17 checks.
+              </figcaption>
+            </figure>
           </div>
-          <p class="caption">
-            Architecture overview of the breadboard module; this diagram is
-            explanatory, not a product screenshot.
-          </p>
         </div>
       </section>
       <div class="wrap case-layout">
@@ -158,14 +172,40 @@
             <h2>Learn a circuit by working with it.</h2>
             <p>
               A breadboard is easier to understand when students can build a
-              circuit and observe what changes. Knowsy’s breadboard lab brings
-              component placement, wiring, and simulation into a browser-based
-              learning environment.
+              circuit and observe what changes. Knowsy’s breadboard lab puts 16
+              real 74LS-series chips, passives, op-amps and a bench supply in the
+              browser, across eight guided lab modules that run from a 4-bit ALU
+              to a traffic-light controller and an active bandpass filter.
             </p>
             <p>
               My responsibility is the breadboard module, working with Professor
-              Kruger and managing a three-person team including me.
+              Kruger and managing a three-person team including me. I wrote both
+              simulators in plain JavaScript with no math libraries: a digital
+              engine that catches floating inputs and shorted outputs, and a
+              modified-nodal-analysis solver that drives the oscilloscope and Bode
+              plotter. Any bench build also exports to Verilog that runs in Icarus.
             </p>
+            <figure class="capture">
+              <a
+                class="capture-link"
+                href="../assets/knowsy-bode-20260929.webp"
+                data-gallery="knowsy"
+                data-caption="A 1 kΩ resistor and 100 nF capacitor on the analog bench. The Bode plotter shows the rolloff near 1.6 kHz and the phase shift."
+                aria-label="Enlarge: Knowsy analog bench with the Bode plotter"
+                ><img
+                  src="../assets/knowsy-bode-20260929.webp"
+                  width="2040"
+                  height="846"
+                  alt="Knowsy analog bench with a 1 kilohm resistor and 100 nanofarad capacitor, beside a Bode plot whose magnitude rolls off above about 1.6 kilohertz"
+                  loading="lazy"
+                /><span class="capture-open" aria-hidden="true">↗</span></a
+              >
+              <figcaption>
+                The analog bench: a 1 kΩ resistor and a 100 nF capacitor. The
+                Bode plotter sweeps the circuit through my nodal-analysis solver
+                and shows the rolloff near 1.6 kHz, where 1/(2πRC) puts it.
+              </figcaption>
+            </figure>
           </section>
           <section class="case-section" id="try-circuit"><h2>Change a circuit. See why it changes.</h2><p>Keep the supply at 5 volts and adjust either resistor. The output changes with their ratio; the netlist shows the same circuit as connections and values.</p><section class="project-demo knowsy-demo" data-knowsy-demo aria-label="Knowsy interactive voltage divider model">
   <div class="knowsy-demo__intro">

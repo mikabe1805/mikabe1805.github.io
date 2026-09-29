@@ -38,13 +38,18 @@ Project screens contain sample content. Instrument Serif and DM Sans are self-ho
 ## Homepage and captures
 
 `assets/homepage.css` styles the introduction and project showcases. The homepage opens with
-direct links to the Kuiper, Room Notes, and Knowsy case-study evidence, puts each project
+direct links to the Kuiper, Room of Days, Room Notes, and Knowsy case studies, puts each project
 contribution beside its description, and links to the fuller case study.
 
 The Room Notes images were freshly rendered from the local app on September 7, 2026.
 They show desktop text editing, an iPad ink page, phone import choices, and supplementary
 editor states. Sample content is staged in the app; the iPad ink was drawn through scripted
 stylus input. These images do not measure physical Pencil performance or camera hardware.
+
+The Knowsy captures (`assets/knowsy-lab1-20260929.webp`, `assets/knowsy-bode-20260929.webp`) were
+rendered on September 29, 2026 from the local `Knowsy-Templates/dist/breadboard-lab.html` build.
+Both circuits were loaded through the lab's own share-link format: a Lab 1 inverter, switch and LED
+build, and a 1 kΩ / 100 nF RC filter on the Bode plotter. The captions describe exactly those circuits.
 
 `assets/PROVENANCE.md` identifies each exact source, capture dimensions, and file hash.
 The gallery supports keyboard navigation and full-size viewing; the image links also work

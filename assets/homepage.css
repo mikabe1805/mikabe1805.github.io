@@ -129,3 +129,18 @@
  .engineering-facts>div{display:grid;grid-template-columns:125px 1fr;gap:14px;padding:14px 0}
  .engineering-facts dt{margin:0}
 }
+
+/* 2026-09-29: four project entry points and a plain "what I did" line under each pitch. */
+@media(min-width:1001px){.proof-ledger{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.portfolio-home .product-summary>p.product-proof{font-size:14px;line-height:1.75;color:var(--muted);margin-top:14px;padding-left:14px;border-left:2px solid var(--line)}
+.portfolio-home .product-summary>p.product-proof strong{color:var(--ink);font-weight:600}
+@media(max-width:1000px) and (min-width:761px){
+ .proof-ledger{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .proof-ledger>a:nth-child(3){border-left:0;padding-left:0}
+ .proof-ledger>a:nth-child(n+3){border-top:1px solid var(--line)}
+}
+.knowsy-stage{background:#e7e1d3;border-color:#d6cdb9}
+.knowsy-stage .stage-heading{color:#5a4d36}
+.knowsy-stage .capture figcaption{color:#5a4d36}
+.knowsy-stage .capture+.capture{margin-top:30px}
+@media(max-width:760px){.knowsy-stage .stage-heading>span:last-child{display:none}}
