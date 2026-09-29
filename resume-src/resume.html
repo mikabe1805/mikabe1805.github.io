@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Mika Be — Résumé</title>
+    <!--
+      Print source for Mika-Be_Resume.pdf. Build with: node resume-src/build.mjs
+      Add ?focus=simulation to preview the simulation-first variant.
+    -->
+    <style>
+      @font-face {
+        font-family: "Instrument Serif";
+        src: url("../assets/instrument-serif.woff2") format("woff2");
+        font-weight: 400;
+      }
+      /* Static instances of the site's DM Sans: variable fonts become Type 3
+         glyphs in Chromium PDFs, which some applicant tracking systems cannot read. */
+      @font-face {
+        font-family: "DM Sans Resume";
+        src: url("fonts/dm-sans-400.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "DM Sans Resume";
+        src: url("fonts/dm-sans-600.woff2") format("woff2");
+        font-weight: 600;
+      }
+      @font-face {
+        font-family: "DM Sans Resume";
+        src: url("fonts/dm-sans-700.woff2") format("woff2");
+        font-weight: 700;
+      }
+      @page {
+        size: letter;
+        margin: 0.42in 0.5in 0.38in;
+      }
+      :root {
+        --ink: #182d35;
+        --body: #28363a;
+        --muted: #5d6a6d;
+        --accent: #315b52;
+        --line: #c9d0ca;
+        --serif: "Instrument Serif", Georgia, serif;
+        --sans: "DM Sans Resume", Arial, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        background: #e8ebe5;
+      }
+      body {
+        margin: 0;
+        color: var(--body);
+        font: 400 8.9pt/1.33 var(--sans);
+        font-variant-ligatures: none;
+        font-kerning: normal;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .page {
+        width: 8.5in;
+        min-height: 11in;
+        margin: 24px auto;
+        padding: 0.42in 0.5in 0.38in;
+        background: #fff;
+        box-shadow: 0 18px 50px rgba(24, 45, 53, 0.14);
+      }
+      @media print {
+        html,
+        body {
+          background: #fff;
+        }
+        .page {
+          width: auto;
+          min-height: 0;
+          margin: 0;
+          padding: 0;
+          box-shadow: none;
+        }
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* Header */
+      header {
+        padding-bottom: 6pt;
+        border-bottom: 1.2pt solid var(--ink);
+      }
+      .identity {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 24px;
+      }
+      h1 {
+        margin: 0;
+        color: var(--ink);
+        font: 400 30pt/0.95 var(--serif);
+        letter-spacing: -0.01em;
+      }
+      .availability {
+        margin: 0;
+        color: var(--accent);
+        font-size: 8.2pt;
+        font-weight: 600;
+      }
+      .headline {
+        margin: 3pt 0 0;
+        color: var(--accent);
+        font-size: 7.6pt;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        font-kerning: none;
+        text-transform: uppercase;
+      }
+      .contact {
+        margin: 3pt 0 0;
+        color: var(--body);
+        font-size: 8.2pt;
+        font-style: normal;
+        white-space: nowrap;
+      }
+      .contact .sep {
+        margin: 0 4.5pt;
+        color: var(--line);
+      }
+      .contact .web {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      /* Sections */
+      section {
+        margin-top: 12pt;
+      }
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 7pt;
+        margin: 0 0 5pt;
+        color: var(--accent);
+        font-size: 7.7pt;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        font-kerning: none;
+        text-transform: uppercase;
+      }
+      h2::after {
+        content: "";
+        flex: 1;
+        border-top: 0.6pt solid var(--line);
+      }
+      .entry + .entry {
+        margin-top: 7.5pt;
+      }
+      .entry-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12pt;
+      }
+      h3 {
+        margin: 0;
+        color: var(--ink);
+        font-size: 9.7pt;
+        font-weight: 700;
+      }
+      h3 .role {
+        color: var(--body);
+        font-weight: 400;
+      }
+      h3 .role::before {
+        content: "|";
+        margin: 0 5pt;
+        color: var(--line);
+        font-weight: 400;
+      }
+      .date {
+        flex: none;
+        color: var(--muted);
+        font-size: 8.4pt;
+        font-variant-numeric: tabular-nums;
+      }
+      .tech {
+        margin: 0.5pt 0 0;
+        color: var(--muted);
+        font-size: 8.1pt;
+      }
+      .line {
+        margin: 1pt 0 0;
+      }
+      .line b {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      ul {
+        margin: 2pt 0 0;
+        padding: 0 0 0 10pt;
+        list-style: "•\2002" outside;
+      }
+      li {
+        margin: 1.3pt 0 0;
+      }
+      li::marker {
+        color: var(--accent);
+      }
+      li b {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .skills {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 1.4pt 10pt;
+        margin: 0;
+      }
+      .skills dt {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .skills dd {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <div class="identity">
+          <h1>Mika Be</h1>
+          <p class="availability">Seeking Summer 2027 internships</p>
+        </div>
+        <p class="headline" data-headline>
+          Applied AI · Software Systems · Computer Engineering
+        </p>
+        <address class="contact">
+          <span>Piscataway, NJ</span><span class="sep">|</span
+          ><a href="tel:+12019134835">(201) 913-4835</a
+          ><span class="sep">|</span
+          ><a href="mailto:mika.be@rutgers.edu">mika.be@rutgers.edu</a
+          ><span class="sep">|</span
+          ><a class="web" href="https://mikabe1805.github.io/"
+            >mikabe1805.github.io</a
+          ><span class="sep">|</span
+          ><a href="https://github.com/mikabe1805">github.com/mikabe1805</a
+          ><span class="sep">|</span
+          ><a href="https://www.linkedin.com/in/mika-be">linkedin.com/in/mika-be</a>
+        </address>
+      </header>
+
+      <section>
+        <h2>Education</h2>
+        <div class="entry">
+          <div class="entry-head">
+            <h3>
+              Rutgers University–New Brunswick<span class="role"
+                >B.S. Electrical &amp; Computer Engineering</span
+              >
+            </h3>
+            <span class="date">Expected May 2028</span>
+          </div>
+          <p class="line">
+            Minor in Computer Science · <b>GPA 3.84/4.00</b> · Dean’s List, all
+            four completed semesters · IEEE-HKN (Eta Kappa Nu) member
+          </p>
+          <p class="line">
+            <b>Coursework:</b> Data Structures, Digital Logic Design; in
+            progress: Computer Architecture &amp; Assembly, Linear Systems &amp;
+            Signals
+          </p>
+          <p class="line">
+            <b>Awards:</b> 2nd Place Best Full Paper, IEEE ISEC 2026 · CS
+            Departmental Award, Bergen County Academies (1 of 3 recipients)
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Research</h2>
+        <div class="entry">
+          <div class="entry-head">
+            <h3>
+              Kuiper TTS: equation-aware speech for scientific papers<span
+                class="role"
+                >Undergraduate Researcher &amp; Co-author</span
+              >
+            </h3>
+            <span class="date">2025–Present</span>
+          </div>
+          <p class="tech">
+            Python · PyTorch Lightning · Piper/VITS · ONNX · LaTeX · Rutgers,
+            18-member interdisciplinary team
+          </p>
+          <ul>
+            <li>
+              Co-authored “Making Legacy Scientific Papers Accessible by
+              Converting Equations into Spoken Language” (<b>2nd Place Best
+              Full Paper, IEEE ISEC 2026</b>); led the team’s manuscript
+              preparation and reproducibility work.
+            </li>
+            <li>
+              Built a reproducible GPU training and ONNX export pipeline for
+              Piper/VITS voices, with a synthesis wrapper, dataset preparation,
+              and a testbench runner; fixed dependency conflicts and validated
+              inference across platforms.
+            </li>
+            <li>
+              Wrote Python tools that turn LaTeX into speech-ready narration
+              (fractions, derivatives, nested grouping, operator-aware pacing),
+              with manifests tracing each clip to its source text and settings.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section data-projects>
+        <h2>Projects</h2>
+        <div class="entry" data-project="room-notes">
+          <div class="entry-head">
+            <h3>
+              Room Notes: cross-device notebook<span class="role"
+                >Solo Developer · Private beta</span
+              >
+            </h3>
+            <span class="date">2026–Present</span>
+          </div>
+          <p class="tech">Flutter · Dart · Drift/SQLite · Firebase</p>
+          <ul>
+            <li>
+              Built one 900 × 1200 page model shared by text, ink, equations,
+              code, and diagrams across desktop, iPad, and phone layouts.
+            </li>
+            <li>
+              Designed <b>local-first sync</b>: each edit and its pending
+              operation commit in one SQLite transaction, a durable outbox
+              survives restarts, and append-only cloud operations preserve
+              conflicting revisions instead of overwriting them.
+            </li>
+            <li>
+              Wrote regression tests for save-and-reopen, interrupted sync,
+              page geometry, and cloud access rules.
+            </li>
+          </ul>
+        </div>
+        <div class="entry" data-project="knowsy">
+          <div class="entry-head">
+            <h3>
+              Knowsy Breadboard Lab: circuit simulator<span class="role"
+                >Technical Lead, 3-person team</span
+              >
+            </h3>
+            <span class="date">2025–Present</span>
+          </div>
+          <p class="tech">
+            JavaScript · modified nodal analysis · digital simulation ·
+            automated testing · Rutgers, with Prof. Kruger
+          </p>
+          <ul>
+            <li>
+              Led the breadboard module: placed parts and wires become a
+              connectivity model and an inspectable netlist.
+            </li>
+            <li>
+              Built an analog solver using <b>modified nodal analysis</b> over
+              complex admittances, with frequency sweeps and Bode plots.
+            </li>
+            <li>
+              Modeled four-state digital logic (HIGH, LOW, FLOAT, CONFLICT) for
+              74LS-series parts, so undriven nets and contention are reported,
+              not hidden; verified results against analytical solutions for
+              dividers, filters, and frequency response.
+            </li>
+          </ul>
+        </div>
+        <div class="entry" data-project="room-of-days">
+          <div class="entry-head">
+            <h3>
+              Room of Days: planning &amp; reflection app<span class="role"
+                >Solo Developer · Active development</span
+              >
+            </h3>
+            <span class="date">2025–Present</span>
+          </div>
+          <ul>
+            <li>
+              Offline-first Flutter app for Android, iOS, and web with validated
+              persistence, backups, cloud sync, and exactly-once rewards.
+            </li>
+          </ul>
+        </div>
+        <div class="entry" data-project="plant">
+          <div class="entry-head">
+            <h3>
+              Smart Plant Care Robot<span class="role"
+                >Embedded Systems Project</span
+              >
+            </h3>
+            <span class="date">2024</span>
+          </div>
+          <ul>
+            <li>
+              ESP32 irrigation prototype with soil-moisture, light, and
+              environmental sensors; drove pumps through flyback-protected
+              transistor circuits and validated 5–12 V power with multimeter and
+              serial diagnostics.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+        <div class="entry">
+          <div class="entry-head">
+            <h3>
+              Schieber Research Group<span class="role"
+                >Software Developer</span
+              >
+            </h3>
+            <span class="date">2023–2024</span>
+          </div>
+          <ul>
+            <li>
+              Built and documented a full-stack research prototype in React,
+              Vite, and Appwrite, turning study requirements into reusable
+              interfaces and a maintainable web application.
+            </li>
+          </ul>
+        </div>
+        <div class="entry">
+          <div class="entry-head">
+            <h3>Starbucks<span class="role">Barista</span></h3>
+            <span class="date">2023–2025</span>
+          </div>
+        </div>
+      </section>
+
+      <section data-skills>
+        <h2>Skills</h2>
+        <dl class="skills">
+          <dt>Languages</dt>
+          <dd>Python, C/C++, Java, JavaScript, Dart, SQL, HTML/CSS</dd>
+          <dt data-skill="ai">AI &amp; research</dt>
+          <dd data-skill="ai">
+            PyTorch Lightning, Piper/VITS, ONNX, GPU training, LaTeX parsing,
+            experiment reproducibility
+          </dd>
+          <dt data-skill="software">Software</dt>
+          <dd data-skill="software">
+            Flutter, Firebase, Drift/SQLite, React, Git, Linux, automated
+            testing, local-first sync
+          </dd>
+          <dt data-skill="hardware">Simulation &amp; hardware</dt>
+          <dd data-skill="hardware">
+            Circuit simulation (MNA, AC analysis), digital logic, LTspice,
+            Arduino/ESP32, breadboarding, soldering
+          </dd>
+          <dt>Spoken languages</dt>
+          <dd>English, Hebrew (fluent); Spanish (conversational)</dd>
+        </dl>
+      </section>
+    </main>
+    <script>
+      // Simulation-first variant: same facts, reordered for simulation and
+      // systems roles.
+      if (new URLSearchParams(location.search).get("focus") === "simulation") {
+        document.querySelector("[data-headline]").textContent =
+          "Computer Engineering · Simulation & Software Systems · Applied AI";
+        const projects = document.querySelector("[data-projects]");
+        const order = ["knowsy", "room-notes", "room-of-days", "plant"];
+        for (const key of order) {
+          projects.append(projects.querySelector(`[data-project="${key}"]`));
+        }
+        const skills = document.querySelector("[data-skills] .skills");
+        const spoken = skills.querySelector("dt:last-of-type");
+        for (const key of ["hardware", "software", "ai"]) {
+          for (const el of skills.querySelectorAll(`[data-skill="${key}"]`)) {
+            skills.insertBefore(el, spoken);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

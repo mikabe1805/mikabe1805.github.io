@@ -21,7 +21,7 @@ Then open `http://localhost:8765`. No build, API key, account, or model service 
 - `assets/`: project renders, paper preview, self-hosted fonts, favicon, and social preview
 - `audio/gaussian-v3.wav`: saved Kuiper custom-voice example; not live inference
 - `kuiper-tts-paper.pdf`: co-authored research paper
-- `Mika-Be_Resume.pdf`: one-page, text-selectable résumé for applied AI, software systems, and computer engineering roles
+- `Mika-Be_Resume.pdf`: one-page, text-selectable résumé for applied AI, software systems, and computer engineering roles, built from `resume-src/`
 - `Mika-Be_AI-Project-Portfolio.pdf`: four-page evidence packet for AI internship applications
 - `mika_be_resume3.html`: semantic, mobile-friendly web résumé that preserves the previous URL
 
@@ -30,6 +30,21 @@ Then open `http://localhost:8765`. No build, API key, account, or model service 
 The pages use relative paths and work on GitHub Pages. Check desktop and mobile layouts after changing content, especially long project titles, navigation, and the visual showcases. Preserve reduced-motion behavior and keyboard access to the mobile menu and equation examples.
 
 Before publishing, review personal copy and the selected voice sample, then verify the deployed résumé, project pages, images, and audio. Keep research-paper claims separate from continued custom voice development. Do not add unverified usage, performance, or model-quality figures.
+
+## Résumé
+
+`resume-src/resume.html` is the print source for `Mika-Be_Resume.pdf`. Edit it, then rebuild:
+
+```sh
+node resume-src/build.mjs
+```
+
+The script uses Playwright's Chromium and warns if the content runs past one page. Add
+`--focus simulation --out <file>.pdf` for a variant that leads with the circuit simulator and
+simulation skills; open `resume-src/resume.html?focus=simulation` to preview it. The PDF embeds
+static DM Sans instances (same OFL license) from `resume-src/fonts/` because Chromium writes variable fonts as
+Type 3 glyphs, which some applicant tracking systems cannot read. Keep `mika_be_resume3.html`
+in step with any content change.
 
 ## Assets
 
