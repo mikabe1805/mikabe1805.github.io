@@ -100,6 +100,18 @@ h3 {
   font-family: var(--serif);
   line-height: 1.02;
 }
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+p,
+figcaption,
+dd,
+li {
+  text-wrap: pretty;
+}
 button {
   color: inherit;
 }
@@ -505,6 +517,7 @@ button:active,
 }
 .paper-label {
   position: absolute;
+  z-index: 2;
   top: 26px;
   left: 26px;
   color: #d8e6e0;
@@ -733,8 +746,8 @@ button:active,
   max-width: 590px;
 }
 .about-facts {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px 38px;
   border-top: 1px solid var(--line);
   padding-top: 25px;
@@ -1824,7 +1837,8 @@ img {
     font-size: 14px;
   }
   .about-facts {
-    gap: 20px 34px;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
   .contact {
     padding: 45px 0;

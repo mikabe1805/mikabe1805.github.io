@@ -1,11 +1,13 @@
 /* Portfolio correction: direct introduction, readable project evidence. */
 .introduction{padding:62px 0 50px}
-.intro-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:end}
+.intro-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:center}
 .intro-name h1{font:400 clamp(76px,8.2vw,122px)/1 var(--serif);letter-spacing:-.045em;margin:22px 0 0}
 .intro-name h1 span{color:#648479}
 .intro-name .eyebrow{font-size:11px;letter-spacing:.14em}
 .intro-description>p:first-child{font-size:23px;line-height:1.55;max-width:440px}
 .intro-description .intro-proof{font-size:14px;line-height:1.75;color:var(--ink);max-width:440px;margin:16px 0 0}
+.intro-description .intro-proof strong{font-weight:600}
+.intro-description .actions{align-items:center}
 .intro-description .intro-availability{font-size:14px;line-height:1.7;color:var(--muted);max-width:400px;margin:16px 0 20px}
 .intro-description .actions{gap:26px}
 .intro-description .text-link{font-size:13px}
@@ -16,7 +18,7 @@
 .proof-ledger strong{font:400 21px/1.25 var(--serif);letter-spacing:-.012em;color:var(--ink)}
 .proof-ledger small{font-size:11px;line-height:1.55;color:var(--muted)}
 .portfolio-home #work{padding-top:18px}
-.portfolio-home #work>.wrap>.section-heading{border-top:1px solid var(--line);padding-top:26px;margin-bottom:26px;align-items:end}
+.portfolio-home #work>.wrap>.section-heading{padding-top:8px;margin-bottom:26px;align-items:end}
 .portfolio-home .section-heading h2{font-size:37px;margin-top:10px;letter-spacing:-.025em}
 .portfolio-home .section-heading>.eyebrow{font-size:10px}
 .portfolio-home .work-feature{grid-template-columns:1.2fr 1fr;min-height:450px}
@@ -72,14 +74,14 @@
  .proof-ledger{margin-top:38px;grid-template-columns:1fr}.proof-ledger>div{padding:14px 0}.proof-ledger>div+div{border-left:0;border-top:1px solid var(--line);padding-left:0}
  .portfolio-home .section-heading h2{font-size:33px}.portfolio-home .section-heading>p{display:none}
  .portfolio-home .work-feature{grid-template-columns:1fr}.portfolio-home .paper-scene{min-height:330px;max-height:330px}
- .portfolio-home .paper-scene img{width:280px;transform:translate(20px,68px) rotate(8deg)}
+ .portfolio-home .paper-scene img{width:280px;transform:translate(36px,84px) rotate(8deg)}
  .portfolio-home .product-heading{grid-template-columns:1fr;gap:18px}.portfolio-home .product-heading h3{font-size:58px}
  .notes-editing-stage{padding:18px}.notes-editing-stage .stage-heading{display:block}.notes-editing-stage .stage-heading>span:last-child{display:none}
  .notes-supporting-captures{gap:30px;grid-template-columns:1fr}.notes-supporting-captures>.capture{max-width:470px}
  .notes-system-note h4{font-size:38px}.engineering-facts>div{grid-template-columns:140px 1fr;gap:17px}
 }
 @media(max-width:420px){
- .introduction{padding:35px 0 30px}.intro-name h1{font-size:76px}.intro-name .eyebrow{font-size:9px}
+ .introduction{padding:35px 0 30px}.intro-name h1{font-size:76px}.intro-name .eyebrow{font-size:10px}
  .intro-description>p:first-child{font-size:19px}.intro-description .intro-proof,.intro-description .intro-availability{font-size:13px}.intro-description .actions{gap:16px 22px}
  .portfolio-home .work-copy{padding:25px}.portfolio-home .work-copy h3{font-size:43px}
  .portfolio-home .work-copy>p{font-size:14px}.project-links{gap:14px;padding-top:24px}
