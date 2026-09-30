@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mika Be — Résumé</title>
+    <title>Mika Be | Résumé</title>
     <meta name="description" content="Mika Be's résumé for applied AI and software engineering internships." />
     <link rel="canonical" href="https://mikabe1805.github.io/mika_be_resume3.html" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -31,52 +31,53 @@
 
       <div class="grid">
         <section class="section" aria-labelledby="education"><h2 id="education">Education</h2><div class="section-body">
-          <article class="entry"><div class="entry-head"><h3>Rutgers University — New Brunswick</h3><span class="date">Expected May 2028</span></div><p class="meta">B.S. Electrical and Computer Engineering, CS minor</p><p class="meta">GPA: 3.838/4.000 · Dean's List, all four completed semesters</p><p class="meta">Honors: IEEE-HKN · 2nd Place Best Full Paper, IEEE ISEC 2026 · BCA Computer Science Departmental Award, 1 of 3 recipients</p><p class="meta">Coursework: Data Structures; Digital Logic Design; Computer Architecture &amp; Assembly and Linear Systems &amp; Signals (in progress)</p></article>
+          <article class="entry"><div class="entry-head"><h3>Rutgers University, New Brunswick</h3><span class="date">Expected May 2028</span></div><p class="meta">B.S. Electrical and Computer Engineering, CS minor</p><p class="meta">GPA: 3.838/4.000 · Dean's List, all four completed semesters</p><p class="meta">Honors: 2nd Place Best Full Paper, IEEE ISEC 2026 · IEEE-HKN honor society · Bergen County Academies CS Award (1 of 3)</p><p class="meta">Coursework: Data Structures; Digital Logic Design; Linear Systems and Signals (in progress); Computer Architecture (in progress)</p></article>
         </div></section>
 
         <section class="section" aria-labelledby="research"><h2 id="research">Research</h2><div class="section-body">
-          <article class="entry"><div class="entry-head"><h3>Kuiper TTS <span>· Undergraduate Researcher and Co-author</span></h3><span class="date">2025–Present</span></div><p class="meta">Python · PyTorch Lightning · Piper/VITS · ONNX · LaTeX · GPU training</p><ul>
-            <li>Co-authored “Making Legacy Scientific Papers Accessible by Converting Equations into Spoken Language,” awarded <strong>2nd Place Best Full Paper at IEEE ISEC 2026</strong>; coordinated manuscript and reproducibility work for the 18-person team.</li>
-            <li>Wrote the narration rules that let a listener follow an equation: dq/dt is read as “the derivative of q with respect to t,” and fractions, partial derivatives and chained equalities get explicit grouping and pauses.</li>
-            <li>Recorded 200 training sentences in my own voice with a custom recording tool, then rebuilt a broken Piper/VITS training stack into a reproducible GPU pipeline to fine-tune a voice for reading science, exported to ONNX for offline playback.</li>
-          </ul></article>
-        </div></section>
-
-        <section class="section" aria-labelledby="projects"><h2 id="projects">Projects</h2><div class="section-body">
-          <article class="entry"><div class="entry-head"><h3>Room of Days <span>· Creator and Solo Developer</span></h3><span class="date">2025–Present</span></div><p class="meta">Flutter · Dart · Swift (WidgetKit) · Firebase · Cloud Functions</p><ul>
-            <li>Started and built a life-RPG habit app that turns everyday tasks into Quests: finishing one earns XP, grows stats like Mind and Home, and unlocks furnishings for a room of your own. <strong>10+ people use it.</strong></li>
-            <li>Shipped <strong>49 builds</strong> on my own, covering product and visual design, a custom score, sound and haptics, and an offline-first Firebase backend with backups, optional sync and account deletion.</li>
-            <li>Added .ics class-schedule import with reminders and an iPhone Home Screen widget; 1,200+ automated tests.</li>
-          </ul></article>
-          <article class="entry"><div class="entry-head"><h3>Room Notes <span>· Creator and Solo Developer</span><span class="status">In use in my own classes</span></h3><span class="date">Aug 2026–Present</span></div><p class="meta">Flutter · Dart · Firebase · Drift/SQLite · Flutter iOS engine · Codemagic CI</p><ul>
-            <li>Building the notebook I wanted for engineering classes: handwrite on an iPad, capture the board with a phone, type equations and code on a laptop, and find all of it on the same page with the same layout on every device.</li>
-            <li><strong>Patched Flutter's iOS engine</strong> to read Apple Pencil's coalesced touch samples for smoother handwriting, and set up CI that compiles the custom engine and ships it to TestFlight.</li>
-            <li>Designed local-first sync that saves each edit with its pending upload in one transaction, so notes survive offline use and restarts; 1,700+ automated tests.</li>
-          </ul></article>
-          <article class="entry"><div class="entry-head"><h3>Knowsy Breadboard Lab <span>· Technical Lead, three-person team</span></h3><span class="date">2025–Present</span></div><p class="meta">JavaScript · circuit simulation · Verilog · automated testing</p><ul>
-            <li>Built a browser breadboard for Rutgers Digital Logic and Principles of EE II labs: students wire 16 real 74LS-series chips through 8 lab modules, from a 4-bit ALU to a traffic-light controller and an active bandpass filter.</li>
-            <li>Wrote both simulators from scratch with <strong>no math libraries</strong>: a digital engine that catches floating inputs and shorted outputs, and a modified-nodal-analysis solver that drives an oscilloscope and a Bode plotter.</li>
-            <li>Added export of any bench build to Verilog that runs in Icarus Verilog; 280+ automated tests.</li>
+          <article class="entry"><div class="entry-head"><h3>Kuiper TTS, Rutgers ECE <span>· Undergraduate Researcher and Team Lead (PI: Prof. Dov Kruger)</span></h3><span class="date">Oct 2025–Present</span></div><p class="meta">Python · PyTorch Lightning · Piper/VITS · ONNX</p><ul>
+            <li>Co-authored an IEEE ISEC 2026 paper (3rd of 11 authors) on turning scientific papers into audio for blind and low-vision readers</li>
+            <li>Led the 18-person research team: helped recruit members, assigned codebase tasks, ran the text-to-speech research</li>
+            <li>Wrote narration rules for spoken math, e.g. “d q over d t” becomes “the derivative of q with respect to t”</li>
+            <li>Rebuilt the training stack as a one-command GPU pipeline with ONNX export; fine-tuned 5 voices on 200 self-recorded clips</li>
+            <li>Wrote voice-evaluation scripts (MCD, F0 RMSE, PESQ, STOI) and the guide the team uses to train new voices</li>
           </ul></article>
         </div></section>
 
         <section class="section" aria-labelledby="experience"><h2 id="experience">Experience</h2><div class="section-body">
-          <article class="entry"><div class="entry-head"><h3>this.is <span>· Lead Software Developer, Internship</span></h3><span class="date">Jul 2025–Aug 2026</span></div><p class="meta">React · TypeScript · Firebase · Cloud Functions</p><ul>
-            <li>Led development of a social discovery platform as its primary engineer: search, profiles, saved lists and sharing.</li>
-            <li>Prototyped embedding-based search with query expansion, and wrote a load-testing harness that reports p50/p95/p99 latency and per-query cost for 300 simulated users.</li>
-            <li>Drove a product reset toward private groups of 2 to 6 friends, showing the places where their saved tastes already overlap.</li>
+          <article class="entry"><div class="entry-head"><h3>this.is <span>· Lead Software Developer (Internship)</span></h3><span class="date">Jul 2025–Aug 2026</span></div><p class="meta">React · TypeScript · Firebase · Cloud Functions</p><ul>
+            <li>Built a place-discovery web app as primary engineer (search, profiles, saved lists, sharing); mentored and managed 2 interns</li>
+            <li>Prototyped embedding-based search; wrote a load-test harness for p50/p95/p99 latency and per-query cost at 300 users</li>
+            <li>Designed and built v2, a private group app that ranks members' saved places into shared plan suggestions (in preview)</li>
           </ul></article>
-          <article class="entry"><div class="entry-head"><h3>Schieber Research <span>· Software Engineering Intern</span></h3><span class="date">2023–2024</span></div><ul>
-            <li>Built and documented a React/Vite research prototype backed by Appwrite from the team's study requirements.</li>
+          <article class="entry"><div class="entry-head"><h3>Schieber Research <span>· Software Engineering Intern</span></h3><span class="date">Sep 2023–Jun 2024</span></div><ul>
+            <li>Built and documented a React/Vite research prototype backed by Appwrite, turning study requirements into working flows</li>
           </ul></article>
-          <article class="entry"><div class="entry-head"><h3>Starbucks <span>· Barista, part-time alongside full-time coursework</span></h3><span class="date">2023–2025</span></div></article>
+          <article class="entry"><div class="entry-head"><h3>Starbucks <span>· Barista (part-time, alongside full-time coursework)</span></h3><span class="date">Jul 2023–Jun 2025</span></div></article>
+        </div></section>
+
+        <section class="section" aria-labelledby="projects"><h2 id="projects">Projects</h2><div class="section-body">
+          <article class="entry"><div class="entry-head"><h3>Room of Days <span>· Creator and Solo Developer, life-RPG habit app</span></h3><span class="date">Jun 2026–Present</span></div><p class="meta">Flutter · Dart · Swift (WidgetKit) · Firebase · Codemagic CI</p><ul>
+            <li>Published on the App Store (Aug 2026) and the web (roomofdays.com); 10+ active users, 1,200+ automated tests</li>
+            <li>Wrote a native Swift (WidgetKit) Home Screen widget alongside the Flutter app, plus .ics class-schedule import with reminders</li>
+            <li>Designed local-first storage with versioned saves; cloud sync never overwrites an unreadable or newer-format save</li>
+          </ul></article>
+          <article class="entry"><div class="entry-head"><h3>Room Notes <span>· Creator and Solo Developer, cross-device lecture notebook</span></h3><span class="date">Aug 2026–Present</span></div><p class="meta">Flutter · Dart · Objective-C++ · Drift/SQLite · Firestore</p><ul>
+            <li>Patched Flutter's iOS engine to deliver the between-frame Apple Pencil samples (coalesced touches) that stock Flutter ignores; compiled the custom engine in CI and shipped it to TestFlight</li>
+            <li>Built local-first Drift/SQLite storage with a transactional outbox so edits survive offline use and app restarts</li>
+          </ul></article>
+          <article class="entry"><div class="entry-head"><h3>Knowsy Breadboard Lab, Rutgers ECE <span>· Technical Lead, 3-person team</span></h3><span class="date">May 2026–Present</span></div><p class="meta">JavaScript · Verilog</p><ul>
+            <li>Built a browser breadboard for Rutgers Digital Logic Design and Principles of EE II labs: 8 guided modules, from a 4-bit ALU to an active bandpass filter, with Verilog export</li>
+            <li>Wrote the core simulators from scratch: a nodal-analysis circuit solver driving the oscilloscope and Bode plotter, and a logic engine that flags floating inputs and shorts</li>
+          </ul></article>
         </div></section>
 
         <section class="section" aria-labelledby="skills"><h2 id="skills">Skills</h2><div class="section-body skills">
-          <div><strong>Languages</strong>Python, Dart, JavaScript/TypeScript, Java, C/C++, SQL, Verilog, HTML/CSS</div>
-          <div><strong>AI and research</strong>PyTorch Lightning, Piper/VITS, ONNX, embeddings, GPU training, speech datasets</div>
-          <div><strong>Software</strong>Flutter, Firebase/Firestore, Cloud Functions, React, Drift/SQLite, Git, CI/CD (Codemagic), TestFlight</div>
-          <div><strong>Hardware</strong>Digital logic, 74LS-series ICs, breadboarding, ESP32, LTspice, oscilloscopes</div>
+          <div><strong>Languages</strong>Python, Dart, TypeScript, JavaScript, C/C++, Java, SQL, Verilog, Swift</div>
+          <div><strong>AI/ML</strong>PyTorch Lightning, ONNX, TTS fine-tuning (Piper/VITS), speech-quality metrics, embedding search</div>
+          <div><strong>Software</strong>Flutter, React, Firebase/Firestore, Cloud Functions, Drift/SQLite, Git, CI/CD (Codemagic)</div>
+          <div><strong>Hardware</strong>Digital logic, breadboarding, oscilloscopes, ESP32, LTspice</div>
+          <div><strong>Spoken languages</strong>Hebrew (native), English (fluent), Spanish (conversational)</div>
         </div></section>
       </div>
       <p class="footnote">Selected work, case studies, and a project portfolio are available at <a href="https://mikabe1805.github.io/">mikabe1805.github.io</a>.</p>
