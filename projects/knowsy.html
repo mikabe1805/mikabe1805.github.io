@@ -110,9 +110,9 @@
               </p>
               <h1>Understand it<br />by building it.</h1>
               <p class="case-deck">
-                A breadboard in the browser for Rutgers’ Digital Logic and
-                Principles of EE II labs, with digital and analog simulators I
-                wrote from scratch.
+                A virtual breadboard for Rutgers’ Digital Logic and Principles
+                of EE II labs, wired like the real one, with a schematic that
+                draws itself and tools for debugging and teaching.
               </p>
             </div>
             <dl class="case-meta">
@@ -171,19 +171,24 @@
           <section class="case-section" id="problem">
             <h2>Learn a circuit by working with it.</h2>
             <p>
-              A breadboard is easier to understand when students can build a
-              circuit and observe what changes. Knowsy’s breadboard lab puts 16
-              real 74LS-series chips, passives, op-amps and a bench supply in the
-              browser, across eight guided lab modules that run from a 4-bit ALU
-              to a traffic-light controller and an active bandpass filter.
+              Knowsy’s breadboard lab lets students wire the same kind of board
+              they use at the lab bench, in the browser, so they can prepare for
+              lab and debug a circuit before they build it for real. It has real
+              74LS-series chips with datasheet pinouts, passives, op-amps and a
+              bench supply, and eight guided labs built from the course
+              materials, from a 4-bit ALU to a traffic-light controller and a
+              bandpass filter. The schematic redraws itself from whatever the
+              student wires, and the bench and schematic highlight each other.
             </p>
             <p>
-              My responsibility is the breadboard module, working with Professor
-              Kruger and managing a three-person team including me. In plain
-              JavaScript with no math libraries, I wrote the
-              modified-nodal-analysis solver that drives the oscilloscope and Bode
-              plotter, and the core of the digital engine that catches floating
-              inputs and shorted outputs; a teammate built its sequential logic. Any bench build also exports to Verilog that runs in Icarus.
+              I started the module and led its three-person team, one of seven
+              module leads on Professor Kruger’s Knowsy platform. I built the
+              bench, the automatic schematic, the logic probe, voltmeter and
+              wiring warnings, and wrote the modified-nodal-analysis solver behind
+              the oscilloscope and Bode plotter, in plain JavaScript with no math
+              libraries; a teammate built the sequential logic. For instructors, a
+              share link restores an exact circuit, and any bench build exports to
+              Verilog with a testbench.
             </p>
             <figure class="capture">
               <a
