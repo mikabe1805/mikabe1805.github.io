@@ -1,0 +1,454 @@
+/* Mika Be portfolio: homepage composition. The system (tokens, materials, components) is site.css. */
+
+/* ================================================================== HALL
+   A lit room, not a header: the name and the pitch on one line, then the four doors as the dominant
+   band. Each door stands on the hall floor and spills its room's light onto it; the spill brightens as
+   the pointer comes near (core.js sets --near-js, 0..1; hover and keyboard focus force full light), and the Room of Days door burns its real hearth. */
+.hall {
+  min-height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: clamp(16px, 2.4vh, 32px);
+  padding: calc(var(--nav-top) + var(--nav-h) + clamp(12px, 3.4vh, 44px)) 0 clamp(10px, 1.2vh, 30px);
+}
+.hall-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(24px, 3vw, 48px); align-items: end; }
+.hall-intro { grid-column: 1 / span 7; }
+.hall-name { grid-column: 1 / span 6; }
+.hall-pitch { grid-column: 7 / span 6; padding-bottom: 4px; }
+.hall-name .kicker, .hall-intro .kicker { margin-bottom: clamp(10px, 1.8vh, 18px); }
+.hall-name h1 { font-size: clamp(64px, min(9.6vw, 17vh), 152px); line-height: .86; margin-bottom: clamp(8px, 1.4vh, 16px); }
+.hall-intro h1 { margin-bottom: clamp(10px, 1.6vh, 16px); }
+.hall-name .role-line { margin: 0; }
+.hall-intro .role-line { margin: 0 0 clamp(12px, 2vh, 22px); }
+.hall-lead { font-size: clamp(17px, 1.3vw, 19.5px); line-height: 1.58; color: var(--text-2); max-width: 34em; margin: 0 0 clamp(14px, 2.2vh, 24px); }
+
+/* doors: each project is an opening cut into the hall wall. The hall light sits up and to the left (the hall layer
+   in site.css), so inside each opening the lintel and the left jamb fall into shadow and the right jamb catches a
+   line of the room's own light. Each opening stands on a sill in its world's material (walnut, paper, desk edge,
+   ESD mat) with a contact shadow, and spills its light onto the hall floor in a pool that widens toward you.
+   The spill brightens as the pointer comes near (core.js sets --near-js, 0..1; hover and keyboard focus force full
+   light). The two bright worlds (paper, breadboard) rest a step dimmer so the lit hearth leads; hovering a door
+   brings it to full and lets the others fall back. */
+.doors { --door-h: clamp(250px, 37.5vh, 360px); --sill: 11px; position: relative; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: clamp(14px, 1.4vw, 20px); }
+.doors::before { /* the hall floor: a faint lit plane from the sills toward you, only as wide as the row of doors */
+  content: ""; position: absolute; z-index: -2; pointer-events: none; left: 0; right: 0; top: calc(var(--door-h) + var(--sill)); height: clamp(130px, 19vh, 210px);
+  background: linear-gradient(180deg, rgb(255 236 214 / .028), rgb(255 236 214 / .012) 45%, transparent);
+  -webkit-mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.door {
+  --near-js: 0; --force: 0; --near: max(var(--near-js), var(--force)); --dim: 0; --pool-a: .2;
+  position: relative; isolation: isolate; display: grid; grid-template-rows: auto auto auto; align-content: start; color: var(--text); text-decoration: none; border-radius: 3px;
+}
+.door > * { grid-column: 1; }
+.door-window { grid-row: 1; }
+.door-sill { grid-row: 2; }
+.door-text { grid-row: 3; position: relative; z-index: 1; padding-top: 14px; }
+.door::before { /* the room's light on the hall floor: a trapezoid from the sill, widening toward the viewer */
+  content: ""; position: absolute; grid-row: 3 / 4; grid-column: 1 / 2; z-index: -1; pointer-events: none;
+  top: 0; left: -16%; right: -16%; height: clamp(120px, 15.5vh, 150px);
+  /* the shape (a soft-sided trapezoid that fades toward you) is the mask; the colour is the door's light */
+  background: rgb(var(--door-l) / var(--pool-a));
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='b' x='-30%25' y='-5%25' width='160%25' height='110%25'%3E%3CfeGaussianBlur stdDeviation='3.2 0'/%3E%3C/filter%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.46' stop-color='%23fff' stop-opacity='.42'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='18,0 82,0 97,100 3,100' fill='url(%23g)' filter='url(%23b)'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='b' x='-30%25' y='-5%25' width='160%25' height='110%25'%3E%3CfeGaussianBlur stdDeviation='3.2 0'/%3E%3C/filter%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.46' stop-color='%23fff' stop-opacity='.42'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='18,0 82,0 97,100 3,100' fill='url(%23g)' filter='url(%23b)'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  opacity: calc(.62 + .38 * var(--near)); transition: opacity .45s var(--ease);
+}
+.door::after { /* the room's light on the wall right around the opening, mostly on hover */
+  content: ""; position: absolute; inset: 0; grid-row: 1 / 2; grid-column: 1 / 2; z-index: -1; pointer-events: none;
+  box-shadow: 0 0 56px 2px rgb(var(--door-l) / .18), 0 26px 60px -10px rgb(var(--door-l) / .2);
+  opacity: calc(.2 + .8 * var(--near)); transition: opacity .45s var(--ease);
+}
+.door:hover, .door:focus-visible { --force: 1; }
+.door:focus-visible { outline-offset: 6px; }
+.door-window {
+  position: relative; display: block; height: var(--door-h); border-radius: 2px 2px 0 0; overflow: hidden; isolation: isolate; background: #141416;
+  transition: transform .5s var(--ease);
+}
+.door-window::after { /* the opening's depth: lintel and left jamb in shadow, the right jamb lit by the room */
+  content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; pointer-events: none;
+  box-shadow:
+    inset 0 14px 18px -12px rgb(0 0 0 / .72),
+    inset 12px 0 16px -10px rgb(0 0 0 / .6),
+    inset -1px 0 0 rgb(var(--door-l) / .5),
+    inset -7px 0 10px -6px rgb(var(--door-l) / .2);
+}
+.js .door-window::before { /* arrival: the openings come on one after another, once; afterwards it holds the resting dim */
+  content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; background: var(--bg); pointer-events: none;
+  opacity: var(--dim); transition: opacity .45s var(--ease);
+  animation: door-on 700ms var(--ease) backwards; animation-delay: calc(var(--i, 0) * 90ms + 140ms);
+}
+@keyframes door-on { from { opacity: 1; } to { opacity: var(--dim); } }
+@media (hover: hover) {
+  .doors:hover .door:not(:hover) { --dim: .2; }
+}
+.doors:focus-within .door:not(:focus-visible) { --dim: .2; }
+.doors:not(:focus-within) .door--paper, .doors:not(:focus-within) .door--knowsy { --dim: .12; }
+.door:hover, .door:focus-visible { --dim: 0 !important; }
+/* the sill each opening stands on, in its world's material, with its lit top edge and a contact shadow */
+.door-sill {
+  position: relative; z-index: 1; display: block; height: var(--sill); margin-inline: -7px; border-radius: 2px;
+  box-shadow: inset 0 1px 0 rgb(var(--door-l) / .55), 0 1px 0 rgb(0 0 0 / .55), 0 10px 16px -6px rgb(0 0 0 / .85);
+}
+.door-sill::after { /* the opening's light on the sill's top face, brighter on hover */
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(90deg, transparent 4%, rgb(var(--door-l) / .3) 30%, rgb(var(--door-l) / .3) 70%, transparent 96%) top / 100% 3px no-repeat;
+  opacity: calc(.5 + .5 * var(--near)); transition: opacity .45s var(--ease);
+}
+.door--rod .door-sill { background: linear-gradient(180deg, #7a4d2c 0, #55341d 3px, #3b2414 60%, #26170d); }
+.door--paper .door-sill { background: repeating-linear-gradient(180deg, rgb(70 55 35 / .14) 0 1px, transparent 1px 3px), linear-gradient(180deg, #f1eadc 0, #ddd3c0 45%, #b9ad96); }
+.door--notes .door-sill { background: linear-gradient(180deg, #34476a 0, #22314b 3px, #182439 60%, #0f1726); }
+.door--knowsy .door-sill { background: linear-gradient(180deg, #355c48 0, #24412f 3px, #1b3226 60%, #12231a); }
+/* hover: the frame stays put and the room inside comes a step toward you, so a door reads as an opening */
+.door-depth .depth-dolly { transition: transform .9s var(--ease); }
+.door:hover .door-depth .depth-dolly, .door:focus-visible .door-depth .depth-dolly { transform: scale(1.03); }
+.door-text strong { display: block; font: 500 22px/1.15 var(--serif); letter-spacing: -.01em; }
+.door-text small { display: block; margin-top: 3px; font-size: 13.5px; line-height: 1.4; color: var(--text-2); }
+.door--rod { --door-l: 255 150 72; --pool-a: .21; }
+.door--paper { --door-l: 236 226 204; --pool-a: .15; }
+.door--notes { --door-l: 128 160 205; --pool-a: .23; }
+.door--knowsy { --door-l: 176 214 168; --pool-a: .17; }
+.door-depth { position: absolute; inset: 0; display: block; }
+.door-depth span { display: block; }
+/* a whole object inside its room: never cut by the frame at any door aspect */
+.door-obj { position: absolute; left: 50%; top: 50%; width: auto; height: auto; max-width: 76%; max-height: 80%; translate: -50% -48%; transition: transform .9s var(--ease); }
+.door-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease); }
+.door:hover .door-obj, .door:focus-visible .door-obj { transform: translateY(-4px) rotate(-1deg) scale(1.03); }
+.door:hover .door-img, .door:focus-visible .door-img { transform: scale(1.03); }
+/* Kuiper: the paper on the daylit desk */
+.door--paper .door-window { background: radial-gradient(90% 70% at 40% 0%, #f4eee2, #d8cfbd 70%, #c7bca6); }
+.door--paper .door-obj { max-width: 74%; max-height: 82%; rotate: 4deg; border-radius: 2px; box-shadow: 0 1px 2px rgb(60 40 20 / .2), 0 24px 40px -16px rgb(60 40 20 / .5); }
+.door--paper .door-window::after {
+  box-shadow: inset 0 14px 18px -12px rgb(40 28 14 / .55), inset 12px 0 16px -10px rgb(40 28 14 / .42), inset -1px 0 0 rgb(255 252 244 / .8), inset -7px 0 10px -6px rgb(255 250 238 / .5);
+}
+/* Room Notes: one page on the slate, under its lamp */
+.door--notes .door-window {
+  background:
+    radial-gradient(70% 55% at 50% 30%, rgb(140 170 215 / .30), rgb(120 152 200 / .08) 60%, transparent 85%),
+    linear-gradient(rgb(170 190 220 / .07) 1px, transparent 1px) 0 0 / 16px 16px,
+    linear-gradient(90deg, rgb(170 190 220 / .07) 1px, transparent 1px) 0 0 / 16px 16px,
+    #10151c;
+}
+.door--notes .door-obj { rotate: -3deg; border-radius: 4px; box-shadow: 0 0 0 1px rgb(255 226 186 / .14), 0 26px 44px -18px rgb(0 0 0 / .85), 0 0 40px -8px rgb(140 170 215 / .35); }
+/* Knowsy: the chip and the LED on the board, under the bench lamp */
+.door--knowsy .door-img { object-position: 50% 40%; }
+.door--knowsy .door-window::after {
+  background: radial-gradient(80% 60% at 50% 20%, rgb(255 250 236 / .12), transparent 70%);
+  box-shadow: inset 0 14px 18px -12px rgb(6 12 8 / .7), inset 12px 0 16px -10px rgb(6 12 8 / .55), inset -1px 0 0 rgb(var(--door-l) / .6), inset -7px 0 10px -6px rgb(var(--door-l) / .25);
+}
+
+@media (max-height: 780px) and (min-width: 960px) {
+  .hall { gap: clamp(14px, 2vh, 32px); }
+  .doors { --door-h: clamp(250px, 35.5vh, 360px); }
+}
+
+/* Recently: a quiet strip on the hall floor, under the doors */
+.hall-log { display: flex; align-items: baseline; gap: clamp(18px, 2.4vw, 36px); padding-top: 12px; border-top: 1px solid var(--line); }
+.hall-log .kicker { flex: none; margin: 0; }
+.hall-log ol { flex: 1; min-width: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px clamp(18px, 2.4vw, 36px); }
+.hall-log li { display: grid; align-content: start; gap: 2px; }
+.hall-log time { font: 500 13px/1.5 var(--sans); color: var(--text-3); white-space: nowrap; }
+.hall-log li:first-child time { color: var(--text-2); }
+.hall-log span { font-size: 13.5px; line-height: 1.45; color: var(--text); }
+
+/* The full-bleed rooms arrive at the very top of the viewport: their own padding clears the nav, so the
+   page's 80 px scroll padding is cancelled for them (Room Notes also starts under the paper sheet's edge). */
+#room-of-days, #kuiper, #knowsy { scroll-margin-top: -80px; }
+#room-notes { scroll-margin-top: calc(-80px - var(--sheet-r)); }
+
+/* ================================================================== ROOM OF DAYS */
+.rod { padding-bottom: clamp(48px, 5vw, 80px); }
+/* the room fades in and out of the page through a mask, so the hall's light runs on into it with no seam */
+#rod-stage .depth-view { -webkit-mask: linear-gradient(180deg, transparent 0, #000 13%, #000 84%, transparent 100%); mask: linear-gradient(180deg, transparent 0, #000 13%, #000 84%, transparent 100%); }
+#rod-stage .rod-vignette { background: linear-gradient(90deg, rgb(8 6 5 / .58) 0%, rgb(8 6 5 / .24) 30%, transparent 54%), linear-gradient(0deg, rgb(12 13 15 / .5) 0%, rgb(12 13 15 / 0) 26%); }
+
+/* under the stage */
+.rod-more { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 88px); align-items: center; margin-top: clamp(32px, 3.6vw, 52px); }
+.rod-credit { font: italic 400 clamp(22px, 2vw, 28px)/1.3 var(--serif); color: var(--text); margin: 0 0 26px; letter-spacing: -.005em; }
+.spec-strip { list-style: none; margin: 0 0 14px; border-top: 1px solid var(--line); }
+.spec-strip li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.45; color: var(--text-2); }
+.rod-case { min-height: 44px; line-height: 1.4; }
+
+/* ================================================================== KUIPER (daylit paper) */
+/* The paper world is a sheet laid on the dark: a hard edge, a 1 px light rim, daylight bouncing off it onto the
+   desk around it, and a soft contact shadow where it lies on the slate below. */
+.kuiper {
+  --pool-x: 66%; --pool-y: 18%;
+  z-index: 2; margin-inline: var(--sheet-x); border-radius: var(--sheet-r); background: var(--paper);
+  padding: calc(var(--nav-top) + var(--nav-h) + clamp(36px, 4.4vw, 64px)) 0 clamp(64px, 6vw, 96px);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / .85), inset 0 0 0 1px rgb(255 250 240 / .4),
+    0 0 0 1px rgb(255 244 226 / .14), 0 -10px 60px -18px rgb(255 236 206 / .16),
+    0 34px 70px -26px rgb(0 0 0 / .9), 0 12px 22px -12px rgb(0 0 0 / .7);
+}
+.kuiper.tex-paper::before, .kuiper.tex-paper::after { -webkit-mask: none; mask: none; border-radius: inherit; }
+.kuiper-top { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); gap: clamp(32px, 6vw, 110px); align-items: center; }
+.kuiper-copy h2 { margin-bottom: 20px; color: #16181c; }
+.kuiper-copy .lead { margin-bottom: 14px; }
+.kuiper-copy .links { margin-top: 24px; }
+
+
+.voice { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(28px, 6vw, 96px); margin-top: clamp(44px, 4.4vw, 62px); align-items: start; }
+.voice-copy h3 { font-size: clamp(30px, 3.2vw, 46px); line-height: 1.02; margin-bottom: 18px; }
+.voice-copy p { font-size: 15.5px; }
+
+/* ================================================================== ROOM NOTES (slate and grid paper)
+   The room starts on the paper sheet's edge, inside its own lamp pool. Its lit object leads: the cream pad,
+   the world's own paper. The one page on three devices follows, large, with the lamp behind the frames. */
+.notes { --pool-x: 66%; --pool-y: 9%; background: #10151c; margin-top: calc(-1 * var(--sheet-r)); padding: calc(var(--sheet-r) + var(--nav-top) + var(--nav-h) + clamp(30px, 3.4vw, 56px)) 0 clamp(64px, 6vw, 92px); }
+.notes-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr); gap: clamp(28px, 4.4vw, 72px); align-items: start; }
+.notes-copy h2 { margin-bottom: 18px; }
+.notes-copy .lead { margin-bottom: 0; }
+.pen-copy { margin-top: clamp(24px, 2.8vw, 36px); padding-top: clamp(20px, 2.2vw, 28px); border-top: 1px solid var(--line); }
+.pen-stage { position: relative; isolation: isolate; display: grid; gap: 12px; }
+.pen-lamp { z-index: -1; left: -16%; right: -16%; top: -26%; bottom: -12%; background: radial-gradient(closest-side, rgb(255 246 226 / .16), rgb(140 170 215 / .08) 52%, transparent); }
+.pen-stage .pen-surface { aspect-ratio: 2 / 1; box-shadow: inset 0 0 0 1px rgb(42 38 32 / .12), 0 0 0 1px rgb(255 248 236 / .08), 0 44px 80px -40px rgb(0 0 0 / .95), 0 0 110px -26px rgb(255 242 218 / .32); }
+.proof-tabs { justify-self: start; }
+.proof-stack { display: grid; grid-template-columns: minmax(0, 1fr); }
+.proof-panel { grid-area: 1 / 1; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.proof-panel[hidden] { display: grid !important; visibility: hidden; }
+.erase-sheet { position: relative; aspect-ratio: 2 / 1; border-radius: var(--r-inner); background: #f3eee3; box-shadow: inset 0 0 0 1px rgb(42 38 32 / .12), 0 0 0 1px rgb(255 248 236 / .08), 0 44px 80px -40px rgb(0 0 0 / .95), 0 0 110px -26px rgb(255 242 218 / .32); }
+.erase-sheet .erase-canvas { position: absolute; top: 18px; left: 50%; height: calc(100% - 36px); width: auto; max-width: calc(100% - 36px); aspect-ratio: 5 / 4; translate: -50% 0; margin: 0; padding: 0; }
+.erase-panel .erase-count { margin: 0; }
+.erase-text { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--text-2); max-width: 40em; }
+.pen-under { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; }
+.pen-stage .pen-timeline { max-width: 440px; margin: 2px 0 2px; }
+.pen-stage .pen-method { font-size: 13px; }
+.notes-devices { position: relative; margin-inline: auto; margin-top: clamp(48px, 5vw, 80px); display: grid; grid-template-columns: minmax(0, 1fr) clamp(220px, 18vw, 250px); grid-template-rows: auto auto; column-gap: clamp(24px, 2.6vw, 40px); align-items: end; }
+.notes-devices .device-stage { grid-column: 1; grid-row: 1; order: 0; }
+.notes-devices .device-tabs { grid-column: 1; grid-row: 2; order: 0; justify-self: start; margin-top: 18px; }
+.notes-devices .device-caption { grid-column: 2; grid-row: 1 / span 2; order: 0; align-self: end; margin: 0; min-height: 0; gap: 10px; }
+.notes-devices .devices-lamp { left: -6%; right: 14%; top: -20%; height: 130%; background: radial-gradient(closest-side, rgb(150 180 225 / .20), rgb(120 152 200 / .06) 58%, transparent); }
+.device-why { color: var(--text-2); font-size: 14.5px; line-height: 1.55; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.device-caps { display: block; }
+.notes-more { margin-top: clamp(44px, 4.4vw, 68px); }
+.facts3 { display: grid; gap: 10px; }
+.facts3-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 44px); }
+.facts3 p { margin: 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14.5px; line-height: 1.6; color: var(--text-2); }
+.facts3 strong { color: var(--text); font-weight: 500; }
+.facts3 .text-link { margin-top: 4px; justify-self: start; }
+
+/* ================================================================== KNOWSY (the bench at night) */
+/* The bench starts on its own lit edge (a rim catching the bench lamp) and hands over to the shell in a short ramp */
+/* the threshold is the bench's own edge: a 12 px lip of night-green ESD mat with a lit 1 px rim and a contact shadow
+   under it, and the bench lamp's green light starting right at the lip */
+.knowsy {
+  --pool-x: 72%; --pool-y: 14%;
+  --lip: linear-gradient(180deg, #243f33 0, #1a3026 12px, transparent 12px) 0 0 / 100% 12px no-repeat,
+         linear-gradient(180deg, rgb(0 0 0 / .5), rgb(0 0 0 / 0) 22px) 0 12px / 100% 22px no-repeat,
+         radial-gradient(60% 260px at 62% 0, rgb(166 210 160 / .13), rgb(166 210 160 / .04) 55%, transparent 100%) 0 0 / 100% 520px no-repeat;
+  background: var(--lip), linear-gradient(180deg, #0d120f calc(100% - 96px), var(--bg) 100%);
+  background: var(--lip), linear-gradient(in oklab 180deg, #0d120f calc(100% - 96px), var(--bg) 100%);
+  padding: calc(var(--nav-top) + var(--nav-h) + clamp(30px, 3.4vw, 56px)) 0 clamp(60px, 6vw, 90px);
+  box-shadow: inset 0 1px 0 rgb(166 210 160 / .18), 0 -1px 0 rgb(0 0 0 / .5), 0 -24px 48px -24px rgb(0 0 0 / .65);
+}
+.knowsy.tex-holes::before { -webkit-mask: linear-gradient(transparent 12px, #000 12px); mask: linear-gradient(transparent 12px, #000 12px); } /* no breadboard holes on the mat lip */
+.knowsy.tex-holes::after { top: 12px; background-position: 0 -12px, 0 0; } /* the lamp's lit holes start under the lip too, in register with the faint ones */
+.bench-top { display: grid; grid-template-columns: minmax(0, 4.6fr) minmax(0, 7.4fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.bench-copy h2 { font-size: clamp(44px, 5vw, 76px); margin-bottom: 20px; }
+/* the bench object: a window on the Lab 1 capture's board, from the supply to the DIP switch (x 2-78%, y 47-90.5% of
+   the capture), so the 74LS04, the pull-up and the lit LED read at their own size. View full size opens the whole
+   capture with the guided checklist. The LED's light comes on with the bench lamp. */
+.kn-strip { padding: 8px; }
+.kn-strip-win { position: relative; display: block; overflow: hidden; border-radius: 11px; aspect-ratio: 1642 / 580; background: #e6e0d2; }
+.kn-strip-win img { position: absolute; left: -2.632%; top: -108.04%; width: 131.58%; max-width: none; height: auto; border-radius: 0; }
+.kn-strip-win::after { /* the bench lamp above the board: light falls off toward the lower corners */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 110% at 46% 0%, transparent 50%, rgb(6 10 7 / .2) 80%, rgb(6 10 7 / .36) 100%);
+}
+.kn-strip-led { /* the lit LED, at its place on the board */
+  position: absolute; left: 53.2%; top: 26.4%; width: 10%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgb(255 236 220 / .9), rgb(255 96 70 / .55) 18%, rgb(255 80 60 / .2) 52%, transparent);
+  opacity: 0; transition: opacity 900ms var(--ease) 500ms;
+}
+.knowsy.is-lit .kn-strip-led { opacity: 1; }
+.bench-copy .lead { margin-bottom: 14px; }
+.bench-copy .body-2 { font-size: 15.5px; }
+.bench-pair { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 20px; margin-top: clamp(48px, 5.6vw, 84px); align-items: start; }
+.probe h3 { margin-bottom: 10px; }
+.probe > .body-2 { font-size: 15px; margin-bottom: 4px; }
+.bench-side { align-content: start; gap: 22px; }
+.bench-role { display: grid; gap: 10px; }
+.bench-role p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--text-2); }
+.bench-role p + p { font-size: 13.5px; color: var(--text-3); }
+.meter-note { margin: 10px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--text-3); }
+.meter-note .num { font-size: 11.5px; }
+
+/* ================================================================== ABOUT + CONTACT (back in the hall's light) */
+/* About closes the walk where it began: the hall's warm light from up and to the left comes back on as you arrive,
+   and the facts sit on a matte card beside the copy */
+.about { padding: clamp(56px, 5.6vw, 88px) 0 clamp(28px, 3.4vw, 48px); }
+.about::after { inset: 0; background: radial-gradient(56% 74% at 16% 22%, rgb(226 196 160 / .11), rgb(226 196 160 / .035) 52%, transparent 78%); }
+.about-inner { max-width: 760px; }
+.about h2 { margin-bottom: 18px; }
+.about .lead { margin-bottom: 18px; max-width: 34em; }
+.about .body-2 { font-size: 16px; max-width: 62ch; }
+@media (min-width: 1100px) {
+  .about-inner { max-width: none; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(24px, 3vw, 48px); align-items: start; }
+  .about-inner > * { grid-column: 1 / span 7; }
+  .about-inner > .facts {
+    grid-column: 8 / span 5; grid-row: 1 / span 6; margin: 6px 0 0; padding: 8px 26px 10px; border: 1px solid var(--line); border-radius: var(--r-matte);
+    background: linear-gradient(180deg, rgb(255 244 228 / .05), rgb(255 252 246 / .02)); box-shadow: inset 0 1px 0 rgb(255 236 214 / .08), 0 40px 80px -50px rgb(0 0 0 / .9);
+  }
+  .about .facts div { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 14px 0; }
+  .about .facts div:last-child { border-bottom: 0; }
+  .about .facts dd { font-size: 14.5px; }
+}
+.contact { padding: clamp(48px, 5vw, 76px) 0 clamp(48px, 5vw, 72px); }
+.contact-inner { display: grid; justify-items: center; text-align: center; }
+.contact h2 { max-width: 14em; margin-bottom: 18px; }
+.contact-p { max-width: 34em; font-size: 17px; }
+.contact-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 14px; margin-top: 14px; }
+.contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 22px; margin: 22px 0 0; }
+
+/* ================================================================== hall, narrower */
+@media (max-width: 1199px) and (min-width: 960px) {
+  .hall-name { grid-column: 1 / span 5; }
+  .hall-pitch { grid-column: 6 / span 7; }
+}
+@media (max-width: 1099px) {
+  .door-text strong { font-size: 19px; }
+  .door-text small { font-size: 13px; }
+}
+@media (max-width: 959px) {
+  .hall { min-height: 0; }
+  .hall-name, .hall-pitch, .hall-intro { grid-column: 1 / -1; }
+  .hall-name h1 { font-size: clamp(64px, 12vw, 120px); }
+  .hall-pitch { margin-top: 22px; }
+  .doors { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .doors::before { display: none; }
+  .door--rod { grid-column: 1 / -1; }
+  .door--rod .door-window { height: auto; aspect-ratio: 21 / 9; }
+  .door:not(.door--rod) .door-window { height: auto; aspect-ratio: 4 / 3; }
+  .hall-log { display: block; }
+  .hall-log .kicker { margin-bottom: 10px; }
+  .hall-log ol { grid-template-columns: 1fr 1fr; gap: 14px 28px; }
+}
+@media (max-width: 1023px) {
+  .rod-more { grid-template-columns: minmax(0, 1fr); }
+  #rod-stage .rod-vignette { background: linear-gradient(0deg, rgb(12 13 15 / .5) 0%, rgb(12 13 15 / 0) 30%); }
+}
+/* 1024 to 1199: there is no room for the plate, the Quest and a whole hearth side by side, so the homepage
+   stage stacks as it does on tablets: the room with its hearth whole, the plate that names it, then the Quest */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  #rod-stage { height: auto; display: flex; flex-direction: column; }
+  #rod-stage .depth-view { position: relative; inset: auto; height: min(72svh, 640px); min-height: 420px; order: 0; }
+  #rod-stage .rod-vignette { background: linear-gradient(0deg, rgb(12 13 15 / .5) 0%, rgb(12 13 15 / 0) 30%); }
+  #rod-stage > .quest { position: relative; left: auto; bottom: auto; order: 2; z-index: 3; margin: 16px 0 0 var(--gutter); width: 380px; }
+  #rod-stage .rod-overlay { position: static; order: 1; display: block; padding: 0; pointer-events: auto; }
+  #rod-stage .rod-plate { width: auto; margin: 16px 0 0; -webkit-backdrop-filter: none; backdrop-filter: none; background: rgb(255 252 246 / .035); border: 1px solid var(--line); border-radius: var(--r-matte); box-shadow: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 40px; }
+  #rod-stage .rod-plate::before, #rod-stage .rod-plate::after { display: none; }
+  #rod-stage .rod-plate > .kicker, #rod-stage .rod-plate > h2 { grid-column: 1 / -1; }
+  #rod-stage .rod-caption { position: static; order: 3; margin-top: 14px; }
+}
+@media (max-width: 900px) {
+  .kuiper-top, .voice, .notes-top, .bench-top, .bench-pair, .bench-role, .notes-more { grid-template-columns: minmax(0, 1fr); }
+  .notes-devices { grid-template-columns: minmax(0, 1fr); }
+  .notes-devices .device-caption { grid-column: 1; grid-row: 3; margin-top: 16px; }
+}
+
+/* ================================================================== phone */
+@media (max-width: 699px) {
+  .hall { padding-top: calc(var(--nav-top) + var(--nav-h) + 30px); gap: 24px; }
+  .hall-pitch { margin-top: 18px; }
+  .doors { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .hall-log { padding-top: 12px; }
+  .hall-log .kicker { margin-bottom: 2px; }
+  /* Recently swipes sideways on a phone */
+  .hall-log .kicker { margin-bottom: 8px; }
+  .hall-log ol { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 64%; gap: 10px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); margin-inline: calc(var(--gutter) * -1); padding: 0 var(--gutter) 4px; scrollbar-width: none; }
+  .hall-log ol::-webkit-scrollbar { display: none; }
+  .hall-log ol:focus-visible, .facts3-list:focus-visible { outline-offset: -3px; }
+  .hall-log li { gap: 2px; padding: 11px 13px; border-radius: 14px; border: 1px solid var(--line); background: rgb(255 252 246 / .03); scroll-snap-align: start; }
+  .hall-log time { font-size: 12px; }
+  .hall-log span { font-size: 13.5px; line-height: 1.4; }
+  .hall-lead { font-size: 16px; }
+  .kuiper .paper { width: min(186px, 52%); margin-top: 22px; }
+  .door--rod .door-window { aspect-ratio: 16 / 10; }
+  .door:not(.door--rod) .door-window { aspect-ratio: 1; }
+  .door:not(.door--rod) .door-text { padding-top: 10px; }
+  .doors { --sill: 9px; }
+  .door-sill { margin-inline: -4px; }
+  .door:not(.door--rod) .door-text strong { font-size: 16px; line-height: 1.2; }
+  .door:not(.door--rod) .door-text small { display: none; }
+  .door--rod .door-text strong { font-size: 21px; }
+  .contact h2 { font-size: 44px; }
+  .contact { padding: 40px 0 44px; }
+  .pill--big { font-size: 21px; min-height: 58px; padding: 0 22px; }
+
+  /* phone rhythm: secondary prose a step smaller, shorter ramps between rooms */
+  .voice { margin-top: 40px; gap: 22px; }
+  /* Room of Days: each App Store frame sits beside its caption in the swipe strip */
+  .rod-more .store-row { grid-template-columns: repeat(3, 80vw); scroll-padding-inline: var(--gutter); }
+  .rod-more .store-item { display: grid; grid-template-columns: 42% minmax(0, 1fr); gap: 14px; align-items: end; scroll-snap-align: start; }
+  .rod-more .store-item .caption { margin: 0 0 6px; }
+  .rod-credit { font-size: 21px; margin-bottom: 16px; }
+  .spec-strip { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; border: 0; }
+  .spec-strip li { padding: 5px 10px; border: 0; border-radius: var(--r-pill); background: rgb(var(--ink-rgb) / .05); box-shadow: inset 0 0 0 1px var(--line); font-size: 13px; line-height: 1.35; }
+  /* Room Notes: the readouts and the result line carry the timing on a phone; the coordinate-system note
+     lives on the case page; the facts swipe */
+  .device-why { display: none; }
+  .pen-stage .pen-timeline { display: none; }
+  .pen-stage .pen-instr { font-size: 13.5px; }
+  .pen-stage .pen-ref-tag { display: none; }
+  .erase-text { font-size: 14px; }
+  .facts3-list { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 80%; gap: 12px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); margin-inline: calc(var(--gutter) * -1); padding: 2px var(--gutter) 6px; scrollbar-width: none; }
+  .facts3-list::-webkit-scrollbar { display: none; }
+  .facts3 p { scroll-snap-align: start; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: rgb(255 252 246 / .03); }
+  /* Knowsy: the role and audit text are on the case page; the three facts compact */
+  .bench-role { display: none; }
+  /* About: each fact as a label over its value */
+  .about .facts div { grid-template-columns: minmax(0, 1fr); gap: 1px; padding: 9px 0; }
+  .about .facts dd { font-size: 14px; line-height: 1.5; }
+  .notes { padding: calc(var(--sheet-r) + var(--nav-top) + var(--nav-h) + 22px) 0 60px; }
+  .notes-devices { margin-top: 36px; }
+  .knowsy { padding: calc(var(--nav-top) + var(--nav-h) + 22px) 0 56px; }
+  .bench-pair { margin-top: 36px; }
+  .about { padding: 40px 0 20px; }
+}
+
+
+/* ================================================================== reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .js .door-window::before { animation: none; transition: none; }
+  .door:hover .door-window, .door:focus-visible .door-window, .door:hover .door-obj, .door:focus-visible .door-obj, .door:hover .door-img, .door:focus-visible .door-img, .door:hover .door-depth .depth-dolly, .door:focus-visible .door-depth .depth-dolly { transform: none; }
+}
+
+/* phone rhythm: secondary prose a step smaller (last, so it wins over the section sizes above) */
+@media (max-width: 699px) {
+  .body-2, .facts3 p, .bench-role p, .pen-copy .body-2, .erase-card .body-2, .probe > .body-2, .notes-copy .body-2, .bench-copy .body-2, .voice-copy p, .listen-head p, .about .body-2 { font-size: 15px; line-height: 1.55; }
+}
+
+/* ================================================================== the door as the way in (core.js MB.portal)
+   The opening grows into the room's lit object while the hall fades; the room's own arrival (the dolly, the
+   hearth lighting) plays once it lands. .portal-box is a room's first screen, for objects not yet on screen. */
+.portal-box { position: absolute; left: 0; right: 0; top: 0; height: 100svh; max-height: 100%; pointer-events: none; z-index: 0; }
+::view-transition-group(mb-portal) { animation-duration: 780ms; animation-timing-function: cubic-bezier(.2, .7, .1, 1); }
+::view-transition-image-pair(mb-portal) { overflow: hidden; border-radius: 2px; }
+::view-transition-old(mb-portal), ::view-transition-new(mb-portal) { width: 100%; height: 100%; object-fit: cover; animation-duration: 780ms; animation-timing-function: cubic-bezier(.2, .7, .1, 1); }
+::view-transition-old(mb-portal) { animation-name: mb-portal-out; }
+::view-transition-new(mb-portal) { animation-name: mb-portal-in; }
+::view-transition-old(root) { animation: mb-hall-out 460ms cubic-bezier(.2, .7, .1, 1) both; }
+::view-transition-new(root) { animation: mb-room-in 780ms cubic-bezier(.2, .7, .1, 1) both; }
+@keyframes mb-portal-out { 0%, 40% { opacity: 1; } 100% { opacity: 0; } }
+/* growing into something much larger than the door (more than 1.8x: the stage, a wide board, a room's first screen):
+   the door's own picture would be enlarged into a blur, so it hands over early. The opening grows slowly at first,
+   the door's picture is gone by a fifth of the way (never past about 1.55x), and the room's own sharp snapshot fills
+   the opening from the start and grows with it. core.js sets .portal-wide. */
+.portal-wide::view-transition-group(mb-portal) { animation-timing-function: cubic-bezier(.5, 0, .2, 1); }
+.portal-wide::view-transition-old(mb-portal) { animation: mb-portal-out-wide 780ms linear both; }
+.portal-wide::view-transition-new(mb-portal) { animation: mb-portal-in-wide 780ms linear both; }
+@keyframes mb-portal-out-wide { 0% { opacity: 1; } 20%, 100% { opacity: 0; } }
+@keyframes mb-portal-in-wide { 0%, 4% { opacity: 0; } 30%, 100% { opacity: 1; } }
+@keyframes mb-portal-in { 0%, 25% { opacity: 0; } 80%, 100% { opacity: 1; } }
+@keyframes mb-hall-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes mb-room-in { 0%, 30% { opacity: 0; } 100% { opacity: 1; } }
+.portal-veil { position: fixed; inset: 0; z-index: 70; background: var(--bg); pointer-events: none; opacity: 0; }
+.portal-fly { position: fixed; z-index: 71; pointer-events: none; transform-origin: 50% 50%; }
+.portal-fly > .door-window { height: 100%; }
+.portal-fly > .door-window::before { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+::view-transition-group(mb-nav) { animation-duration: 780ms; }
+::view-transition-new(*) { animation-timing-function: cubic-bezier(.2, .7, .1, 1); }
+/* the plate, Quest and caption settle onto the room once it has filled the screen */
+.portal-landing [data-portal-layer] { opacity: 0; }
+/* the nav's room chip waits too: the pill keeps the hall's look until the room lands, then the chip comes in */
+.is-portal .nav-room { opacity: 0; }
+.portal-landed [data-portal-layer] { animation: mb-layer-in 560ms cubic-bezier(.2, .7, .1, 1) both; }
+@keyframes mb-layer-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

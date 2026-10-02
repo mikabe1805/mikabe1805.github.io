@@ -1,0 +1,15 @@
+/* Without JavaScript: the static room still, native audio controls, all three devices, no toys that need a script. */
+.rod-still { display: block; }
+.rod-stage .depth-camera, .rod-stage > .quest, .tilt-pill, .nav-room, .sound-toggle { display: none !important; }
+.player audio { display: block; }
+.player .play, .player .wave, .eq-tabs, .device-tabs, .pen-bar, .pen-surface, .pen-read, .erase-head .seg, .erase-canvas, .probe-controls { display: none !important; }
+.player-top { gap: 0; }
+.phone-frame img[data-src] { display: none; }
+/* the nav room chip is the spacer that pushes the links right; without it the links take the margin */
+.nav-links { margin-left: auto; }
+/* controls that need a script: the frame-strip arrows and the room picker (the large plate above it stays) */
+.film-btn, .rooms-pick { display: none !important; }
+/* the reward engine needs its script: without it the case page keeps the section’s own explanation of the rules */
+.engine, .engine-foot, .rules-live { display: none !important; }
+/* the bench lamp needs its script to come on; without it the LED on the homepage board shows lit */
+.kn-strip-led { opacity: 1 !important; }

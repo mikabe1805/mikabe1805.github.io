@@ -1,0 +1,268 @@
+/* Kuiper TTS case page. Daylit paper throughout (body[data-world=kuiper] sets the ink tokens).
+   Uses the shared system in site.css; only this page's layout and its two interactions live here:
+   the reading marker that follows the voice through the equation, and the phrase-by-phrase comparison. */
+
+.kt { --kt-teal: #1f4a57; --kt-wash: rgb(31 74 87 / .11); --kt-wash-2: rgb(31 74 87 / .05); }
+.kt h1, .kt h2, .kt h3 { color: #16181c; }
+.kt .case-section .kt-head { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1fr); gap: clamp(20px, 5vw, 80px); align-items: end; margin-bottom: clamp(24px, 2.6vw, 36px); }
+.kt .kt-head h2 { margin-bottom: 0; }
+.kt .kt-head p { margin: 0; font-size: 16px; max-width: 40em; }
+
+/* ------------------------------------------------------------------ arrival: the paper on the desk */
+.kt-arrival { --pool-x: 74%; --pool-y: 30%; padding-top: calc(var(--nav-top) + var(--nav-h) + clamp(36px, 7vh, 84px)); padding-bottom: clamp(48px, 6vw, 88px); }
+.kt-nw { white-space: nowrap; }
+/* DOM order is the phone's reading order (the copy, the paper, the facts); on wide screens the paper takes the right column */
+.kt-arrival-grid { display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(0, .82fr); grid-template-rows: auto auto; gap: 0 clamp(32px, 6vw, 110px); align-items: center; }
+.kt-arrival-copy { grid-column: 1; grid-row: 1; align-self: end; }
+.kt-arrival-more { grid-column: 1; grid-row: 2; align-self: start; }
+.kt-desk { grid-column: 2; grid-row: 1 / span 2; }
+.kt-arrival .lead { font-size: clamp(18px, 1.35vw, 20px); }
+.kt-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(18px, 2.4vw, 36px); max-width: 640px; }
+.kt-facts div { padding-bottom: 12px; }
+.kt-facts div:nth-child(n + 3) { border-top: 1px solid var(--line); }
+.kt-desk { position: relative; isolation: isolate; display: grid; place-items: center; padding: 24px 0 36px; }
+.kt-desk-lamp { z-index: -1; left: -30%; right: -30%; top: -24%; bottom: -24%; --wl: 255 250 238; --wa: .55; }
+.kt-paper { width: min(380px, 82%); }
+
+/* daylight from a window up and to the right: two soft panes of light across the desk and the paper.
+   It drifts a few pixels with scroll (case-kuiper-tts.js), never on a timer. */
+.kt-arrival > .kt-window { position: absolute; z-index: 0; inset: 0; pointer-events: none; overflow: hidden; }
+.kt-window i {
+  position: absolute; left: 30%; top: -30%; width: 90%; height: 150%; transform: translate3d(0, var(--kt-win-y, 0px), 0) rotate(-24deg);
+  background:
+    linear-gradient(90deg, transparent 0, rgb(253 250 243 / .9) 4%, rgb(253 250 243 / .9) 29.2%, transparent 30.6%, transparent 34.6%, rgb(253 250 243 / .8) 36%, rgb(253 250 243 / .8) 62%, transparent 66%);
+  -webkit-mask: radial-gradient(52% 44% at 50% 46%, #000 25%, transparent 85%); mask: radial-gradient(52% 44% at 50% 46%, #000 25%, transparent 85%);
+  opacity: 0; will-change: transform; transition: opacity 1600ms var(--ease);
+}
+.room.is-lit .kt-window i, html:not(.js) .kt-window i { opacity: 1; }
+@media (max-width: 699px) { .room.is-lit .kt-window i { opacity: .5; } }
+
+/* the paper's example of the rewrite, playable from the arrival */
+.kt-epigraph { display: grid; grid-template-columns: auto auto minmax(0, 1fr); align-items: center; gap: 10px 26px; margin-top: clamp(28px, 3vw, 40px); padding-top: 20px; border-top: 1px solid var(--line); }
+.kt-epi-pair { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; font: 400 clamp(22px, 2vw, 30px)/1.25 var(--serif); letter-spacing: -.005em; }
+.kt-epi-pair .kt-arrow { font-size: 18px; }
+.kt-epi-cap { margin: 0; justify-self: end; max-width: 30em; font-size: 13.5px; line-height: 1.5; color: var(--text-3); text-align: right; }
+.kt-epi-cap a { display: inline-block; padding-block: 4px; color: var(--text-2); text-underline-offset: 3px; text-decoration-color: rgb(28 30 34 / .3); white-space: nowrap; }
+.kt-epi-cap a:hover { color: var(--text); }
+.kt-epigraph.is-lit .kt-from, .kt-epigraph.is-new .kt-to { color: var(--kt-teal); }
+a:hover .arr--down { transform: translateY(2px); }
+
+/* ------------------------------------------------------------------ the listening panel, extended */
+.kt-listen { --pool-x: 26%; --pool-y: 16%; }
+.kt-panel { margin-top: 0; }
+.kt-panel-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+.kt-tabs { flex-wrap: nowrap; }
+.kt-hint { margin: 0; max-width: 31em; font-size: 13.5px; line-height: 1.5; color: var(--text-3); }
+html:not(.js) .kt-hint { display: none; }
+
+.kt-eq { position: relative; min-height: 168px; padding: 34px 0 30px; }
+.kt-eq math { position: relative; z-index: 1; font-size: 1.95em; }
+.kt-eq [data-t] { transition: opacity .28s var(--ease); cursor: default; }
+.js .kt-eq [data-t] { cursor: pointer; }
+.kt-panel.is-reading .kt-eq math:not([hidden]) [data-t]:not(.said) { opacity: .3; }
+.kt-eq [data-t].now, .kt-eq [data-t].hl { color: var(--kt-teal); }
+/* the reading marker: a highlighter stroke that glides to whichever part of the equation is being spoken */
+.kt-marker {
+  position: absolute; z-index: 0; left: 0; top: 0; width: 100px; height: 100px; transform-origin: 0 0; pointer-events: none;
+  border-radius: 9px; background: linear-gradient(180deg, rgb(31 74 87 / .09), rgb(31 74 87 / .15));
+  box-shadow: inset 0 -2px 0 rgb(31 74 87 / .22);
+  opacity: 0; transition: transform .34s var(--ease), opacity .24s linear;
+}
+.kt-marker.on { opacity: 1; }
+.kt-marker.jump { transition: opacity .24s linear; }
+
+/* transcript words a change row or an equation term points at */
+.kt .transcript .w.kt-hl { background: var(--kt-wash); box-shadow: 0 0 0 2px var(--kt-wash); border-radius: 3px; }
+
+/* what the rewrite changed: one row per changed phrase, each playable on its own */
+.kt-changes { margin-top: clamp(22px, 2.4vw, 32px); padding-top: 4px; }
+.kt .kt-changes-h { font: 500 13px/1.45 var(--sans); letter-spacing: .01em; color: var(--text-3); margin: 0 0 10px; }
+.kt-change-list { list-style: none; padding: 0; margin: 0; }
+.kt-change { display: grid; grid-template-columns: minmax(150px, 210px) minmax(0, 1fr) auto; align-items: center; gap: 8px 24px; padding: 14px 4px; border-top: 1px solid var(--line); transition: background-color var(--t-hover); border-radius: 2px; }
+.kt-change:last-child { border-bottom: 1px solid var(--line); }
+.kt-change.is-hl { background: var(--kt-wash-2); }
+.kt-rule { margin: 0; font: 500 14px/1.4 var(--sans); color: var(--text); }
+.kt-pair { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; font: 400 18px/1.45 var(--serif); }
+.kt-from { color: var(--text-3); }
+.kt-to { color: var(--text); }
+.kt-arrow { color: var(--text-3); font-family: var(--sans); font-size: 14px; }
+.kt-u { text-decoration: underline; text-decoration-color: var(--kt-teal); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.kt-pause { color: var(--kt-teal); font-weight: 600; }
+.kt-change.is-lit .kt-from, .kt-change.is-new .kt-to { color: var(--kt-teal); }
+.kt-hear {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 14px 0 6px; border-radius: var(--r-pill);
+  border: 1px solid rgb(28 30 34 / .12); background: rgb(255 255 255 / .6); color: var(--text); cursor: pointer;
+  font: 500 13.5px/1 var(--sans); white-space: nowrap; transition: background-color var(--t-hover), border-color var(--t-hover), transform var(--t-press);
+}
+.kt-hear:hover { background: #fffdf8; border-color: rgb(28 30 34 / .2); }
+.kt-hear:active { transform: scale(.985); }
+.kt-hear .kt-dot { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--kt-teal); color: #f4efe4; }
+.kt-hear svg { width: 11px; height: 11px; fill: currentColor; }
+.kt-hear .i-stop { display: none; }
+.kt-hear[aria-pressed="true"] .i-play { display: none; }
+.kt-hear[aria-pressed="true"] .i-stop { display: inline; }
+html:not(.js) .kt-hear { display: none; }
+.kt-panel--static { padding: clamp(22px, 3vw, 36px); display: grid; gap: 12px; }
+.kt-static-lit { color: var(--text-3); }
+.kt-eq--static { min-height: 0; padding: 14px 0 10px; }
+
+/* ------------------------------------------------------------------ how an equation becomes speech */
+.kt-flow { position: relative; isolation: isolate; --col-gap: clamp(16px, 2vw, 28px); }
+.kt-stages, .kt-trace-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 var(--col-gap); }
+.kt-stages { list-style: none; padding: 0; margin: 0; }
+.kt-stage { padding: 0 2px 26px; }
+.kt-stage-top { display: flex; align-items: center; gap: 10px; margin: 0 0 16px; }
+.kt-stage-top::after { content: ""; flex: 1; height: 1px; background: rgb(28 30 34 / .16); margin-right: calc(-1 * var(--col-gap)); }
+.kt-stage:last-child .kt-stage-top::after { margin-right: 0; background: linear-gradient(90deg, rgb(28 30 34 / .16), transparent); }
+.kt-stage-n { font: 500 30px/1 var(--serif); letter-spacing: -.01em; color: #16181c; font-variant-numeric: lining-nums; }
+.kt-tag { display: inline-flex; align-items: center; min-height: 24px; padding: 0 9px; border-radius: var(--r-pill); font: 500 12.5px/1 var(--sans); color: var(--text-2); box-shadow: inset 0 0 0 1px rgb(28 30 34 / .16); }
+.kt-tag--mine { color: #f4efe4; background: var(--kt-teal); box-shadow: none; }
+.kt-stage h3 { font-size: clamp(22px, 1.8vw, 27px); margin-bottom: 10px; }
+.kt-stage p:last-child { margin: 0; font-size: 15px; line-height: 1.55; color: var(--text-2); }
+.kt-trace { border-top: 1px solid var(--line); padding-top: 18px; }
+.kt-trace-label { margin: 0 0 14px; font: 500 13px/1.45 var(--sans); color: var(--text-3); }
+.kt-trace-live { display: contents; }
+.kt-cell { min-width: 0; padding: 14px 16px 16px; border-radius: 14px; background: rgb(255 255 255 / .5); box-shadow: inset 0 0 0 1px rgb(28 30 34 / .08); }
+.kt-cell-h { margin: 0 0 8px; font: 500 12.5px/1.4 var(--sans); color: var(--text-3); }
+.kt-cell .transcript { margin: 0; font-size: 16.5px; line-height: 1.5; }
+.kt-trace-lit { color: var(--text-2); }
+.kt-latex { display: block; font: 600 12.5px/1.65 var(--mono); color: var(--text-2); overflow-wrap: anywhere; }
+.kt-cell--speech .wave { height: 40px; margin: 12px 0 0; }
+.kt-speech { display: flex; align-items: center; gap: 12px; }
+.kt-speech .player-meta { margin: 0; }
+.kt-trace-live .transcript .chg { text-decoration-color: var(--kt-teal); }
+.kt-trace-live audio { display: none; }
+/* my work: one tinted band behind stages 03 and 04 and their outputs */
+@media (min-width: 900px) {
+  .kt-flow::before { content: ""; position: absolute; z-index: -1; top: -20px; bottom: -20px; right: 0; left: calc(50% + var(--col-gap) / 2 - 20px); border-radius: 22px; background: linear-gradient(180deg, rgb(255 253 248 / .72), rgb(250 246 238 / .5)); box-shadow: inset 0 0 0 1px rgb(31 74 87 / .14), 0 30px 60px -44px rgb(70 50 20 / .35); }
+  .kt-cell--mine { background: rgb(255 255 255 / .7); }
+  /* the band ends on the wrap line like every other card; its content sits 20 px inside it */
+  .kt-flow { padding-right: 20px; }
+}
+
+/* ------------------------------------------------------------------ the voice */
+.kt-voice { --pool-x: 70%; --pool-y: 40%; padding-bottom: clamp(24px, 3vw, 40px); }
+.kt-voice-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(28px, 6vw, 96px); align-items: start; }
+.kt-voice-copy h2 { margin-bottom: 20px; }
+.kt-voice-copy .body-2 { font-size: 16px; max-width: 34em; }
+.kt-voice-players { padding-top: 8px; }
+
+/* ------------------------------------------------------------------ two short stories: pitch jumps, caching */
+.kt-story-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(28px, 6vw, 96px); align-items: center; }
+.kt-story-grid--flip { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); }
+.kt-story-grid--flip .kt-story-copy { order: 2; }
+.kt-story-copy h2 { margin-bottom: 20px; }
+.kt-story-copy .body-2 { font-size: 16px; max-width: 34em; }
+.kt-diag { margin: 0; max-width: 36em; }
+.kt-diag div { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 16px; padding: 12px 0; border-top: 1px solid var(--line); }
+.kt-diag div:last-child { border-bottom: 1px solid var(--line); }
+.kt-diag dt { font: 500 13px/1.6 var(--sans); color: var(--text-3); padding-top: 1px; }
+.kt-diag dd { font-size: 16px; line-height: 1.55; color: var(--text); }
+.kt-card { margin: 0; padding: clamp(18px, 2.2vw, 28px); }
+.kt-card figcaption { margin-top: 14px; font-size: 13.5px; color: var(--text-3); }
+.kt-card-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin-bottom: 14px; }
+html:not(.js) .kt-seg { display: none; }
+.kt .seg button[aria-pressed="true"] { color: #f4efe4; }
+
+/* pitch sketch */
+.kt-pitch-svg { width: 100%; height: auto; overflow: visible; }
+.kt-pitch-svg path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.kt-wave0 { stroke: #44474c; stroke-width: 1.6; }
+.kt-wave1 { stroke: var(--kt-teal); stroke-width: 1.8; }
+.kt-period path { stroke: #5e6166; stroke-width: 1.2; }
+.kt-svg-label { font: 500 13px var(--sans); fill: #44474c; }
+.kt-svg-small { font: 500 11.5px var(--sans); fill: #5e6166; }
+.kt-when-resample, .kt-when-stretch { transition: opacity .32s var(--ease); }
+.kt-pitch[data-mode="resample"] .kt-when-stretch, .kt-pitch[data-mode="stretch"] .kt-when-resample { opacity: 0; }
+html:not(.js) .kt-when-stretch { display: none; }
+
+/* caching contexts */
+.kt-cache-count { margin: 0; font-size: 14px; color: var(--text-2); }
+.kt-cache-count .num { font-size: 14px; color: var(--text); }
+.kt-contexts { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.kt-contexts li { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 8px 12px; border-radius: 12px; background: rgb(255 255 255 / .5); box-shadow: inset 0 0 0 1px rgb(28 30 34 / .08); font: 400 16.5px/1.3 var(--serif); color: var(--text-2); transition: background-color .4s var(--ease) calc(var(--i) * 55ms), box-shadow .4s var(--ease) calc(var(--i) * 55ms); }
+.kt-contexts b { font-weight: 600; color: var(--text); }
+.kt-contexts i { position: relative; flex: none; width: 16px; height: 16px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px rgb(28 30 34 / .28); }
+.kt-contexts i::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--kt-teal); transform: scale(.3); opacity: 0; transition: transform .38s var(--ease) calc(var(--i) * 55ms), opacity .25s linear calc(var(--i) * 55ms); }
+.kt-contexts i::before { content: ""; position: absolute; z-index: 1; left: 5.5px; top: 3px; width: 4px; height: 8px; border: solid #f4efe4; border-width: 0 1.6px 1.6px 0; transform: rotate(45deg) scale(.4); opacity: 0; transition: transform .38s var(--ease) calc(var(--i) * 55ms + 90ms), opacity .2s linear calc(var(--i) * 55ms + 90ms); }
+/* not cacheable: a quiet dash in the ring; cacheable: the ring fills and checks, one context after another */
+.kt-contexts i { background: linear-gradient(rgb(28 30 34 / .38), rgb(28 30 34 / .38)) center / 7px 1.5px no-repeat; }
+.kt-cache[data-mode="ear"] .kt-contexts li { background: rgb(255 255 255 / .75); box-shadow: inset 0 0 0 1px rgb(31 74 87 / .22); }
+.kt-cache[data-mode="ear"] .kt-contexts i::after { transform: none; opacity: 1; }
+.kt-cache[data-mode="ear"] .kt-contexts i::before { transform: rotate(45deg); opacity: 1; }
+
+/* ------------------------------------------------------------------ my part and the team's, the paper */
+.kt-lists { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: clamp(28px, 5vw, 80px); margin-top: 8px; }
+.kt-list h3 { font-size: clamp(24px, 2vw, 30px); margin-bottom: 12px; }
+.kt-list ul { list-style: none; padding: 0; margin: 0; }
+.kt-list li { position: relative; padding: 12px 0 12px 22px; border-top: 1px solid var(--line); font-size: 16px; line-height: 1.55; color: var(--text); }
+.kt-list li:last-child { border-bottom: 1px solid var(--line); }
+.kt-list li::before { content: ""; position: absolute; left: 2px; top: 21px; width: 7px; height: 7px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px rgb(28 30 34 / .35); }
+.kt-list--mine li::before { background: var(--kt-teal); box-shadow: none; }
+.kt-evidence-inner { position: relative; padding-right: clamp(0px, 22vw, 300px); min-height: 300px; }
+.kt-thumb { position: absolute; right: clamp(0px, 4vw, 60px); top: 6px; width: clamp(150px, 15vw, 210px); transform: rotate(4deg); transition: translate .5s var(--ease); }
+.kt-thumb:hover { translate: 0 -4px; }
+.kt-thumb img { border-radius: 2px; box-shadow: 0 2px 3px rgb(60 40 20 / .12), 0 24px 44px -18px rgb(60 40 20 / .38); }
+.kt-cite { margin: 0 0 8px; font: 400 clamp(20px, 1.7vw, 24px)/1.45 var(--serif); color: var(--text); max-width: 36em; }
+.kt-cite cite { font-style: italic; }
+.kt-evidence .caption { margin: 0 0 22px; color: var(--text-3); }
+
+/* ------------------------------------------------------------------ narrower screens */
+@media (max-width: 1100px) {
+  .kt-change { grid-template-columns: minmax(0, 1fr) auto; }
+  .kt-change .kt-pair { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-width: 899px) {
+  .kt-evidence-inner { padding-right: 0; min-height: 0; }
+  .kt-thumb { display: none; }
+  .kt-epigraph { grid-template-columns: minmax(0, 1fr) auto; }
+  .kt-epi-pair { grid-column: 1 / -1; }
+  .kt-epi-cap { grid-column: 1; grid-row: 2; justify-self: start; text-align: left; }
+  .kt-epigraph .kt-hear { grid-column: 2; grid-row: 2; }
+  .kt-arrival-grid, .kt-voice-grid, .kt-story-grid, .kt-lists, .kt .case-section .kt-head { grid-template-columns: minmax(0, 1fr); }
+  .kt-arrival-copy, .kt-arrival-more, .kt-desk { grid-column: 1; grid-row: auto; }
+  .kt-desk { justify-items: start; padding: 22px 0 8px; }
+  .kt-story-grid--flip .kt-story-copy { order: 0; }
+  .kt-paper { width: min(300px, 62%); margin-left: 10px; }
+  .kt-stages, .kt-trace-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px var(--col-gap); }
+  .kt-stage-top::after { margin-right: 0; }
+  .kt-stage--mine, .kt-cell--mine { background: rgb(31 74 87 / .06); box-shadow: inset 0 0 0 1px rgb(31 74 87 / .12); border-radius: 14px; }
+  .kt-stage--mine { padding: 14px 14px 18px; }
+  .kt-stage { padding-bottom: 12px; }
+  .kt-trace-row { gap: 10px; }
+}
+@media (max-width: 699px) {
+  .kt-paper { width: 200px; }
+  .kt-arrival .arrival-facts { margin-top: 18px; }
+  .kt-panel-top { gap: 12px; }
+  .kt-tabs.eq-tabs { display: flex; width: auto; max-width: 100%; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; scroll-snap-type: x proximity; -webkit-mask: linear-gradient(90deg, #000 85%, transparent); mask: linear-gradient(90deg, #000 85%, transparent); }
+  .kt-tabs.eq-tabs::-webkit-scrollbar { display: none; }
+  .kt-tabs.eq-tabs button { white-space: nowrap; min-height: 40px; padding: 0 13px; scroll-snap-align: start; }
+  .kt-tabs.eq-tabs button:last-of-type { margin-right: 24px; }
+  .kt-eq { min-height: 112px; padding: 22px 0 18px; }
+  .kt-eq math { font-size: 1.12em; }
+  .kt-change { grid-template-columns: minmax(0, 1fr) auto; padding: 14px 0; gap: 8px 12px; }
+  .kt-pair { flex-direction: column; gap: 2px; font-size: 17px; }
+  .kt-arrow { transform: rotate(90deg); line-height: 1; margin: 2px 0; }
+  .kt-stages, .kt-trace-row { grid-template-columns: minmax(0, 1fr); }
+  .kt-stage { padding: 0 0 14px; }
+  .kt-stage.kt-stage--mine { padding: 14px 14px 16px; margin-bottom: 10px; }
+  .kt-stage-top { margin-bottom: 10px; }
+  .kt-contexts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kt-contexts li { font-size: 15.5px; min-height: 48px; padding: 8px 10px; }
+  .kt-diag div { grid-template-columns: 74px minmax(0, 1fr); gap: 12px; }
+  .kt-diag dd, .kt-list li, .kt-story-copy .body-2, .kt-voice-copy .body-2, .kt .kt-head p { font-size: 15px; }
+  .kt-cell .transcript { font-size: 16px; }
+  .kt-hint { font-size: 13px; }
+  .kt-svg-label { font-size: 19px; }
+  .kt-svg-small { font-size: 16px; }
+}
+@media (max-width: 399px) {
+  .kt-seg { display: flex; width: 100%; }
+  .kt-seg button { flex: 1; padding: 0 8px; font-size: 13px; }
+  .kt-voice-players .player-top { flex-wrap: wrap; }
+  .kt-voice-players .mini-eq { flex-basis: 100%; margin: 4px 0 0 58px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kt-marker, .kt-contexts li, .kt-contexts i::after, .kt-contexts i::before { transition: none !important; }
+}

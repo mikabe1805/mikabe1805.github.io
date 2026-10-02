@@ -1,471 +1,439 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Room of Days — Mika Be</title>
-    <meta
-      name="description"
-      content="A solo-developed productivity app with rich visual craft, connected quests, goals, planning and reflection, built on a reliable offline core."
-    />
-    <link
-      rel="canonical"
-      href="https://mikabe1805.github.io/projects/room-of-days.html"
-    />
-    <meta name="theme-color" content="#f5f3ed" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Room of Days — Mika Be" />
-    <meta
-      property="og:description"
-      content="A solo-developed productivity app with rich visual craft, connected quests, goals, planning and reflection, built on a reliable offline core."
-    />
-    <meta
-      property="og:image"
-      content="https://mikabe1805.github.io/assets/social-preview.png"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-    <link
-      rel="preload"
-      href="../assets/instrument-serif.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link rel="stylesheet" href="../assets/site.css?v=144e8aa5ec" />
-    <script src="../assets/site.js?v=028b2a53f7" defer></script>
-    <noscript
-      ><style>
-        @media (max-width: 600px) {
-          .site-header {
-            height: auto;
-            min-height: 76px;
-          }
-          .header-inner {
-            flex-wrap: wrap;
-            padding-block: 18px;
-            gap: 14px;
-          }
-          .nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-          }
-          .nav a {
-            font: 12px var(--sans);
-            padding: 0;
-            border: 0;
-          }
-          .nav .resume-link {
-            padding: 0;
-            border: 0;
-          }
-          .menu-toggle {
-            display: none;
-          }
-        }
-      </style></noscript
-    >
-  <link rel="stylesheet" href="../assets/project-demos.css?v=ae2a647586" />
-    <script src="../assets/project-demos.js?v=career-20260913" defer></script>
-  </head>
-  <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="site-header">
-      <div class="wrap header-inner">
-        <a class="brand" href="../index.html" aria-label="Mika Be, home"
-          >mika be<span>.</span></a
-        >
-        <button
-          class="menu-toggle"
-          aria-expanded="false"
-          aria-controls="site-nav"
-        >
-          Menu +
-        </button>
-        <nav class="nav" id="site-nav" aria-label="Main navigation">
-          <a href="../index.html#work">Work</a
-          ><a href="../index.html#about">About</a
-          ><a href="../index.html#contact">Contact</a>
-          <a
-            class="resume-link"
-            href="../Mika-Be_Resume.pdf"
-            target="_blank"
-            rel="noopener"
-            >Résumé <span class="arrow" aria-hidden="true">↗</span></a
-          >
-        </nav>
-      </div>
-    </header>
-    <main id="main">
-      <section class="case-hero">
-        <div class="wrap">
-          <a class="breadcrumb" href="../index.html#work"
-            ><span aria-hidden="true">←</span> Back to selected work</a
-          >
-          <div class="case-title-grid">
-            <div>
-              <p class="eyebrow muted">
-                02 / Room of Days · life-RPG habit app
-              </p>
-              <h1>A day worth<br />coming back to.</h1>
-              <p class="case-deck">
-                A life-RPG habit app I started and built on my own. Chores and
-                habits become Quests that earn XP, grow your stats, and furnish a
-                room of your own. It is on the <a href="https://apps.apple.com/us/app/room-of-days/id6781401469" target="_blank" rel="noopener">App Store</a> with 10+ active users.
-              </p>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Room of Days | Mika Be</title>
+  <meta name="description" content="Case study of Room of Days, a free iPhone habit app built like a life RPG and on the App Store since August 2026, with its reward engine running in the browser." />
+  <meta name="author" content="Mika Be" />
+  <link rel="canonical" href="https://mikabe1805.github.io/projects/room-of-days.html" />
+  <meta name="theme-color" content="#0d0a08" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Mika Be" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Room of Days | Mika Be" />
+  <meta property="og:description" content="A free iPhone habit app built like a life RPG, on the App Store since August 2026. Try its reward engine in the browser." />
+  <meta property="og:url" content="https://mikabe1805.github.io/projects/room-of-days.html" />
+  <meta property="og:image" content="https://mikabe1805.github.io/assets/social/room-of-days.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Room of Days: the app’s firelit room behind a glass panel that reads “A free iPhone habit app built like a life RPG. On the App Store since August 2026.”" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Room of Days | Mika Be" />
+  <meta name="twitter:description" content="A free iPhone habit app built like a life RPG, on the App Store since August 2026. Try its reward engine in the browser." />
+  <meta name="twitter:image" content="https://mikabe1805.github.io/assets/social/room-of-days.jpg" />
+  <meta name="twitter:image:alt" content="Room of Days: the app’s firelit room behind a glass panel that reads “A free iPhone habit app built like a life RPG. On the App Store since August 2026.”" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <!-- font preloads over http only: from file:// a crossorigin preload is blocked (origin null) and the faces would not load -->
+  <script>if (location.protocol !== "file:") ["EBGaramond-Variable", "Inter-Regular"].forEach(function (f) { var l = document.createElement("link"); l.rel = "preload"; l.as = "font"; l.type = "font/woff2"; l.crossOrigin = ""; l.href = "../assets/fonts/" + f + ".woff2"; document.head.appendChild(l); });</script>
+  <link rel="stylesheet" href="../assets/css/site.css" />
+  <link rel="stylesheet" href="../assets/css/case-room-of-days.css" />
+  <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+  <script src="../assets/js/data.js" defer></script>
+  <script src="../assets/js/core.js" defer></script>
+  <script src="../assets/js/depth-room.js" defer></script>
+  <script src="../assets/js/quest-engine.js" defer></script>
+  <script src="../assets/js/quest-ui.js" defer></script>
+  <script src="../assets/js/listen.js" defer></script>
+  <script src="../assets/js/case-room-of-days.js" defer></script>
+</head>
+<body data-world="rod" data-room="Room of Days" data-base="../">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="world-light" aria-hidden="true">
+    <i data-light="hall"></i><i data-light="rod"></i><i data-light="kuiper"></i><i data-light="notes"></i><i data-light="knowsy"></i><i data-light="shell"></i>
+  </div>
+  <header class="nav-wrap">
+    <nav class="nav glass" data-fixed aria-label="Main">
+      <a class="nav-name" href="../index.html">Mika Be</a>
+      <span class="nav-room empty"><i aria-hidden="true"></i><span></span></span>
+      <span class="nav-links">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#about">About</a>
+        <a href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener">Résumé<span class="arr" aria-hidden="true">↗</span></a>
+      </span>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ================================================================ ARRIVAL: the depth room -->
+    <section class="rod-arrival" aria-labelledby="page-title">
+      <div class="rod-stage case-stage depth-room" id="case-stage" data-depth-room data-arrive data-fire="live" data-inputs="pointer scroll tilt"
+           data-anchor="0.5 0.5" data-anchor-narrow="1 0.6" data-narrow="1024" data-moon="141,292,190,348" data-moon-plate="#case-plate" data-tilt-button="#case-tilt" data-tilt-off="#case-tilt-off">
+        <div class="depth-view">
+          <div class="depth-dolly">
+            <div class="depth-camera" aria-hidden="true">
+              <div class="plane" data-k="3.0,2.0,1.0"><img src="../assets/world/rod-depth-base.webp" alt="" width="1635" height="962" decoding="async" /></div>
+              <div class="plane" data-k="3.0,2.0,1.0">
+                <div class="hearth-glow"></div>
+                <div class="hearth-flare"></div>
+                <div class="depth-fire"><div class="fire-flare"><div class="fire-sway">
+                  <img data-frame="a" data-src="../assets/world/rod-fire-a.webp" data-src-on="arrive" alt="" width="320" height="300" decoding="async" />
+                  <img data-frame="b" src="../assets/world/rod-fire-b.webp" alt="" width="320" height="300" decoding="async" />
+                  <img data-frame="c" data-src="../assets/world/rod-fire-c.webp" data-src-on="arrive" alt="" width="320" height="300" decoding="async" />
+                </div></div></div>
+              </div>
+              <div class="plane" data-k="7.2,4.6,2.0"><img src="../assets/world/rod-depth-wall.webp" data-src-2x="../assets/world/rod-depth-wall@2x.webp" alt="" width="1635" height="962" decoding="async" /></div>
+              <div class="plane" data-k="14.0,8.3,3.8"><img src="../assets/world/rod-depth-furniture.webp" data-src-2x="../assets/world/rod-depth-furniture@2x.webp" alt="" width="1635" height="962" decoding="async" /></div>
+              <div class="plane" data-k="24.0,13.5,6.2"><img src="../assets/world/rod-depth-foreground.webp" data-src-2x="../assets/world/rod-depth-foreground@2x.webp" alt="" width="1635" height="962" decoding="async" /></div>
+              <div class="room-light"></div>
             </div>
-            <dl class="case-meta">
-              <div>
-                <dt>Role</dt>
-                <dd>Solo developer · product &amp; engineering</dd>
-              </div>
-              <div>
-                <dt>Status</dt>
-                <dd>On the App Store · 10+ active users</dd>
-              </div>
-              <div>
-                <dt>Scope</dt>
-                <dd>Quests · goals · planning · reflection</dd>
-              </div>
-              <div>
-                <dt>Stack</dt>
-                <dd>Flutter · Swift widget · Firebase</dd>
-              </div>
+          </div>
+          <div class="depth-vignette rod-vignette" aria-hidden="true"></div>
+          <img class="rod-still" src="../assets/world/rod-room-still.webp" alt="" width="1635" height="962" loading="lazy" decoding="async" />
+          <button class="tilt-pill glass" type="button" id="case-tilt" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6.6" y="3.2" width="6.8" height="13.6" rx="1.7" transform="rotate(-16 10 10)"/><path d="M2.6 8.2a8.2 8.2 0 0 1 2.3-3.9"/><path d="M17.4 11.8a8.2 8.2 0 0 1-2.3 3.9"/></svg>Tilt to look around</button>
+        </div>
+
+        <div class="wrap rod-overlay">
+          <div class="rod-plate case-plate glass" id="case-plate">
+            <p class="kicker plate-kicker"><img class="app-icon" src="../assets/world/rod-icon.webp" alt="" width="192" height="192" decoding="async" />Case study · iPhone app</p>
+            <h1 id="page-title">Room of Days</h1>
+            <p class="plate-lede">A free iPhone habit app built like a life RPG. Everyday tasks become Quests that earn XP, raise six life stats and furnish an illustrated room. I came up with it, built it as the only developer and took it through Apple review; it has been on the App Store since August&nbsp;19, 2026.</p>
+            <dl class="plate-facts">
+              <div><dt>Status</dt><dd>On the App Store · version 1.0.4, Sep 29, 2026</dd></div>
+              <div><dt>Rating</dt><dd><svg class="star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.3 5.8.7-4.3 4 1.1 5.7L10 14.7l-5.1 2.8 1.1-5.7-4.3-4 5.8-.7z"/></svg>5.0 from 5 ratings</dd></div>
+              <div><dt>Users</dt><dd>10+ active users</dd></div>
+              <div><dt>Built with</dt><dd>Flutter and Dart, Firebase, TypeScript Cloud Functions, Swift WidgetKit (latest builds), Codemagic CI</dd></div>
             </dl>
-          </div>
-          <div class="days-world-stage">
-            <div class="stage-heading">
-              <span class="eyebrow">A place to begin. A reason to return.</span
-              ><span>Open any capture to explore ↗</span>
-            </div>
-            <div class="days-triptych">
-              <figure class="capture">
-                <a
-                  class="capture-link"
-                  href="../assets/days-quests.webp"
-                  data-gallery="days"
-                  data-caption="01 / Find your next small step"
-                  aria-label="Enlarge: Room of Days daily room with three chosen quests"
-                  ><img
-                    src="../assets/days-quests.webp"
-                    width="860"
-                    height="1864"
-                    alt="Room of Days daily room with three chosen quests"
-                    loading="lazy"
-                  /><span class="capture-open" aria-hidden="true">↗</span></a
-                >
-                <figcaption>01 / Find your next small step</figcaption>
-              </figure>
-              <figure class="capture">
-                <a
-                  class="capture-link"
-                  href="../assets/days-workshop.webp"
-                  data-gallery="days"
-                  data-caption="02 / Make a plan that fits"
-                  aria-label="Enlarge: The illustrated Steward and goal-planning Workshop"
-                  ><img
-                    src="../assets/days-workshop.webp"
-                    width="860"
-                    height="1864"
-                    alt="The illustrated Steward and goal-planning Workshop"
-                    loading="lazy"
-                  /><span class="capture-open" aria-hidden="true">↗</span></a
-                >
-                <figcaption>02 / Make a plan that fits</figcaption>
-              </figure>
-              <figure class="capture">
-                <a
-                  class="capture-link"
-                  href="../assets/days-reward.webp"
-                  data-gallery="days"
-                  data-caption="03 / Feel the progress you made"
-                  aria-label="Enlarge: Quest completion showing experience, Glimmers, and progress"
-                  ><img
-                    src="../assets/days-reward.webp"
-                    width="860"
-                    height="1864"
-                    alt="Quest completion showing experience, Glimmers, and progress"
-                    loading="lazy"
-                  /><span class="capture-open" aria-hidden="true">↗</span></a
-                >
-                <figcaption>03 / Feel the progress you made</figcaption>
-              </figure>
+            <div class="links">
+              <a class="pill pill--bronze" href="https://apps.apple.com/us/app/room-of-days/id6781401469" target="_blank" rel="noopener">View on the App Store <span class="arr" aria-hidden="true">↗</span></a>
+              <a class="text-link" href="#try-quest">Try the reward engine <span class="arr arr--down" aria-hidden="true">↓</span></a>
             </div>
           </div>
-          <p class="caption">
-            Actual app renders with sample content · September 2026. Open any
-            capture to explore the details.
-          </p>
         </div>
-      </section>
-      <div class="wrap case-layout">
-        <aside class="case-nav" aria-label="On this page">
-          <a href="#experience">Make ordinary effort feel worthwhile.</a
-          ><a href="#try-quest">Try a Quest.</a><a href="#journey">A complete day, considered.</a
-          ><a href="#engineering">Reliable beneath the atmosphere.</a
-          ><a href="#personal">A little room of your own.</a>
-        </aside>
-        <div>
-          <section class="case-section" id="experience">
-            <h2>Make ordinary effort feel worthwhile.</h2>
-            <p>
-              Room of Days brings the warmth and sense of place I love in games
-              to everyday life. An illustrated room gives the day an identity. A
-              small field of quests makes it approachable. Completing an action
-              has a visible consequence.
-            </p>
-            <p>
-              The craft runs through the experience: material surfaces, careful
-              typography, responsive controls, sound and haptic feedback, and
-              transitions that connect one moment to the next. The goal is
-              simple: software that feels good to open, use, and return to.
-            </p>
-            <div class="ownership-note">
-              <span class="eyebrow">One developer, the whole product</span>
-              <p>
-                I started Room of Days on my own and build every layer: product
-                direction, interaction design, the Flutter app and its iPhone
-                widget, progression systems, music and sound, and persistence.
-                It has been on the App Store since August 2026, has 10+ active
-                users, and has 1,200+ automated tests behind it. The browser study on this page is
-                illustrative, not the app itself.
-              </p>
+        <p class="wrap rod-caption"><span>The app’s room art and parallax, rebuilt for the browser.</span> <span class="tilt-off" id="case-tilt-off" hidden>Motion access was declined, so the room stays still.</span></p>
+      </div>
+    </section>
+
+    <!-- ================================================================ THE REWARD ENGINE -->
+    <section class="case-section rod-section" id="try-quest" aria-labelledby="engine-title">
+      <div class="wrap">
+        <header class="rod-head" data-reveal>
+          <h2 id="engine-title" tabindex="-1">A missed day never costs progress</h2>
+          <p class="body-2">Stats never decay. Streak freezes cover missed days and refill as you keep showing up, and a return after a longer gap pays a comeback bonus. Repeating the same Quest on the same day pays 100%, then 50%, 25% and 10%, and daily XP is halved past 250 and quartered past 400. A Quest left idle earns 5% more per day, up to 50% after ten days.</p>
+        </header>
+
+        <div class="engine matte" id="engine" data-quest role="group" aria-labelledby="engine-label">
+          <span class="engine-hearth" aria-hidden="true" data-e-glow></span>
+
+          <!-- act: the Quest and its controls -->
+          <div class="engine-cell engine-quest">
+            <div class="engine-col-head">
+              <p class="kicker" id="engine-label">The reward engine</p>
+              <button class="sound-toggle" type="button" aria-pressed="false" aria-label="Sound" data-sound-toggle>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path class="spk" d="M3 8h3l4-3.5v11L6 12H3z"/><path class="wv" d="M13 7.5c1.2 1.4 1.2 3.6 0 5M15.2 5.5c2.3 2.6 2.3 6.4 0 9"/><path class="mt" d="M13 7.5l5 5M18 7.5l-5 5"/></svg>
+                <span data-sound-label>Sound off</span>
+              </button>
             </div>
-          </section>
-          <section class="case-section" id="try-quest"><h2>Try the moment of completion.</h2><p>One action changes the Quest and its rewards together. Complete this sample, then undo it to watch every value return.</p><div class="project-demo days-demo" data-days-demo>
-  <div class="days-demo-world">
-    <div class="days-demo-heading"><p class="demo-kicker">Room of Days / interactive sample</p><h4>A Quest,<br> from start to finish.</h4><p>Complete the Quest to see what changes.</p></div>
-    <div class="days-demo-card">
-      <div class="sample-quest-type"><span class="sample-star" aria-hidden="true">✦</span><span>Mind / sample Quest</span><span data-quest-state>Ready</span></div>
-      <h5>Read ten pages</h5><p class="sample-quest-desc">A little time with a book you want to finish.</p>
-      <div class="sample-reward-preview"><span>26 XP</span><span>8 Glimmers</span><span>6 Mind</span></div>
-      <button type="button" class="sample-complete" data-quest-complete><span class="quest-button-icon" aria-hidden="true">✓</span><span data-quest-button-label>Complete sample Quest</span></button>
-      <div class="sample-receipt" aria-live="polite" aria-atomic="true"><span data-quest-receipt>Ready when you are.</span></div>
-      <button type="button" class="sample-undo" data-quest-undo disabled>Undo completion <span aria-hidden="true">↶</span></button>
-    </div>
-  </div>
-  <div class="days-demo-ledger" aria-label="Sample progress">
-    <div><span>Experience</span><strong><span data-quest-xp>508</span> <small>XP</small></strong><span data-quest-xp-delta class="ledger-delta">+0</span></div>
-    <div><span>Glimmers</span><strong data-quest-glimmers>20</strong><span data-quest-glimmers-delta class="ledger-delta">+0</span></div>
-    <div><span>Mind</span><strong data-quest-mind>116</strong><span data-quest-mind-delta class="ledger-delta">+0</span></div>
-    <div class="quest-sample-progress"><span data-quest-progress-label>0 of 1 Quest complete</span><div class="quest-sample-track" role="progressbar" aria-label="Sample Quest completion" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0"><span></span></div><span class="sample-progress-note">Every reward belongs to the same action.</span></div>
-  </div>
-  <p class="demo-note">A sample Quest with illustrative rewards. Undo restores every value. Room of Days itself is shown in the app captures.</p>
-</div>
-<noscript><p class="caption">Enable JavaScript to try this interactive example. You can still explore the project details and captures on this page.</p></noscript></section>
-          <section class="case-section" id="journey">
-            <h2>A complete day, considered.</h2>
-            <p>
-              The app follows a person beyond the moment they check something
-              off. Daily quests connect to longer-term goals, the calendar makes
-              room for actual commitments, and a journal gives completed effort
-              somewhere to live.
-            </p>
-            <div class="days-journey-gallery">
-              <figure class="capture">
-                <a
-                  class="capture-link"
-                  href="../assets/days-goals.webp"
-                  data-gallery="days"
-                  data-caption="Adapt / make the next move smaller when the day calls for it."
-                  aria-label="Enlarge: Active goals with options to choose or adapt the next quest"
-                  ><img
-                    src="../assets/days-goals.webp"
-                    width="860"
-                    height="1864"
-                    alt="Active goals with options to choose or adapt the next quest"
-                    loading="lazy"
-                  /><span class="capture-open" aria-hidden="true">↗</span></a
-                >
-                <figcaption>
-                  Adapt / make the next move smaller when the day calls for it.
-                </figcaption>
-              </figure>
-              <figure class="capture">
-                <a
-                  class="capture-link"
-                  href="../assets/days-plans.webp"
-                  data-gallery="days"
-                  data-caption="Plan / see the real week around the work you want to do."
-                  aria-label="Enlarge: Daybook calendar with next class and notes entry point"
-                  ><img
-                    src="../assets/days-plans.webp"
-                    width="860"
-                    height="1864"
-                    alt="Daybook calendar with next class and notes entry point"
-                    loading="lazy"
-                  /><span class="capture-open" aria-hidden="true">↗</span></a
-                >
-                <figcaption>
-                  Plan / see the real week around the work you want to do.
-                </figcaption>
-              </figure>
-              <figure class="capture">
-                <a
-                  class="capture-link"
-                  href="../assets/days-journal.webp"
-                  data-gallery="days"
-                  data-caption="Reflect / carry the action into a journal that remembers its context."
-                  aria-label="Enlarge: Journal composer linked to a completed quest"
-                  ><img
-                    src="../assets/days-journal.webp"
-                    width="860"
-                    height="1864"
-                    alt="Journal composer linked to a completed quest"
-                    loading="lazy"
-                  /><span class="capture-open" aria-hidden="true">↗</span></a
-                >
-                <figcaption>
-                  Reflect / carry the action into a journal that remembers its
-                  context.
-                </figcaption>
-              </figure>
+            <div class="quest-card engine-card">
+              <span class="quest-ring" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13.5"/><path d="M10.5 16.4l3.6 3.6 7.6-8"/></svg></span>
+              <div>
+                <h3 class="quest-title">Read ten pages</h3>
+                <p class="quest-sub">Main Quest · Mind</p>
+              </div>
+              <span class="quest-badge num" data-q-badge>+26 XP</span>
+              <p class="engine-meta">Difficulty 4 · base <span class="num">15</span>&nbsp;XP</p>
             </div>
-            <h3>Begin with something manageable</h3>
-            <p>
-              Choose up to three quests for today. The rest can remain open
-              without becoming a wall of overdue work.
-            </p>
-            <h3>Make the plan fit the person</h3>
-            <p>
-              The Workshop turns a goal into a reviewed next action. When a day
-              changes, the return flow can make that action smaller, prepare for
-              another attempt, or leave today alone.
-            </p>
-            <h3>Let completion mean something</h3>
-            <p>
-              A completion receipt shows the quest, experience, Glimmers, and
-              progress it earned. Reflection can carry the completed action into
-              the journal, keeping the result connected to what actually
-              happened.
-            </p>
-          </section>
-          <section class="case-section" id="engineering">
-            <h2>Reliable beneath the atmosphere.</h2>
-            <p>
-              A reward system is only satisfying if it is consistent. A journal
-              is only useful if the entry is there tomorrow. I treat those
-              behaviors as part of the product design. Sound is routed by
-              interaction and material; haptics follow meaningful events, and
-              motion respects the device’s accessibility settings.
-            </p>
-            <div class="engineering-points">
-              <div>
-                <span>01</span>
-                <h3>The core day works offline.</h3>
-                <p>
-                  Quests, progress, and reflection are grounded in local state.
-                  Cloud and social features sit around the everyday loop.
-                </p>
-              </div>
-              <div>
-                <span>02</span>
-                <h3>Actions have explicit consequences.</h3>
-                <p>
-                  Choosing work, accepting a plan, completing a quest, and
-                  undoing it are distinct transitions. Rewards and progress
-                  follow the action that earned them.
-                </p>
-              </div>
-              <div>
-                <span>03</span>
-                <h3>Recovery is part of the journey.</h3>
-                <p>
-                  Completion, exactly-once rewards, undo, and lifecycle saves
-                  have explicit checks. Undo also preserves journal writing
-                  added afterward. Interface reviews follow the connected
-                  journey, including changed plans and return visits.
-                </p>
+            <button class="pill pill--bronze quest-main" type="button" data-q-act="complete">Mark complete</button>
+            <div class="engine-days">
+              <button class="pill" type="button" data-q-act="next">Next day</button>
+              <button class="pill" type="button" data-q-act="skip">Skip a day</button>
+            </div>
+            <div class="quest-more">
+              <button class="text-btn" type="button" data-q-act="undo" hidden>Undo</button>
+              <button class="text-btn" type="button" data-q-act="reset" hidden>Start over</button>
+            </div>
+          </div>
+
+          <!-- result: the receipt -->
+          <div class="engine-cell engine-receipt">
+            <p class="engine-label" data-e-kicker>Day 1 · next completion pays</p>
+            <p class="engine-xp" aria-hidden="true"><span class="sign">+</span><span class="val" data-e-xp>26</span><span class="unit">XP</span></p>
+            <p class="engine-sub"><span class="num" data-e-glim>+8</span> Glimmers · <span class="num" data-e-gain>+6</span> Mind</p>
+            <p class="formula num" data-e-chips></p>
+            <p class="engine-note" data-e-note>Starting from the account in the App Store screenshots: level 18, a 12-day streak and 3 streak freezes ready.</p>
+          </div>
+
+          <!-- state: the account -->
+          <div class="engine-cell engine-account">
+            <div class="acct-level">
+              <p><span class="engine-label">Level</span> <b class="lvl" data-q-level>18</b></p>
+              <p class="acct-xp"><b class="num" data-q-xp-now>284</b> <span class="num">/</span> <span class="num" data-q-xp-need>870</span>&nbsp;XP</p>
+            </div>
+            <div class="xp-track" aria-hidden="true"><i data-q-xp-bar></i></div>
+            <ul class="acct-stats" aria-label="Life stats">
+              <li data-e-stat="Body"><span class="st-name">Body</span><span class="st-rank" data-rank>Strong</span><b class="st-val" data-val>88</b><span class="st-gain num" data-gain></span><span class="st-bar" aria-hidden="true"><i></i></span></li>
+              <li data-e-stat="Care"><span class="st-name">Care</span><span class="st-rank" data-rank>Vital</span><b class="st-val" data-val>72</b><span class="st-gain num" data-gain></span><span class="st-bar" aria-hidden="true"><i></i></span></li>
+              <li data-e-stat="Mind"><span class="st-name">Mind</span><span class="st-rank" data-rank>Sage</span><b class="st-val" data-val>116</b><span class="st-gain num" data-gain></span><span class="st-bar" aria-hidden="true"><i></i></span></li>
+              <li data-e-stat="Craft"><span class="st-name">Craft</span><span class="st-rank" data-rank>Skilled</span><b class="st-val" data-val>94</b><span class="st-gain num" data-gain></span><span class="st-bar" aria-hidden="true"><i></i></span></li>
+              <li data-e-stat="People"><span class="st-name">People</span><span class="st-rank" data-rank>Beloved</span><b class="st-val" data-val>61</b><span class="st-gain num" data-gain></span><span class="st-bar" aria-hidden="true"><i></i></span></li>
+              <li data-e-stat="Home"><span class="st-name">Home</span><span class="st-rank" data-rank>Welcoming</span><b class="st-val" data-val>103</b><span class="st-gain num" data-gain></span><span class="st-bar" aria-hidden="true"><i></i></span></li>
+            </ul>
+            <div class="acct-streak">
+              <p><b data-q-streak>12</b>-day streak</p>
+              <p class="acct-day" data-e-day>Day 1</p>
+            </div>
+            <div class="acct-freezes">
+              <span class="engine-label">Streak freezes</span>
+              <span class="dots" data-q-freezes role="img" aria-label="3 of 7 streak freezes ready"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+
+          <!-- the same-day ladder -->
+          <div class="engine-cell engine-ladder">
+            <p class="engine-label">Same Quest, same day</p>
+            <ol class="bars" data-q-ladder aria-label="Same-day repeat payout">
+              <li style="--h: 1"><i aria-hidden="true"></i><b>100%</b><span>1st</span></li>
+              <li style="--h: .5"><i aria-hidden="true"></i><b>50%</b><span>2nd</span></li>
+              <li style="--h: .25"><i aria-hidden="true"></i><b>25%</b><span>3rd</span></li>
+              <li style="--h: .1"><i aria-hidden="true"></i><b>10%</b><span>4th+</span></li>
+            </ol>
+          </div>
+
+          <!-- history: the sky and the last passes -->
+          <div class="engine-cell engine-history">
+            <div class="history-head"><span class="engine-label">Your sky</span><span class="sky-meta" data-e-sky-meta>12 active days · longest run 12 days</span></div>
+            <div class="history-panel">
+              <svg class="sky" data-e-sky viewBox="0 0 145 100" role="img" aria-label="History sky: 12 active days, joined into one line."></svg>
+              <div class="engine-ledger">
+                <p class="engine-label">Last passes</p>
+                <ol data-e-ledger></ol>
+                <p class="ledger-empty" data-e-ledger-empty>Completions land here, newest first, with the share of the full payout each one earned.</p>
               </div>
             </div>
-          </section>
-          <section class="case-section" id="personal">
-            <h2>A little room of your own.</h2>
-            <div class="personal-space">
-              <figure class="capture">
-                <a
-                  class="capture-link"
-                  href="../assets/days-space.webp"
-                  data-gallery="days"
-                  data-caption="My Space / a personal page that begins with “Only you.”"
-                  aria-label="Enlarge: My Space showing private moments, intentions, and a seasonal reflection"
-                  ><img
-                    src="../assets/days-space.webp"
-                    width="860"
-                    height="1864"
-                    alt="My Space showing private moments, intentions, and a seasonal reflection"
-                    loading="lazy"
-                  /><span class="capture-open" aria-hidden="true">↗</span></a
-                >
-                <figcaption>
-                  My Space / a personal page that begins with “Only you.”
-                </figcaption>
-              </figure>
-              <div>
-                <p>
-                  Alongside the practical day is a more personal layer: moments,
-                  intentions, keepsakes, and reflection. It gives progress a
-                  history and the app a sense of belonging.
-                </p>
-                <p>
-                  Privacy is visible in the experience. A personal page starts
-                  private, with deliberate audience controls when someone
-                  chooses to share.
-                </p>
-                <p>
-                  That is the standard I keep returning to across Room of Days:
-                  thoughtful software whose personality and engineering support
-                  the same person.
-                </p>
-                <div class="evidence-links">
-                  <a
-                    class="text-link"
-                    href="https://roomofdays.com"
-                    target="_blank"
-                    rel="noopener"
-                    >Visit Room of Days <span aria-hidden="true">↗</span></a
-                  ><a
-                    class="text-link"
-                    href="https://github.com/mikabe1805/emberkeep"
-                    target="_blank"
-                    rel="noopener"
-                    >View source <span aria-hidden="true">↗</span></a
-                  >
+            <p class="sky-note">Each active day is a star, and days in a row join into a line. A missed day leaves no mark.</p>
+          </div>
+          <p class="sr-only" aria-live="polite" data-e-status></p>
+        </div>
+        <p class="engine-foot">Runs the app’s reward formula from lib/engine.dart for one Quest, starting from the account in the App Store screenshots. Critical hits and loot drops are left out. Stat bars use the app’s rank thresholds, and the sky follows the app’s history view, starting from the account’s 12-day streak.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================ EACH STAT CHANGES A RULE -->
+    <section class="case-section rod-section" id="stats" aria-labelledby="rules-title">
+      <div class="wrap rules">
+        <div class="rules-head" data-reveal>
+          <h2 id="rules-title">Five stats change a rule</h2>
+          <p class="caption rules-live">The tags read the account in the engine above and follow it as you play.</p>
+        </div>
+        <dl class="rules-list" data-reveal>
+          <div><dt>Mind</dt><dd>Mind raises XP by up to 15%.</dd><dd class="rule-now num" data-rule="Mind">XP ×1.09 at Mind 116</dd></div>
+          <div><dt>Body</dt><dd>Body raises the chance of a critical hit.</dd><dd class="rule-now rule-off">not simulated here</dd></div>
+          <div><dt>Craft</dt><dd>Craft raises the chance of a loot drop and the daily drop cap.</dd><dd class="rule-now rule-off">not simulated here</dd></div>
+          <div><dt>Care</dt><dd>Care sets how often streak freezes refill: every two active days at Care 40 or more, otherwise every three.</dd><dd class="rule-now num" data-rule="Care">refills every 2 days at Care 72</dd></div>
+          <div><dt>Home</dt><dd>Home makes the idle bonus up to 25% stronger.</dd><dd class="rule-now num" data-rule="Home">idle bonus ×1.13 at Home 103</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ================================================================ SIX ROOMS -->
+    <section class="case-section rod-section rooms-section" id="rooms" aria-labelledby="rooms-title">
+      <div class="wrap">
+        <header class="rod-head" data-reveal>
+          <h2 id="rooms-title">Six rooms</h2>
+          <p class="body-2">Every player starts in a finished room. These are the six room identities in the app’s latest build, with the names and lines the app gives them. Three are free from the start, and three unlock with Glimmers earned in play.</p>
+        </header>
+      </div>
+      <div class="rooms-stage" data-rooms>
+        <div class="rooms-view" aria-hidden="true">
+          <div class="rooms-drift">
+            <div class="room-layer" data-room-layer data-anchor="0.887,0.784,0" data-iw="1635" data-ih="962">
+              <img class="room-plate" data-src="../assets/room-of-days/rooms/full/wall_walnut-quest-depth-v1.webp" data-src-on="pick" alt="" width="1635" height="962" decoding="async" />
+              <span class="room-glow"></span>
+              <span class="room-fire"><span class="fire-sway"><img data-frame="a" data-src="../assets/world/rod-fire-a.webp" data-src-on="pick" alt="" width="320" height="300" /><img data-frame="b" data-src="../assets/world/rod-fire-b.webp" data-src-on="pick" alt="" width="320" height="300" /><img data-frame="c" data-src="../assets/world/rod-fire-c.webp" data-src-on="pick" alt="" width="320" height="300" /></span></span>
+            </div>
+            <div class="room-layer is-active" data-room-layer data-anchor="0.866,0.662,0.014" data-iw="1536" data-ih="1024">
+              <img class="room-plate" data-src="../assets/room-of-days/rooms/full/wall_conservatory-fireless-v3.webp" data-src-on="pick" alt="" width="1536" height="1024" decoding="async" /><noscript><img class="room-plate" src="../assets/room-of-days/rooms/full/wall_conservatory-fireless-v3.webp" alt="" width="1536" height="1024" /></noscript>
+              <span class="room-glow"></span>
+              <span class="room-fire"><span class="fire-sway"><img data-frame="a" data-src="../assets/world/rod-fire-a.webp" data-src-on="pick" alt="" width="320" height="300" /><img data-frame="b" data-src="../assets/world/rod-fire-b.webp" data-src-on="pick" alt="" width="320" height="300" /><img data-frame="c" data-src="../assets/world/rod-fire-c.webp" data-src-on="pick" alt="" width="320" height="300" /></span></span>
+            </div>
+            <div class="room-layer" data-room-layer data-anchor="0.866,0.662,0.026" data-iw="1536" data-ih="1024">
+              <img class="room-plate" data-src="../assets/room-of-days/rooms/full/wall_listening-fireless-v2.webp" data-src-on="pick" alt="" width="1536" height="1024" decoding="async" />
+              <span class="room-glow"></span>
+              <span class="room-fire"><span class="fire-sway"><img data-frame="a" data-src="../assets/world/rod-fire-a.webp" data-src-on="pick" alt="" width="320" height="300" /><img data-frame="b" data-src="../assets/world/rod-fire-b.webp" data-src-on="pick" alt="" width="320" height="300" /><img data-frame="c" data-src="../assets/world/rod-fire-c.webp" data-src-on="pick" alt="" width="320" height="300" /></span></span>
+            </div>
+            <div class="room-layer" data-room-layer data-anchor="0.866,0.662,0.014" data-iw="1536" data-ih="1024">
+              <img class="room-plate" data-src="../assets/room-of-days/rooms/full/wall_archive-fireless-v3.webp" data-src-on="pick" alt="" width="1536" height="1024" decoding="async" />
+              <span class="room-glow"></span>
+              <span class="room-fire"><span class="fire-sway"><img data-frame="a" data-src="../assets/world/rod-fire-a.webp" data-src-on="pick" alt="" width="320" height="300" /><img data-frame="b" data-src="../assets/world/rod-fire-b.webp" data-src-on="pick" alt="" width="320" height="300" /><img data-frame="c" data-src="../assets/world/rod-fire-c.webp" data-src-on="pick" alt="" width="320" height="300" /></span></span>
+            </div>
+            <div class="room-layer" data-room-layer data-anchor="0.866,0.678,0.014" data-iw="1536" data-ih="1024">
+              <img class="room-plate" data-src="../assets/room-of-days/rooms/full/wall_rain-fireless-v1.webp" data-src-on="pick" alt="" width="1536" height="1024" decoding="async" />
+              <span class="room-glow"></span>
+              <span class="room-fire"><span class="fire-sway"><img data-frame="a" data-src="../assets/world/rod-fire-a.webp" data-src-on="pick" alt="" width="320" height="300" /><img data-frame="b" data-src="../assets/world/rod-fire-b.webp" data-src-on="pick" alt="" width="320" height="300" /><img data-frame="c" data-src="../assets/world/rod-fire-c.webp" data-src-on="pick" alt="" width="320" height="300" /></span></span>
+            </div>
+            <div class="room-layer" data-room-layer data-anchor="0.866,0.662,0.014" data-iw="1536" data-ih="1024">
+              <img class="room-plate" data-src="../assets/room-of-days/rooms/full/wall_atelier-fireless-v1.webp" data-src-on="pick" alt="" width="1536" height="1024" decoding="async" />
+              <span class="room-glow"></span>
+              <span class="room-fire"><span class="fire-sway"><img data-frame="a" data-src="../assets/world/rod-fire-a.webp" data-src-on="pick" alt="" width="320" height="300" /><img data-frame="b" data-src="../assets/world/rod-fire-b.webp" data-src-on="pick" alt="" width="320" height="300" /><img data-frame="c" data-src="../assets/world/rod-fire-c.webp" data-src-on="pick" alt="" width="320" height="300" /></span></span>
+            </div>
+          </div>
+          <span class="rooms-light"></span>
+          <span class="rooms-vignette"></span>
+        </div>
+        <div class="wrap rooms-overlay">
+          <div class="rooms-plate glass" aria-live="polite">
+            <p class="kicker" data-room-count>2 of 6 · unlocks for 280 Glimmers</p>
+            <h3 data-room-name>The Living Conservatory</h3>
+            <p class="rooms-line" data-room-line>green things, oak, and rainy moonlight</p>
+            <p class="sr-only" data-room-alt>The Living Conservatory: plants on shelves and in pots around a wicker chair and an oak desk, with a lit fireplace on the right.</p>
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="rooms-pick" role="radiogroup" aria-label="Room" data-rooms-pick>
+          <button type="button" role="radio" aria-checked="false" tabindex="-1" data-name="The Writer’s Hearth" data-line="walnut, books, and a working fire" data-price="0" data-alt="The Writer’s Hearth: a walnut study at night, with a moonlit window, a red armchair, a desk with a stool and lamp, and a lit fireplace on the right.">
+            <span class="pick-img"><img data-src="../assets/room-of-days/rooms/wall_walnut-quest-depth-v1.webp" alt="" width="720" height="424" decoding="async" /></span>
+            <span class="pick-name">The Writer’s Hearth</span>
+          </button>
+          <button type="button" role="radio" aria-checked="true" tabindex="0" data-name="The Living Conservatory" data-line="green things, oak, and rainy moonlight" data-price="280" data-alt="The Living Conservatory: plants on shelves and in pots around a wicker chair and an oak desk, with a lit fireplace on the right.">
+            <span class="pick-img"><img data-src="../assets/room-of-days/rooms/wall_conservatory-fireless-v3.webp" alt="" width="720" height="480" decoding="async" /></span>
+            <span class="pick-name">The Living Conservatory</span>
+          </button>
+          <button type="button" role="radio" aria-checked="false" tabindex="-1" data-name="The Listening Room" data-line="records, lamplight, and one more side" data-price="0" data-alt="The Listening Room: a green armchair beside a floor lamp, a record player on a low cabinet full of records, and a lit fireplace on the right.">
+            <span class="pick-img"><img data-src="../assets/room-of-days/rooms/wall_listening-fireless-v2.webp" alt="" width="720" height="480" decoding="async" /></span>
+            <span class="pick-name">The Listening Room</span>
+          </button>
+          <button type="button" role="radio" aria-checked="false" tabindex="-1" data-name="The Moonlit Archive" data-line="ink-blue shelves and long, quiet hours" data-price="420" data-alt="The Moonlit Archive: dark bookshelves around a star chart, a writing desk with a lamp, and a lit fireplace on the right.">
+            <span class="pick-img"><img data-src="../assets/room-of-days/rooms/wall_archive-fireless-v3.webp" alt="" width="720" height="480" decoding="async" /></span>
+            <span class="pick-name">The Moonlit Archive</span>
+          </button>
+          <button type="button" role="radio" aria-checked="false" tabindex="-1" data-name="The Rain Room" data-line="rain on the glass, a seat by the window" data-price="0" data-alt="The Rain Room: rain on a dark window, a low sofa with cushions and a blanket, a lamp and a coffee table, and a lit fireplace on the right.">
+            <span class="pick-img"><img data-src="../assets/room-of-days/rooms/wall_rain-fireless-v1.webp" alt="" width="720" height="480" decoding="async" /></span>
+            <span class="pick-name">The Rain Room</span>
+          </button>
+          <button type="button" role="radio" aria-checked="false" tabindex="-1" data-name="The Painter’s Loft" data-line="paint on the table and something in progress" data-price="320" data-alt="The Painter’s Loft: a canvas on an easel by the window, a worktable with paint pots and brushes, and a lit fireplace on the right.">
+            <span class="pick-img"><img data-src="../assets/room-of-days/rooms/wall_atelier-fireless-v1.webp" alt="" width="720" height="480" decoding="async" /></span>
+            <span class="pick-name">The Painter’s Loft</span>
+          </button>
+        </div>
+        <p class="caption rooms-caption">Each plate is the app’s own room art, with the app’s hearth fire set into its firebox.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================ APP STORE FRAMES -->
+    <section class="case-section rod-section" id="store" aria-labelledby="store-title">
+      <div class="wrap film-head">
+        <h2 id="store-title" data-reveal>From the App Store listing</h2>
+        <div class="film-nav">
+          <button class="film-btn" type="button" data-film-prev aria-label="Previous frames" disabled><span aria-hidden="true">←</span></button>
+          <button class="film-btn" type="button" data-film-next aria-label="Next frames"><span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div class="film" data-film tabindex="0" role="region" aria-label="Nine App Store frames. Scroll sideways for more.">
+        <ol class="film-row">
+          <li class="film-item">
+            <button class="phone-frame" type="button" data-zoom="../assets/world/rod-store-quests.webp" data-caption="Today’s Quests. Six life stats sit above the Choose today prompt and the day’s open Quests; Read ten pages is the main Quest at +26 XP.">
+              <img data-src="../assets/world/rod-store-quests.webp" alt="Room of Days Quests screen: level 18 at 284 of 870 XP, six life stats, the Choose today prompt and Read ten pages, the main Quest, at +26 XP." width="645" height="1398" decoding="async" /><noscript><img src="../assets/world/rod-store-quests.webp" alt="Room of Days Quests screen: level 18 at 284 of 870 XP, six life stats, the Choose today prompt and Read ten pages, the main Quest, at +26 XP." width="645" height="1398" /></noscript>
+            </button>
+            <p class="caption"><strong>Today’s Quests.</strong> Six life stats sit above the Choose today prompt and the day’s open Quests; Read ten pages is the main Quest at +26&nbsp;XP.</p>
+          </li>
+          <li class="film-item">
+            <button class="phone-frame" type="button" data-zoom="../assets/world/rod-store-reward.webp" data-caption="A finished Quest. +26 XP, +8 Glimmers and +6 Mind land together, the streak multiplier shows ×1.6, and the receipt offers swipe to undo.">
+              <img data-src="../assets/world/rod-store-reward.webp" alt="A Quest complete receipt: +26 XP and +8 Glimmers, +6 Mind, streak ×1.6, and swipe to undo." width="645" height="1398" decoding="async" /><noscript><img src="../assets/world/rod-store-reward.webp" alt="A Quest complete receipt: +26 XP and +8 Glimmers, +6 Mind, streak ×1.6, and swipe to undo." width="645" height="1398" /></noscript>
+            </button>
+            <p class="caption"><strong>A finished Quest.</strong> +26&nbsp;XP, +8&nbsp;Glimmers and +6&nbsp;Mind land together, the streak multiplier shows ×1.6, and the receipt offers swipe to undo.</p>
+          </li>
+          <li class="film-item">
+            <button class="phone-frame" type="button" data-zoom="../assets/world/rod-store-workshop.webp" data-caption="The Workshop. The Steward, an optional character, asks what you’re working on. His lines are pre-written, with no AI chat.">
+              <img data-src="../assets/world/rod-store-workshop.webp" alt="The Workshop: the Steward at his bench asks what we are working on, with two Quests on the board and one route to shape." width="645" height="1398" decoding="async" /><noscript><img src="../assets/world/rod-store-workshop.webp" alt="The Workshop: the Steward at his bench asks what we are working on, with two Quests on the board and one route to shape." width="645" height="1398" /></noscript>
+            </button>
+            <p class="caption"><strong>The Workshop.</strong> The Steward, an optional character, asks what you’re working on. His lines are pre-written, with no AI chat.</p>
+          </li>
+          <li class="film-item">
+            <button class="phone-frame" type="button" data-zoom="../assets/room-of-days/store-05-recovery.webp" data-caption="When the day changes. A sheet offers to make the current move smaller, prepare the return, or leave today alone, which keeps your proof and current Quest where they are.">
+              <img data-src="../assets/room-of-days/store-05-recovery.webp" alt="A sheet titled The day changed asks What would help now?, above the current move and three choices: Make it smaller, Prepare the return and Leave today alone." width="645" height="1398" decoding="async" /><noscript><img src="../assets/room-of-days/store-05-recovery.webp" alt="A sheet titled The day changed asks What would help now?, above the current move and three choices: Make it smaller, Prepare the return and Leave today alone." width="645" height="1398" /></noscript>
+            </button>
+            <p class="caption"><strong>When the day changes.</strong> A sheet offers to make the current move smaller, prepare the return, or leave today alone, which keeps your proof and current Quest where they are.</p>
+          </li>
+          <li class="film-item">
+            <button class="phone-frame" type="button" data-zoom="../assets/room-of-days/store-06-plans.webp" data-caption="Plans. The Daybook calendar, with the next class above the month view.">
+              <img data-src="../assets/room-of-days/store-06-plans.webp" alt="Plans: the Daybook with Month, Week, 3 Days and Day views, the next class DES 210 Studio, and the August 2026 month view." width="645" height="1398" decoding="async" /><noscript><img src="../assets/room-of-days/store-06-plans.webp" alt="Plans: the Daybook with Month, Week, 3 Days and Day views, the next class DES 210 Studio, and the August 2026 month view." width="645" height="1398" /></noscript>
+            </button>
+            <p class="caption"><strong>Plans.</strong> The Daybook calendar, with the next class above the month view.</p>
+          </li>
+          <li class="film-item">
+            <button class="phone-frame" type="button" data-zoom="../assets/room-of-days/store-07-my-space.webp" data-caption="My Space. A private page where each section is labeled with who can see it; here every section is set to Only you.">
+              <img data-src="../assets/room-of-days/store-07-my-space.webp" alt="My Space, marked Private page, with About, Right now and Pinned moments sections, each labeled Only you." width="645" height="1398" decoding="async" /><noscript><img src="../assets/room-of-days/store-07-my-space.webp" alt="My Space, marked Private page, with About, Right now and Pinned moments sections, each labeled Only you." width="645" height="1398" /></noscript>
+            </button>
+            <p class="caption"><strong>My Space.</strong> A private page where each section is labeled with who can see it; here every section is set to Only you.</p>
+          </li>
+          <li class="film-item">
+            <button class="phone-frame" type="button" data-zoom="../assets/room-of-days/store-08-change-space.webp" data-caption="Change Space. The Living Conservatory preview with Move In; the app notes that switching rooms never costs anything again.">
+              <img data-src="../assets/room-of-days/store-08-change-space.webp" alt="Change your space: a Step inside preview of The Living Conservatory with a Move In button and the line Switching rooms never costs anything again." width="645" height="1398" decoding="async" /><noscript><img src="../assets/room-of-days/store-08-change-space.webp" alt="Change your space: a Step inside preview of The Living Conservatory with a Move In button and the line Switching rooms never costs anything again." width="645" height="1398" /></noscript>
+            </button>
+            <p class="caption"><strong>Change Space.</strong> The Living Conservatory preview with Move In; the app notes that switching rooms never costs anything again.</p>
+          </li>
+          <li class="film-item">
+            <button class="phone-frame" type="button" data-zoom="../assets/room-of-days/store-09-journal.webp" data-caption="Journal. Today’s Quest thread (+26 XP, Mind +6) attaches automatically when you write, and older entries show the player title they were written under beside the current one.">
+              <img data-src="../assets/room-of-days/store-09-journal.webp" alt="Journal: Write a new entry, Today’s thread with 1 quest, +26 XP and Mind +6, and July 2026 entries labeled with the player title they were written under." width="645" height="1398" decoding="async" /><noscript><img src="../assets/room-of-days/store-09-journal.webp" alt="Journal: Write a new entry, Today’s thread with 1 quest, +26 XP and Mind +6, and July 2026 entries labeled with the player title they were written under." width="645" height="1398" /></noscript>
+            </button>
+            <p class="caption"><strong>Journal.</strong> Today’s Quest thread (+26&nbsp;XP, Mind +6) attaches automatically when you write, and older entries show the player title they were written under beside the current one.</p>
+          </li>
+          <li class="film-item">
+            <button class="phone-frame" type="button" data-zoom="../assets/room-of-days/store-10-discover.webp" data-caption="Discover. An optional directory of open rooms; only a public name, the room’s title, the room and the level appear.">
+              <img data-src="../assets/room-of-days/store-10-discover.webp" alt="Discover spaces: a note on what stays private, a Your space is private card with Open to discover, and room cards for Rowan at level 21 and Juniper at level 14." width="645" height="1398" decoding="async" /><noscript><img src="../assets/room-of-days/store-10-discover.webp" alt="Discover spaces: a note on what stays private, a Your space is private card with Open to discover, and room cards for Rowan at level 21 and Juniper at level 14." width="645" height="1398" /></noscript>
+            </button>
+            <p class="caption"><strong>Discover.</strong> An optional directory of open rooms; only a public name, the room’s title, the room and the level appear.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================================================================ HOW IT'S BUILT -->
+    <section class="case-section rod-section" id="engineering" aria-labelledby="eng-title">
+      <div class="wrap">
+        <h2 id="eng-title" data-reveal>How it’s built</h2>
+        <dl class="built" data-reveal>
+          <div><dt>Offline first</dt><dd>The save on the phone is the source of truth. The core app works with no account, and Firebase backup is optional.</dd></div>
+          <div><dt>A protected social layer</dt><dd>Shared rooms and an opt-in directory run on TypeScript Cloud Functions that filter public names, rate-limit reports and support blocking. Protected writes require Firebase App Check with Apple App Attest, and calls without attestation are rejected on the live deployment.</dd></div>
+          <div><dt>Release pipeline</dt><dd>Codemagic CI tests, signs and uploads each iOS build with a written release record: builds up to 49 across versions 1.0.0 to 1.0.4.</dd></div>
+          <div><dt>Native widget</dt><dd>The latest builds add a Swift WidgetKit Home Screen widget beside the Flutter app.</dd></div>
+          <div class="built-sound">
+            <dt>Sound and music</dt>
+            <dd>In-key interaction sounds tuned on an iPhone speaker, and an original soundtrack synthesized in code.</dd>
+            <dd class="sound-row">
+              <div class="player rod-player" data-player data-clip="rod-lamp-left-on" data-label="Lamp left on, a room theme from the app">
+                <div class="player-top">
+                  <button class="play" type="button" aria-label="Play Lamp left on, a room theme from the app"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="i-play" d="M6 4l10 6-10 6z"/><path class="i-pause" d="M5.5 4h3v12h-3zM11.5 4h3v12h-3z"/></svg></button>
+                  <div><p class="player-name">“Lamp left on”</p><p class="player-meta">A room theme from the app · <span class="num" data-dur>1:36</span></p></div>
                 </div>
+                <svg class="wave" data-wave viewBox="0 0 96 32" preserveAspectRatio="none" role="slider" tabindex="0" aria-label="Seek Lamp left on" aria-valuemin="0" aria-valuemax="96" aria-valuenow="0"></svg>
+                <p class="transcript" data-transcript hidden></p>
+                <audio preload="none" src="../audio/world/rod-lamp-left-on.m4a" controls></audio>
               </div>
-            </div>
-          </section>
-        </div>
-      </div>
-      <section class="next-project">
-        <div class="wrap next-inner">
-          <div>
-            <p class="eyebrow muted">Keep exploring</p>
-            <h2>Room Notes</h2>
+              <button class="pill sfx-btn" type="button" data-rod-sfx><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8h3l4-3.5v11L6 12H3z"/></svg>Play the tap and completion sounds</button>
+            </dd>
           </div>
-          <a class="text-link" href="room-notes.html"
-            >Next project <span class="arrow" aria-hidden="true">↗</span></a
-          >
-        </div>
-      </section>
-    </main>
-    <footer class="site-footer">
-      <div class="wrap footer-inner">
-        <span>© 2026 Mika Be · made with care.</span>
-        <div class="footer-links">
-          <a href="https://github.com/mikabe1805" target="_blank" rel="noopener"
-            >GitHub <span class="arrow" aria-hidden="true">↗</span></a
-          ><a
-            href="https://linkedin.com/in/mika-be"
-            target="_blank"
-            rel="noopener"
-            >LinkedIn <span class="arrow" aria-hidden="true">↗</span></a
-          ><a href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener"
-            >Résumé <span class="arrow" aria-hidden="true">↗</span></a
-          ><a href="#main">Back to top ↑</a>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ================================================================ MY PART -->
+    <section class="case-section rod-section" id="my-part" aria-labelledby="mine">
+      <div class="wrap rod-mine" data-reveal>
+        <h2 id="mine">My part</h2>
+        <div class="mine-copy">
+        <p class="lead">I came up with Room of Days and checked the idea against competing apps and habit research before building it. I own its product direction, game design, UX, testing with family and outside testers, App Store submission, privacy answers and moderation.</p>
+        <p class="body-2">I set the art direction for room art made with an image model. The soundtrack is synthesized by code written to my brief, and I chose the takes by ear. The app itself runs no AI.</p>
         </div>
       </div>
-    </footer>
-  </body>
+    </section>
+
+    <nav class="wrap case-foot" aria-label="More work">
+      <a href="kuiper-tts.html">Next room: Kuiper TTS <span class="arr arr--fwd" aria-hidden="true">→</span></a>
+      <a class="back" href="../index.html#work"><span aria-hidden="true">←</span> All work</a>
+    </nav>
+  </main>
+
+  <footer class="wrap site-foot">
+    <span>© 2026 Mika Be</span>
+    <a href="../assets/licenses/OFL-EBGaramond.txt">Fonts under the SIL Open Font License</a>
+  </footer>
+
+  <dialog class="zoom" id="zoom" aria-label="Full-size image">
+    <img alt="" />
+    <div class="zoom-bar"><p class="zoom-cap"></p><form method="dialog"><button class="zoom-close">Close</button></form></div>
+  </dialog>
+</body>
 </html>

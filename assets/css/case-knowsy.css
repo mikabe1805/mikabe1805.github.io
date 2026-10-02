@@ -1,0 +1,331 @@
+/* Knowsy Breadboard Lab case page: the bench at night. Built on site.css (tokens, matte, toggles, meters,
+   the probe's schematic classes and the tex-holes room texture); everything here is scoped to this page.
+   Only transform and opacity animate. */
+
+/* ------------------------------------------------------------------ sections */
+.kn-section { padding: clamp(72px, 8.4vw, 132px) 0 0; }
+.kn-section .case-h2 { font-size: clamp(36px, 4vw, 60px); }
+.kn-head { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1fr); gap: 18px clamp(24px, 5vw, 84px); align-items: end; margin-bottom: clamp(28px, 3.4vw, 46px); }
+.kn-head h2 { margin: 0; }
+.kn-head p { margin: 0; max-width: 37em; }
+.kn-sub { font: 500 13px/1.45 var(--sans); letter-spacing: .01em; color: var(--text-3); margin: clamp(44px, 4.6vw, 64px) 0 14px; }
+.kn-mini { font: 500 13px/1.45 var(--sans); letter-spacing: .01em; color: var(--text-3); margin: 0 0 10px; }
+
+/* ------------------------------------------------------------------ arrival */
+.kn-arrival { padding: calc(var(--nav-top) + var(--nav-h) + clamp(40px, 7.5vh, 92px)) 0 clamp(8px, 2vw, 24px); }
+.kn-arrival.tex-holes::after { display: none; }           /* the moving bench lamp below replaces the static pool */
+.kn-arrival > .kn-lamp { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.kn-lamp-pool {
+  position: absolute; left: 0; top: 0; width: 1040px; height: 760px; overflow: hidden; opacity: 0;
+  transition: opacity 1600ms var(--ease); will-change: transform;
+  background: radial-gradient(closest-side, rgb(206 236 194 / .12), rgb(166 210 160 / .045) 58%, transparent);
+  -webkit-mask: radial-gradient(closest-side, #000 18%, transparent 100%); mask: radial-gradient(closest-side, #000 18%, transparent 100%);
+}
+.kn-arrival.is-lit .kn-lamp-pool { opacity: 1; }
+.kn-lamp-holes { /* the same 14 px hole grid as the room texture, brighter, kept in register while the pool moves */
+  position: absolute; left: 0; top: 0; width: 100vw; height: 1800px; will-change: transform;
+  background: radial-gradient(circle at 50% 50%, rgb(200 236 188 / .2) 1.35px, transparent 1.9px) 0 0 / 14px 14px;
+}
+.kn-arrival-top h1 { margin: 0 0 clamp(24px, 2.8vw, 38px); }
+.kn-arrival-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px clamp(28px, 5.6vw, 92px); align-items: start; }
+.kn-arrival-grid .lead { max-width: 35em; margin-bottom: 22px; }
+.kn-arr-down { transition: transform var(--t-hover) var(--ease); }
+a:hover .kn-arr-down { transform: translateY(2px); }
+.kn-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(18px, 2.2vw, 30px); margin: 4px 0 0; border-top: 1px solid var(--line); }
+.kn-facts div { padding: 13px 0 14px; border-bottom: 1px solid var(--line); }
+.kn-facts dt { font: 500 13px/1.5 var(--sans); color: var(--text-3); margin-bottom: 3px; }
+.kn-facts dd { font-size: 15px; line-height: 1.45; color: var(--text); }
+
+/* the Lab 1 capture on the bench, under the lamp */
+.kn-hero { position: relative; margin-top: clamp(40px, 4.4vw, 64px); }
+.kn-hero-frame {
+  position: relative; isolation: isolate; padding: 10px; border-radius: 22px;
+  background: rgb(255 252 246 / .035); border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 rgb(220 240 210 / .07), 0 60px 110px -60px #000, 0 30px 60px -40px rgb(0 0 0 / .7);
+}
+.kn-hero-frame::before { /* light from the lamp spilling onto the bench around the capture */
+  content: ""; position: absolute; z-index: -1; left: -10%; right: -10%; top: -26%; bottom: -14%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgb(206 232 196 / .12), rgb(166 210 160 / .035) 60%, transparent);
+}
+.kn-hero .shot img { border-radius: 13px; }
+.kn-hero .shot::before { /* the lamp sits above the capture: light falls off toward the lower corners */
+  content: ""; position: absolute; inset: 0; z-index: 1; border-radius: 13px; pointer-events: none;
+  background: radial-gradient(118% 100% at 50% 6%, transparent 52%, rgb(6 10 7 / .2) 82%, rgb(6 10 7 / .34) 100%);
+}
+.kn-hero .zoom-hint { z-index: 2; }
+/* the frame is a window on the capture: on arrival it shows the board (the lower 55%, with the supply, the 74LS04 and
+   the lit LED); choosing "Guided steps" pans it up to the checklist. View full size opens the whole capture. */
+.kn-pan { position: relative; border-radius: 13px; }
+.kn-pan-inner { position: relative; }
+.js .kn-pan { overflow: hidden; aspect-ratio: 2160 / 733; }
+.js .kn-pan-inner { transform: translateY(-45%); transition: transform .8s var(--ease); }
+.js .kn-pan[data-pan="top"] .kn-pan-inner { transform: none; }
+/* arrival: the capture sits in the dark until the bench lamp comes on (once, opacity only) */
+.kn-lights { display: none; }
+.js .kn-lights { display: block; position: absolute; inset: 0; z-index: 2; border-radius: 13px; pointer-events: none; background: rgb(6 9 7 / .78); transition: opacity 1100ms var(--ease-ignite) 220ms; }
+.js .kn-arrival.is-lit .kn-lights { opacity: 0; }
+.kn-spots { position: absolute; inset: 0; border-radius: 13px; overflow: hidden; pointer-events: none; }
+.kn-spots i {
+  position: absolute; left: var(--x); top: var(--y); width: var(--w); height: var(--h); min-width: 30px; min-height: 30px; border-radius: 10px;
+  box-shadow: 0 0 0 2px rgb(206 240 190 / .95), 0 0 22px 3px rgb(166 210 160 / .45), 0 0 0 300vmax rgb(5 9 6 / .5);
+  opacity: 0; transition: opacity .35s var(--ease);
+}
+.kn-spots i.on { opacity: 1; }
+.kn-hero figcaption { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 14px clamp(24px, 4vw, 56px); align-items: start; margin-top: 18px; }
+.kn-hero-cap { margin: 0; font-size: 14px; line-height: 1.55; color: var(--text-2); max-width: 44em; }
+.kn-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.kn-legend-label { font: 500 13px/1 var(--sans); color: var(--text-3); margin-right: 6px; }
+.kn-legend button {
+  min-height: 34px; padding: 0 13px; border-radius: var(--r-pill); border: 1px solid var(--line); background: rgb(255 252 246 / .025);
+  color: var(--text-2); font: 500 13px/1 var(--sans); cursor: pointer; transition: color var(--t-hover), background-color var(--t-hover), border-color var(--t-hover);
+}
+.kn-legend button:hover, .kn-legend button.is-hot { color: var(--text); background: rgb(var(--wl) / .07); border-color: rgb(var(--wl) / .3); }
+.kn-legend button[aria-pressed="true"] { color: var(--text); background: rgb(var(--wl) / .12); border-color: rgb(var(--wl) / .5); }
+.kn-legend button:active { transform: scale(.985); }
+
+/* ------------------------------------------------------------------ wired like the bench */
+.kn-features { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(18px, 2.4vw, 34px); }
+.kn-features li { padding-top: 16px; border-top: 1px solid var(--line); }
+.kn-features h4 { font: 500 clamp(20px, 1.6vw, 23px)/1.18 var(--serif); letter-spacing: -.005em; margin: 0 0 8px; }
+.kn-features p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text-2); }
+
+/* ------------------------------------------------------------------ the bench: how the lab reads a net */
+/* its own compositing layer: the probe and the net colours repaint inside it without repainting the bench texture behind */
+.kn-bench { --cv: #e0604f; --cg: #5f8fd6; padding: clamp(18px, 2.8vw, 40px); border-radius: 24px; background: rgb(255 252 246 / .03); will-change: transform; }
+.kn-bench[data-vcc="CONFLICT"] { --cv: #e3a33b; }
+.kn-bench[data-gnd="CONFLICT"] { --cg: #e3a33b; }
+.kn-bench .probe-glow { inset: -4% 18% 34% 6%; }
+.kn-bench-grid { display: grid; grid-template-columns: minmax(0, 1.34fr) minmax(0, 1fr); grid-template-rows: auto 1fr; gap: 24px clamp(24px, 3.8vw, 60px); align-items: start; }
+.kn-bench-left { grid-column: 1; grid-row: 1; }
+.kn-bench-right { grid-column: 2; grid-row: 1 / span 2; }
+.kn-instr { margin: 0; font-size: 13.5px; color: var(--text-3); }
+/* the wrapper leaves room for the probe body below the ground rail and overlaps the toggles by that much,
+   so only the drawing and the test points take the pointer */
+.kn-sch-wrap { position: relative; overflow: hidden; padding: 18px 0 54px; margin: 0 0 -38px; touch-action: manipulation; pointer-events: none; }
+.kn-sch-wrap .kn-sch, .kn-sch-wrap .kn-tp { pointer-events: auto; }
+.kn-controls { position: relative; z-index: 1; }
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) { .js .kn-sch-wrap, .js .kn-sch-wrap .kn-tp { cursor: none; } }
+.kn-sch { max-width: none; width: 100%; margin: 0; overflow: visible; }
+.kn-sch text { font: 500 13.5px var(--sans); fill: var(--text-3); }
+.kn-sch .kn-rail-label { fill: var(--text-2); }
+.kn-sch .kn-tag { font: 600 13.5px var(--mono); fill: var(--text); }
+.kn-sch .kn-vcc { stroke: var(--cv); }
+.kn-sch .kn-gnd { stroke: var(--cg); }
+.kn-sch .kn-vcc-fill { fill: var(--cv); transition: fill .35s; }
+.kn-sch .kn-gnd-fill { fill: var(--cg); transition: fill .35s; }
+.kn-bench[data-vcc="CONFLICT"] .kn-vcc, .kn-bench[data-gnd="CONFLICT"] .kn-gnd { stroke-dasharray: 3 5; }
+.kn-sch .kn-cath { stroke: var(--text-3); }
+.kn-sch .stray { stroke: var(--ca, #e0604f); }
+.kn-sch .sw-lever { transform-origin: 270px 196px; }
+.kn-stray-label { opacity: 0; transition: opacity .35s; }
+.kn-bench[data-stray="on"] .kn-stray-label { opacity: 1; }
+.kn-sch .led-glow { transition: opacity .4s; }
+/* the touched net lights along its whole length, as the lab traces a net */
+.kn-halo path { fill: none; stroke: currentColor; stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.kn-halo[data-on] path { opacity: .17; }
+.kn-halo .kn-halo-stray { display: none; }
+.kn-bench[data-stray="on"] .kn-halo .kn-halo-stray { display: inline; }
+/* the LP-10A logic probe, held over the circuit */
+/* the probe is its own composited layer over the drawing: its tip sits at the overlay's origin and the
+   overlay moves by transform, so following the pointer never repaints the schematic */
+.kn-pen { position: absolute; left: 0; top: 18px; width: 100%; height: auto; overflow: visible; pointer-events: none; will-change: transform; transition: transform .5s var(--ease); }
+.kn-pen.is-following { transition-duration: .12s; }
+.kn-pen-needle { stroke: #cfd4cb; stroke-width: 2.4; stroke-linecap: round; }
+.kn-pen-body { fill: #1d231e; stroke: rgb(236 231 223 / .28); stroke-width: 1; }
+.kn-pen-collar { fill: #38423a; }
+.kn-pen-shadow { fill: rgb(0 0 0 / .38); }
+.kn-pen-led { fill: #2b302c; stroke: rgb(0 0 0 / .45); stroke-width: .8; transition: fill .2s; }
+.kn-pen:not([data-air])[data-touch-level="HIGH"] .kn-pen-led--r { fill: #ff5a4a; }
+.kn-pen:not([data-air])[data-touch-level="LOW"] .kn-pen-led--g { fill: #6ee07c; }
+.kn-pen:not([data-air])[data-touch-level="CONFLICT"] .kn-pen-led--r { fill: #ff5a4a; opacity: .55; animation: kn-flick 170ms steps(1) 7; }
+.kn-pen:not([data-air])[data-touch-level="CONFLICT"] .kn-pen-led--g { fill: #6ee07c; opacity: .55; animation: kn-flick 170ms steps(1) 85ms 7; }
+@keyframes kn-flick { 0% { opacity: 1; } 50% { opacity: .15; } }
+/* test points */
+.kn-tps { position: absolute; left: 0; right: 0; top: 18px; bottom: 54px; }
+.kn-tp { position: absolute; left: var(--x); top: var(--y); width: 40px; height: 40px; margin: -20px 0 0 -20px; padding: 0; border: 0; border-radius: 50%; background: none; display: grid; place-items: center; cursor: pointer; }
+.kn-tp i { width: 15px; height: 15px; border-radius: 50%; background: rgb(13 18 15 / .55); box-shadow: inset 0 0 0 1.5px rgb(236 231 223 / .5); transition: transform .2s var(--ease), box-shadow .2s; }
+.kn-tp:hover i { transform: scale(1.2); box-shadow: inset 0 0 0 2px rgb(var(--wl)); }
+.kn-tp[aria-checked="true"] i { box-shadow: inset 0 0 0 2px rgb(var(--wl)), 0 0 12px rgb(var(--wl) / .55); }
+.kn-tp:focus-visible { outline-offset: 0; border-radius: 50%; }
+.kn-controls { margin-top: 14px; margin-bottom: 0; }
+.kn-note { margin: 14px 0 0; font-size: 14.5px; min-height: 4.7em; max-width: 46em; }
+
+/* readings */
+.kn-read { padding: 16px; border-radius: 16px; background: rgb(0 0 0 / .3); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .06); transition: opacity .25s; }
+.kn-read[data-air] { opacity: .6; }
+.kn-read-where { margin: 0 0 12px; font-size: 13.5px; color: var(--text-3); }
+.kn-read-where b { font-weight: 500; color: var(--text); }
+.kn-read-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.kn-lp { display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: start; align-items: center; gap: 6px 10px; padding: 12px 14px; border-radius: 14px; background: rgb(255 252 246 / .025); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .06); }
+.kn-lp-name { grid-column: 1 / -1; font-size: 13px; color: var(--text-2); }
+.kn-lp-leds { display: inline-flex; gap: 6px; }
+.kn-lp-leds i { width: 12px; height: 12px; border-radius: 50%; background: #262b27; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .55); transition: background-color .2s, box-shadow .2s; }
+.kn-read:not([data-air])[data-touch-level="HIGH"] .kn-led-r { background: #ff5a4a; box-shadow: 0 0 10px rgb(255 90 74 / .7); }
+.kn-read:not([data-air])[data-touch-level="LOW"] .kn-led-g { background: #6ee07c; box-shadow: 0 0 10px rgb(110 224 124 / .6); }
+.kn-read:not([data-air])[data-touch-level="CONFLICT"] .kn-led-r { background: #ff5a4a; opacity: .55; animation: kn-flick 170ms steps(1) 7; }
+.kn-read:not([data-air])[data-touch-level="CONFLICT"] .kn-led-g { background: #6ee07c; opacity: .55; animation: kn-flick 170ms steps(1) 85ms 7; }
+.kn-lp-level { font: 500 30px/1 var(--serif); letter-spacing: -.01em; }
+.kn-lp-cap { grid-column: 1 / -1; font-size: 12.5px; line-height: 1.4; color: var(--text-3); }
+.kn-meter { align-content: start; }
+.kn-meter .lcd { grid-column: 1 / -1; }
+.kn-vcap { grid-column: 1 / -1; font-size: 12.5px; line-height: 1.4; color: var(--text-3); }
+.kn-ledger { margin-top: 22px; }
+.kn-drivers { list-style: none; border-top: 1px solid var(--line); }
+.kn-drivers li { display: grid; grid-template-columns: minmax(0, 1fr) auto 4.4em; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.4; }
+.kn-dlabel { color: var(--text); }
+.kn-dlevel { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-2); }
+.kn-dlevel::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--lc, #8a8f8a); }
+.kn-dlevel[data-level="HIGH"] { --lc: #e0604f; }
+.kn-dlevel[data-level="LOW"] { --lc: #5f8fd6; }
+.kn-dlevel[data-level="FLOAT"] { --lc: #8a8f8a; }
+.kn-dlevel[data-level="CONFLICT"] { --lc: #e3a33b; }
+.kn-dstrength { font-size: 13px; color: var(--text-3); text-align: right; }
+.kn-drivers li[data-on="false"] .kn-dlabel, .kn-drivers li[data-on="false"] .kn-dlevel { color: var(--text-3); }
+.kn-drivers li[data-on="false"] .kn-dlevel::before { background: none; box-shadow: inset 0 0 0 1px rgb(var(--ink-rgb) / .35); }
+.kn-result { margin: 12px 0 0; font-size: 15px; line-height: 1.5; color: var(--text-2); }
+.kn-result b { font-weight: 600; color: var(--text); }
+
+/* all eight states */
+.kn-states { margin-top: 26px; }
+.kn-state-head, .kn-state { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, .8fr) minmax(0, .65fr) minmax(0, 1.08fr) minmax(0, 1.08fr) minmax(0, .7fr); gap: 8px; align-items: center; padding: 0 12px; }
+.kn-state-head span { font-size: 12.5px; color: var(--text-3); padding-bottom: 7px; }
+.kn-state-rows { display: grid; gap: 1px; }
+.kn-state { width: 100%; min-height: 36px; border: 0; border-radius: 10px; background: none; color: var(--text-2); font: 400 13.5px/1.2 var(--sans); text-align: left; cursor: pointer; transition: background-color var(--t-hover), color var(--t-hover); }
+.kn-state:hover { background: rgb(255 252 246 / .04); color: var(--text); }
+.kn-state[aria-checked="true"] { background: rgb(var(--wl) / .09); color: var(--text); box-shadow: inset 0 0 0 1px rgb(var(--wl) / .26); }
+.kn-state:active { transform: scale(.995); }
+.kn-state em { font-style: normal; }
+.kn-led-dot { display: inline-block; width: 9px; height: 9px; margin-right: 8px; border-radius: 50%; vertical-align: 0; background: #3a1512; box-shadow: inset 0 0 0 1px rgb(255 90 74 / .4); }
+.kn-led-dot.is-on { background: #ff5a4a; box-shadow: 0 0 8px rgb(255 90 74 / .7); }
+.kn-bench-foot { grid-column: 1; grid-row: 2; align-self: end; display: grid; gap: 12px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13.5px; line-height: 1.55; color: var(--text-3); max-width: 46em; }
+.kn-bench-foot p { margin: 0; }
+.kn-why-tag, .kn-card-lab b { display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: var(--r-pill); background: rgb(var(--wl) / .1); box-shadow: inset 0 0 0 1px rgb(var(--wl) / .22); color: var(--text); font: 500 12px/1 var(--sans); margin-right: 8px; vertical-align: 1px; }
+
+/* ------------------------------------------------------------------ the analog side */
+.kn-analog { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 28px clamp(28px, 4.8vw, 76px); align-items: center; }
+.kn-analog-copy h2 { margin-bottom: 20px; }
+.kn-formula { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 24px; padding: 14px 18px; border-radius: 14px; border: 1px solid var(--line); }
+.kn-formula math { font-size: 1.32em; color: var(--text); }
+.kn-formula p { margin: 0; font-size: 13.5px; color: var(--text-3); }
+.kn-bode .shot { padding: 7px; }
+.kn-bode figcaption { font-size: 14px; }
+
+/* ------------------------------------------------------------------ guided labs */
+.kn-shelf { padding: clamp(18px, 2.6vw, 34px); border-radius: 22px; }
+.kn-shelf-top { display: flex; flex-wrap: wrap; gap: 8px 30px; margin-bottom: 16px; }
+.kn-shelf-key { display: inline-flex; align-items: center; gap: 9px; margin: 0; font-size: 13px; color: var(--text-3); }
+.kn-key-dot, .kn-dot { position: relative; flex: none; width: 10px; height: 10px; border-radius: 50%; background: #050806; box-shadow: inset 0 1px 1.5px rgb(0 0 0 / .9), 0 0 0 1px rgb(236 231 223 / .16); }
+.kn-key-dot.is-lit, .kn-dot::after { background: #cdeec0; box-shadow: 0 0 8px 1px rgb(166 210 160 / .55); }
+.kn-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; opacity: 0; transition: opacity .5s var(--ease) var(--d, 0ms); }
+.kn-shelf.in .kn-dot.is-lit::after { opacity: 1; }
+.kn-labs { list-style: none; border-top: 1px solid var(--line); }
+.kn-lab { border-bottom: 1px solid var(--line); }
+.kn-lab-row {
+  width: 100%; display: grid; grid-template-columns: minmax(0, 19.5em) 11em minmax(0, 1fr) 16px; gap: 18px; align-items: center;
+  padding: 13px 8px; border: 0; border-radius: 10px; background: none; color: var(--text); font: inherit; text-align: left; cursor: pointer;
+  transition: background-color var(--t-hover);
+}
+.kn-lab-row:hover { background: rgb(255 252 246 / .03); }
+.kn-lab-row::after { content: ""; width: 8px; height: 8px; justify-self: end; border-right: 1.5px solid var(--text-3); border-bottom: 1.5px solid var(--text-3); transform: translateY(-3px) rotate(45deg); transition: transform .3s var(--ease); }
+.kn-lab-row[aria-expanded="true"]::after { transform: translateY(2px) rotate(225deg); }
+.kn-lab-name { font: 500 19px/1.25 var(--serif); letter-spacing: -.005em; }
+.kn-lab-count { font-size: 13px; color: var(--text-3); white-space: nowrap; }
+.kn-lab-count .num { font-size: 12.5px; color: var(--text-2); }
+.kn-dots { display: flex; flex-wrap: wrap; gap: 7px 16px; }
+.kn-grp { display: inline-flex; gap: 5px; }
+.kn-lab-secs { margin: 0; padding: 0 8px 16px; font-size: 13.5px; line-height: 1.6; color: var(--text-2); }
+.kn-shelf-total { margin: 16px 0 0; font-size: 13px; color: var(--text-3); }
+.kn-shelf-total .num { color: var(--text-2); font-size: 12.5px; }
+.kn-why { margin-top: clamp(36px, 4.2vw, 56px); }
+.kn-why-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 20px); }
+.kn-card { padding: 22px 22px 20px; }
+.kn-card-lab { margin: 0; font-size: 13px; color: var(--text-3); }
+.kn-card h3 { font-size: clamp(21px, 1.75vw, 25px); line-height: 1.18; margin: 12px 0 8px; }
+.kn-card-idea { margin: 0 0 8px; font: italic 400 17px/1.4 var(--serif); color: var(--text); }
+.kn-card p:last-child { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text-2); }
+
+/* ------------------------------------------------------------------ the audit */
+.kn-audit { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: 28px clamp(28px, 5vw, 84px); align-items: start; }
+.kn-audit-copy h2 { margin-bottom: 20px; }
+.kn-audit-copy .kn-sub { margin-top: 30px; }
+.kn-calls { list-style: none; border-top: 1px solid var(--line); }
+.kn-calls li { position: relative; padding: 10px 0 10px 22px; border-bottom: 1px solid var(--line); font-size: 14.5px; line-height: 1.5; color: var(--text-2); }
+.kn-calls li::before { content: ""; position: absolute; left: 2px; top: 17px; width: 8px; height: 8px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px rgb(var(--wl) / .8); }
+.kn-findings { list-style: none; border-top: 1px solid var(--line); }
+.kn-findings li { display: grid; gap: 6px; padding: 18px 0 19px; border-bottom: 1px solid var(--line); }
+.kn-findings h3 { font-size: clamp(21px, 1.8vw, 25px); line-height: 1.2; }
+.kn-findings p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text-2); max-width: 42em; }
+
+/* ------------------------------------------------------------------ my part */
+.kn-mine-grid { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: 20px clamp(28px, 5vw, 84px); padding-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--line); }
+.kn-mine-grid h2 { margin: 0; }
+.kn-mine-copy .lead { margin-bottom: 16px; }
+.kn-mine-copy .body-2 { max-width: 40em; }
+.kn-status { display: inline-flex; align-items: center; gap: 10px; margin: 6px 0 0; padding: 9px 16px; border-radius: var(--r-pill); border: 1px solid var(--line); font-size: 14px; color: var(--text); }
+.kn-status-dot { width: 8px; height: 8px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px rgb(var(--wl) / .85); }
+
+/* ------------------------------------------------------------------ responsive */
+@media (max-width: 1180px) {
+  .kn-bench-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .kn-bench-left, .kn-bench-right, .kn-bench-foot { grid-column: 1; grid-row: auto; }
+  .kn-bench-right { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px clamp(20px, 3vw, 40px); }
+  .kn-ledger { margin-top: 0; }
+  .kn-states { grid-column: 1 / -1; margin-top: 0; }
+  .kn-features { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 26px; }
+}
+@media (max-width: 900px) {
+  .kn-head, .kn-arrival-grid, .kn-analog, .kn-audit, .kn-mine-grid, .kn-hero figcaption { grid-template-columns: minmax(0, 1fr); }
+  .kn-head { align-items: start; }
+  .kn-bench-right { grid-template-columns: minmax(0, 1fr); }
+  .kn-why-row { grid-template-columns: minmax(0, 1fr); }
+  .kn-lab-row { grid-template-columns: minmax(0, 1fr) auto 16px; }
+  .kn-lab-row .kn-dots { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-width: 699px) {
+  .kn-arrival-top h1 { font-size: 54px; line-height: .92; }
+  /* phones: the capture follows the lede, so the lit board is on the first screen; the facts come after it
+     (they hold no controls, so focus order is unchanged) */
+  .kn-arrival { display: flex; flex-direction: column; }
+  .kn-arrival-top, .kn-arrival-grid { display: contents; }
+  .kn-arrival .kn-arrival-top > *, .kn-arrival .kn-arrival-grid > * { position: relative; z-index: 1; width: var(--wrap); margin-inline: auto; }
+  .kn-arrival .kn-facts { order: 2; margin-top: 26px; }
+  .kn-hero { order: 1; margin-top: 26px; }
+  .kn-hero-frame { padding: 5px; border-radius: 14px; }
+  .kn-hero .shot img { border-radius: 9px; }
+  .kn-spots, .js .kn-lights, .kn-pan { inset: 0; border-radius: 9px; }
+  .kn-spots i { min-width: 22px; min-height: 22px; border-radius: 6px; }
+  .kn-legend button { min-height: 40px; }
+  .kn-legend-label { width: 100%; margin-bottom: 2px; }
+  .kn-features { grid-template-columns: minmax(0, 1fr); }
+  .kn-bench { padding: 16px 14px 18px; border-radius: 20px; }
+  .kn-sch-wrap { margin-inline: -4px; }
+  .kn-sch text, .kn-sch .kn-tag { font-size: 23px; }
+  .kn-sch .kn-stray-label { display: none; }
+  .kn-read-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .kn-lp, .kn-meter { padding: 10px 11px; }
+  .kn-lp-level { font-size: 25px; }
+  .kn-drivers li { grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; }
+  .kn-drivers .kn-dlabel { grid-column: 1 / -1; }
+  .kn-drivers .kn-dstrength { text-align: left; }
+  .kn-state-head, .kn-state { gap: 6px; padding: 0 8px; grid-template-columns: 1.15fr .8fr .7fr 1.25fr 1.25fr .55fr; font-size: 12.5px; }
+  .kn-state-head span { font-size: 11.5px; }
+  .kn-state em { display: none; }
+  .kn-led-dot { margin-right: 0; }
+  .kn-lab-name { font-size: 18px; }
+  .kn-lab-row { grid-template-columns: minmax(0, 1fr) 16px; gap: 8px 12px; }
+  .kn-lab-row .kn-lab-count { grid-column: 1; grid-row: 2; }
+  .kn-lab-row .kn-dots { grid-row: 3; }
+  .kn-lab-row::after { grid-column: 2; grid-row: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kn-pen, .kn-pen.is-following { transition: none; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .kn-spots i { box-shadow: 0 0 0 2px rgb(206 240 190), 0 0 0 300vmax rgb(5 9 6 / .7); }
+}
+/* short laptops: tighter arrival rhythm so the board, the 74LS04 and the lit LED clear the fold */
+@media (max-height: 799px) and (min-width: 900px) {
+  .kn-arrival { padding-top: calc(var(--nav-top) + var(--nav-h) + 24px); }
+  .kn-arrival-top h1 { margin-bottom: 18px; }
+  .kn-hero { margin-top: 26px; }
+}

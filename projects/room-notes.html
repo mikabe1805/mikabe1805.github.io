@@ -1,445 +1,360 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Room Notes — Mika Be</title>
-    <meta
-      name="description"
-      content="Solo-developed notebook with desktop, iPad, and phone views; local-first document and sync architecture. Shared lecture notes are in development."
-    />
-    <link
-      rel="canonical"
-      href="https://mikabe1805.github.io/projects/room-notes.html"
-    />
-    <meta name="theme-color" content="#f5f3ed" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Room Notes — Mika Be" />
-    <meta
-      property="og:description"
-      content="Solo-developed notebook with desktop, iPad, and phone views; local-first document and sync architecture. Shared lecture notes are in development."
-    />
-    <meta
-      property="og:image"
-      content="https://mikabe1805.github.io/assets/social-preview.png"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-    <link
-      rel="preload"
-      href="../assets/instrument-serif.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link rel="stylesheet" href="../assets/site.css?v=144e8aa5ec" />
-    <script src="../assets/site.js?v=028b2a53f7" defer></script>
-    <noscript
-      ><style>
-        @media (max-width: 600px) {
-          .site-header {
-            height: auto;
-            min-height: 76px;
-          }
-          .header-inner {
-            flex-wrap: wrap;
-            padding-block: 18px;
-            gap: 14px;
-          }
-          .nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-          }
-          .nav a {
-            font: 12px var(--sans);
-            padding: 0;
-            border: 0;
-          }
-          .nav .resume-link {
-            padding: 0;
-            border: 0;
-          }
-          .menu-toggle {
-            display: none;
-          }
-        }
-      </style></noscript
-    >
-  <link rel="stylesheet" href="../assets/project-demos.css?v=ae2a647586" />
-    <script src="../assets/project-demos.js?v=career-20260913" defer></script>
-  </head>
-  <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="site-header">
-      <div class="wrap header-inner">
-        <a class="brand" href="../index.html" aria-label="Mika Be, home"
-          >mika be<span>.</span></a
-        >
-        <button
-          class="menu-toggle"
-          aria-expanded="false"
-          aria-controls="site-nav"
-        >
-          Menu +
-        </button>
-        <nav class="nav" id="site-nav" aria-label="Main navigation">
-          <a href="../index.html#work">Work</a
-          ><a href="../index.html#about">About</a
-          ><a href="../index.html#contact">Contact</a>
-          <a
-            class="resume-link"
-            href="../Mika-Be_Resume.pdf"
-            target="_blank"
-            rel="noopener"
-            >Résumé <span class="arrow" aria-hidden="true">↗</span></a
-          >
-        </nav>
-      </div>
-    </header>
-    <main id="main">
-      <section class="case-hero">
-        <div class="wrap">
-          <a class="breadcrumb" href="../index.html#work"
-            ><span aria-hidden="true">←</span> Back to selected work</a
-          >
-          <div class="case-title-grid">
-            <div>
-              <p class="eyebrow muted">
-                03 / Room Notes · cross-device notebook
-              </p>
-              <h1>Room Notes</h1>
-              <p class="case-deck">
-                The notebook I wanted for engineering classes. Handwrite on an
-                iPad, capture the board with a phone, type equations and code on
-                a laptop, and find it all on the same page. I started it in
-                August 2026 and take my own lecture notes in it.
-              </p>
-            </div>
-            <dl class="case-meta">
-              <div>
-                <dt>Role</dt>
-                <dd>Solo developer · product &amp; engineering</dd>
-              </div>
-              <div>
-                <dt>Scope</dt>
-                <dd>Editor · device-specific UX · storage &amp; sync</dd>
-              </div>
-              <div>
-                <dt>Stack</dt>
-                <dd>Flutter · Drift / SQLite · Firebase · custom iOS engine</dd>
-              </div>
-              <div>
-                <dt>Direction</dt>
-                <dd>Personal notebooks · shared lecture notes in development</dd>
-              </div>
-            </dl>
-          </div>
-          <div class="notes-desktop-hero">
-            <figure class="capture">
-              <a
-                class="capture-link"
-                href="../assets/notes-desktop-edit-20260907.png"
-                data-gallery="notes"
-                data-caption="Desktop text-editing view with formatting controls open on selected course notes."
-                aria-label="Enlarge: Desktop text-editing view with formatting controls open on selected course notes"
-                ><img
-                  src="../assets/notes-desktop-edit-20260907.png"
-                  width="1440"
-                  height="900"
-                  alt="Desktop text-editing view with formatting controls open on selected course notes"
-                  loading="eager"
-                /><span class="capture-open" aria-hidden="true">↗</span></a
-              >
-              <figcaption>
-                Desktop text-editing view with formatting controls open on
-                selected course notes.
-              </figcaption>
-            </figure>
-          </div>
-          <p class="caption">
-            Fresh captures from the current app with sample coursework. Open any
-            image for a closer look.
-          </p>
-        </div>
-      </section>
-      <div class="wrap case-layout">
-        <aside class="case-nav" aria-label="On this page">
-          <a href="#idea">The notebook should follow you.</a
-          ><a href="#try-notebook">Try a page.</a><a href="#devices">Device layouts</a
-          ><a href="#editor">More than one kind of content.</a
-          ><a href="#architecture">Document model, storage &amp; sync</a
-          ><a href="#next">In development: shared lecture notes</a>
-        </aside>
-        <div>
-          <section class="case-section" id="idea">
-            <h2>The notebook should follow you.</h2>
-            <p>
-              A student’s work rarely stays in one mode. A longer explanation,
-              an equation, a diagram, and a quick review need different kinds of
-              space and controls.
-            </p>
-            <p>
-              I built Room Notes around one document model with interfaces that
-              can make room for those different tasks.
-            </p>
-            <div class="ownership-note">
-              <span class="eyebrow">End-to-end ownership</span>
-              <p>
-                As the solo developer, I own the product direction, Flutter
-                editor, device layouts, local database, synchronization, and the
-                validation that connects them. That goes down to the engine: I
-                patched Flutter’s iOS engine to read the extra Apple Pencil
-                samples iPadOS records between frames, for smoother handwriting,
-                and built it in CI for TestFlight. 1,700+ automated tests cover
-                the editor and sync.
-              </p>
-            </div>
-          </section>
-          <section class="case-section" id="try-notebook"><h2>Try a page.</h2><p>Use words and a sketch together. Edit the note, choose an ink color, and draw with a mouse, touch, or pen. You can undo a mark or reset the page.</p><div class="project-demo notes-demo" data-notes-demo>
-  <div class="demo-heading"><div><p class="demo-kicker">Room Notes / interactive page</p><h4>Put an idea on paper.</h4></div><p>Type a note, then sketch below.</p></div>
-  <div class="notes-desk">
-    <div class="notes-demo-toolbar" role="group" aria-label="Notebook tools">
-      <span class="notes-tool-label">Ink</span>
-      <button type="button" data-ink="#454139" class="ink-swatch graphite" aria-label="Graphite ink" aria-pressed="true"><span></span></button>
-      <button type="button" data-ink="#a55939" class="ink-swatch terracotta" aria-label="Terracotta ink" aria-pressed="false"><span></span></button>
-      <button type="button" data-ink="#507465" class="ink-swatch sage" aria-label="Sage ink" aria-pressed="false"><span></span></button>
-      <span class="notes-toolbar-spacer"></span>
-      <button type="button" data-notes-undo disabled>Undo ink</button>
-      <button type="button" data-notes-reset>Reset page</button>
-    </div>
-    <div class="demo-paper">
-      <div class="paper-heading"><span>Signals &amp; Systems</span><span>01 / Working notes</span></div>
-      <label class="paper-note-label">Your note<textarea data-notes-text rows="3" maxlength="350" spellcheck="false" aria-label="Edit the notebook note">A capacitor reaches about 63% of its final voltage after one time constant.
-Sketch the charging curve below.</textarea></label>
-      <div class="sketch-area">
-        <svg data-notes-ink viewBox="0 0 800 270" role="img" aria-label="Drawing area. Drag to draw, or use Sketch a curve below.">
-          <g class="sketch-guide" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M65 30V220H745"/><path d="M59 39L65 29L71 39M735 214L745 220L735 226"/></g>
-          <g class="sketch-labels" fill="currentColor"><text x="39" y="39">V</text><text x="749" y="242">t</text></g>
-          <g data-notes-strokes fill="none" stroke-linecap="round" stroke-linejoin="round"></g>
-          <text class="draw-prompt" x="405" y="126" text-anchor="middle">Draw something here.</text>
-        </svg>
-      </div>
-      <div class="paper-footer"><span data-notes-status role="status">Ready for your first mark.</span><button type="button" data-notes-curve>Sketch a curve <span aria-hidden="true">↗</span></button></div>
-    </div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Room Notes | Mika Be</title>
+  <meta name="description" content="Room Notes, Mika Be’s cross-device notebook for engineering classes: one fixed-layout page on iPad, iPhone and laptop, a pen freeze traced and removed, and local saves tested against hard process kills." />
+  <meta name="author" content="Mika Be" />
+  <link rel="canonical" href="https://mikabe1805.github.io/projects/room-notes.html" />
+  <meta name="theme-color" content="#10151c" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Mika Be" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Room Notes | Mika Be" />
+  <meta property="og:description" content="A cross-device notebook for engineering classes, in private TestFlight beta. One fixed-layout page on iPad, iPhone and laptop." />
+  <meta property="og:url" content="https://mikabe1805.github.io/projects/room-notes.html" />
+  <meta property="og:image" content="https://mikabe1805.github.io/assets/social/room-notes.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Room Notes: the same page, Convolution and impulse response, rendered by the app on a laptop, an iPad and a phone, over slate grid paper." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Room Notes | Mika Be" />
+  <meta name="twitter:description" content="A cross-device notebook for engineering classes, in private TestFlight beta. One fixed-layout page on iPad, iPhone and laptop." />
+  <meta name="twitter:image" content="https://mikabe1805.github.io/assets/social/room-notes.jpg" />
+  <meta name="twitter:image:alt" content="Room Notes: the same page, Convolution and impulse response, rendered by the app on a laptop, an iPad and a phone, over slate grid paper." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <!-- font preloads over http only: from file:// a crossorigin preload is blocked (origin null) and the faces would not load -->
+  <script>if (location.protocol !== "file:") ["EBGaramond-Variable", "Inter-Regular"].forEach(function (f) { var l = document.createElement("link"); l.rel = "preload"; l.as = "font"; l.type = "font/woff2"; l.crossOrigin = ""; l.href = "../assets/fonts/" + f + ".woff2"; document.head.appendChild(l); });</script>
+  <link rel="stylesheet" href="../assets/css/site.css" />
+  <link rel="stylesheet" href="../assets/css/case-room-notes.css" />
+  <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+  <script src="../assets/js/data.js" defer></script>
+  <script src="../assets/js/core.js" defer></script>
+  <script src="../assets/js/hand-ref.js" defer></script>
+  <script src="../assets/js/notes.js" defer></script>
+  <script src="../assets/js/case-room-notes.js" defer></script>
+</head>
+<body data-world="notes" data-room="Room Notes" data-base="../">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="world-light" aria-hidden="true">
+    <i data-light="hall"></i><i data-light="rod"></i><i data-light="kuiper"></i><i data-light="notes"></i><i data-light="knowsy"></i><i data-light="shell"></i>
   </div>
-  <p class="demo-note">A small browser illustration of text and ink sharing a page. The app captures below show Room Notes itself.</p>
-</div>
-<noscript><p class="caption">Enable JavaScript to try this interactive example. You can still explore the project details and captures on this page.</p></noscript></section>
-          <section class="case-section" id="devices">
-            <h2>Device layouts</h2>
-            <p>
-              The desktop puts text formatting around the document. The iPad puts
-              pen tools within reach of the page. The phone makes room for
-              bringing in PDFs, paper notes, photos, and clipboard content.
-            </p>
-            <p>
-              A fixed page gives each item a consistent position. The layouts
-              change the tools around that page without reflowing its contents.
-            </p>
-            <div class="notes-device-pair">
-              <figure class="capture">
-                <a
-                  class="capture-link"
-                  href="../assets/notes-ipad-ink-20260907.png"
-                  data-gallery="notes"
-                  data-caption="iPad ink page with typed circuit notes, a drawn charging curve, and pen annotations."
-                  aria-label="Enlarge: iPad ink page with typed circuit notes, a drawn charging curve, and pen annotations"
-                  ><img
-                    src="../assets/notes-ipad-ink-20260907.png"
-                    width="1024"
-                    height="1366"
-                    alt="iPad ink page with typed circuit notes, a drawn charging curve, and pen annotations"
-                    loading="lazy"
-                  /><span class="capture-open" aria-hidden="true">↗</span></a
-                >
-                <figcaption>
-                  iPad: typed circuit notes and an ink charging curve share the
-                  same page. Pen controls sit below the graph paper.
-                </figcaption>
-              </figure>
-              <figure class="capture">
-                <a
-                  class="capture-link"
-                  href="../assets/notes-phone-import-20260907.png"
-                  data-gallery="notes"
-                  data-caption="Phone Add material screen with PDF, scan, photo, image, and clipboard choices."
-                  aria-label="Enlarge: Phone Add material screen with PDF, scan, photo, image, and clipboard choices"
-                  ><img
-                    src="../assets/notes-phone-import-20260907.png"
-                    width="430"
-                    height="932"
-                    alt="Phone Add material screen with PDF, scan, photo, image, and clipboard choices"
-                    loading="lazy"
-                  /><span class="capture-open" aria-hidden="true">↗</span></a
-                >
-                <figcaption>
-                  Phone: the Add material sheet gathers PDF, scan, photo, image,
-                  and clipboard choices.
-                </figcaption>
-              </figure>
-            </div>
-          </section>
-          <section class="case-section" id="editor">
-            <h2>More than one kind of content.</h2>
-            <p>
-              A technical explanation can need prose, an equation, code, and a
-              diagram together. Room Notes supports those blocks within the
-              same notebook, with a component picker for engineering symbols.
-            </p>
-            <div class="notes-depth-gallery">
-              <figure class="capture">
-                <a
-                  class="capture-link"
-                  href="../assets/notes-code-20260907.png"
-                  data-gallery="notes"
-                  data-caption="Desktop page with convolution notes, a rendered equation, and a complete Python code block."
-                  aria-label="Enlarge: Desktop page with convolution notes, a rendered equation, and a complete Python code block"
-                  ><img
-                    src="../assets/notes-code-20260907.png"
-                    width="1440"
-                  height="1000"
-                    alt="Desktop page with convolution notes, a rendered equation, and a complete Python code block"
-                    loading="lazy"
-                  /><span class="capture-open" aria-hidden="true">↗</span></a
-                >
-                <figcaption>
-                  Desktop: typed convolution notes, a rendered equation, and a
-                  complete Python example with line numbers.
-                </figcaption>
-              </figure>
-              <figure class="capture">
-                <a
-                  class="capture-link"
-                  href="../assets/notes-components-20260907.png"
-                  data-gallery="notes"
-                  data-caption="iPad Engineering Components picker with logic-gate and breadboard choices."
-                  aria-label="Enlarge: iPad Engineering Components picker with logic-gate and breadboard choices"
-                  ><img
-                    src="../assets/notes-components-20260907.png"
-                    width="1024"
-                    height="1366"
-                    alt="iPad Engineering Components picker with logic-gate and breadboard choices"
-                    loading="lazy"
-                  /><span class="capture-open" aria-hidden="true">↗</span></a
-                >
-                <figcaption>
-                  iPad Engineering Components picker with logic-gate and breadboard choices.
-                </figcaption>
-              </figure>
-            </div>
-          </section>
-          <section class="case-section" id="architecture">
-            <p class="eyebrow muted">Source-backed implementation</p>
-            <h2>Document model, storage &amp; sync</h2>
-            <p>
-              A notebook earns its place by keeping the work. I built the
-              editing and synchronization around that responsibility, with local
-              persistence, restart-safe pending work, and explicit handling for
-              competing revisions.
-            </p>
-            <div class="flow">
-              <div>
-                <small>01 / Edit</small><strong>One fixed page</strong
-                ><span>Ink and blocks share canonical coordinates.</span>
-              </div>
-              <div>
-                <small>02 / Save</small><strong>Local transaction</strong
-                ><span
-                  >Store the edit and its pending sync operation together.</span
-                >
-              </div>
-              <div>
-                <small>03 / Resume</small><strong>Durable outbox</strong
-                ><span>Unsent work survives an app restart.</span>
-              </div>
-              <div>
-                <small>04 / Continue</small><strong>Cloud operations</strong
-                ><span>Queue changes for another signed-in device.</span>
-              </div>
-            </div>
-            <h3>Stable geometry</h3>
-            <p>
-              Authored pages use a fixed 900 × 1200 coordinate system. Each
-              device scales and pans that page, so changing screens does not
-              rearrange a diagram or detach an annotation from its subject.
-            </p>
-            <h3>Local work comes first</h3>
-            <p>
-              Drift/SQLite stores edits alongside queued synchronization work in
-              one transaction. A slow connection does not need to interrupt
-              writing, and a restart does not erase the queue.
-            </p>
-            <h3>Conflicts preserve work</h3>
-            <p>
-              Append-only cloud operations and alternate-copy preservation give
-              competing revisions a recovery path. The design makes uncertainty
-              visible instead of silently discarding a version.
-            </p>
-            <h3>Validation follows the risk</h3>
-            <p>
-              I check save-and-reopen behavior, interrupted synchronization,
-              document geometry, and cloud access rules. Rendered interface
-              review complements physical Pencil testing for latency, pressure,
-              and palm behavior.
-            </p>
-          </section>
-          <section class="case-section" id="next">
-            <h2>In development: shared lecture notes</h2>
-            <div class="future-note">
-              <span class="eyebrow"
-                >In development / shared notes per lecture</span
-              >
-              <h3>One lecture. More than one way to understand it.</h3>
-              <p>
-                I’m extending Room Notes toward shared lecture pages: a way for
-                classmates to contribute useful perspectives, compare
-                explanations, and find what they missed.
-              </p>
-              <p>
-                The foundation stays personal. Sharing a page is an intentional
-                action; joining a class should never publish someone’s notebook.
-                This direction is in development, building on the document and
-                sync architecture already in the app.
-              </p>
-            </div>
-            <p>
-              The larger ambition is a notebook that supports the whole learning
-              process: capture an idea, work it through in the right medium,
-              return to it anywhere, and eventually learn from the people
-              studying alongside you.
-            </p>
-          </section>
-        </div>
-      </div>
-      <section class="next-project">
-        <div class="wrap next-inner">
-          <div>
-            <p class="eyebrow muted">Keep exploring</p>
-            <h2>Knowsy Breadboard Lab</h2>
+  <header class="nav-wrap">
+    <nav class="nav glass" data-fixed aria-label="Main">
+      <a class="nav-name" href="../index.html">Mika Be</a>
+      <span class="nav-room empty"><i aria-hidden="true"></i><span></span></span>
+      <span class="nav-links">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#about">About</a>
+        <a href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener">Résumé<span class="arr" aria-hidden="true">↗</span></a>
+      </span>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ================================================================ ARRIVAL: the pad under the lamp -->
+    <section class="room tex-grid arrival rn-arrival" data-lamp aria-labelledby="page-title">
+      <div class="wrap rn-arrive">
+        <div class="rn-arrive-copy">
+          <p class="kicker">Cross-device notebook · private TestFlight beta</p>
+          <h1 id="page-title">Room Notes</h1>
+          <p class="lead">A notebook for engineering classes where each device does a different job over the same fixed-layout pages. I started it in August 2026 and had a TestFlight build eight days after writing the spec. I take my own lecture notes in it.</p>
+          <div class="links">
+            <a class="pill pill--light" href="#pen-freeze" data-arrive-focus>How the pen freeze was traced <span class="arr rn-arr-down" aria-hidden="true">↓</span></a>
           </div>
-          <a class="text-link" href="knowsy.html"
-            >Next project <span class="arrow" aria-hidden="true">↗</span></a
-          >
+          <dl class="arrival-facts">
+            <div><dt>Status</dt><dd>Private TestFlight beta</dd></div>
+            <div><dt>Devices</dt><dd>iPad, iPhone and laptop</dd></div>
+            <div><dt>Built with</dt><dd>Flutter, Drift (SQLite), Firestore, Cloud Functions, Codemagic CI</dd></div>
+            <div><dt>Started</dt><dd>August 2026</dd></div>
+          </dl>
         </div>
-      </section>
-    </main>
-    <footer class="site-footer">
-      <div class="wrap footer-inner">
-        <span>© 2026 Mika Be · made with care.</span>
-        <div class="footer-links">
-          <a href="https://github.com/mikabe1805" target="_blank" rel="noopener"
-            >GitHub <span class="arrow" aria-hidden="true">↗</span></a
-          ><a
-            href="https://linkedin.com/in/mika-be"
-            target="_blank"
-            rel="noopener"
-            >LinkedIn <span class="arrow" aria-hidden="true">↗</span></a
-          ><a href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener"
-            >Résumé <span class="arrow" aria-hidden="true">↗</span></a
-          ><a href="#main">Back to top ↑</a>
+        <div class="rn-arrive-bench">
+          <span class="lamp rn-bench-lamp" aria-hidden="true"></span>
+          <article class="matte rn-bench" data-bench data-mode="b30" aria-labelledby="bench-title">
+            <h2 class="sr-only" id="bench-title">Pen freeze replay</h2>
+            <div class="rn-bench-pad">
+              <div class="pen-surface" data-bench-surface>
+                <canvas role="img" aria-label="Writing pad. Draw with a mouse, finger or pen, or use Replay the measured case."></canvas>
+                <p class="pen-instr">Write a line, lift the pen for about two seconds, then write again.</p>
+                <span class="pen-held-flag" aria-hidden="true"><i></i>Pen held</span>
+                <span class="rn-cue" aria-hidden="true"><i></i>About two seconds: write again</span>
+                <span class="rn-ref-tag" aria-hidden="true">The measured timing, replayed. Write to try it.</span>
+              </div>
+            </div>
+            <div class="rn-bench-side">
+              <div class="rn-bench-mode">
+                <p class="rn-label" id="pad-follows">The pad follows</p>
+                <div class="seg" role="group" aria-labelledby="pad-follows">
+                  <button type="button" data-bench-mode="b30" aria-pressed="true">Build 30</button>
+                  <button type="button" data-bench-mode="now" aria-pressed="false">Now</button>
+                  <i class="seg-ink" aria-hidden="true"></i>
+                </div>
+              </div>
+              <dl class="rn-read" aria-live="polite">
+                <div><dt>Pause</dt><dd data-bench-pause>none yet</dd></div>
+                <div><dt>Pen held</dt><dd data-bench-held>none yet</dd></div>
+              </dl>
+              <p class="pen-hint rn-hint" data-bench-hint hidden>The replay models only the two-second pause the benchmark reports.</p>
+              <div class="rn-bench-actions">
+                <button class="pill" type="button" data-bench-replay>Replay the measured case</button>
+                <button class="text-btn" type="button" data-bench-clear>Clear</button>
+              </div>
+            </div>
+
+            <div class="rn-trace" data-trace>
+              <div class="rn-trace-head">
+                <p class="rn-label" data-trace-title>The measured timing, replayed</p>
+                <p class="rn-trace-scale" aria-hidden="true"><i data-trace-scale></i>one second</p>
+              </div>
+              <div class="rn-trace-body">
+                <ul class="rn-lanes" aria-hidden="true">
+                  <li><b>Pen</b></li>
+                  <li><b>Build 30</b><span>ink</span></li>
+                  <li><b></b><span>UI thread</span></li>
+                  <li><b>Now</b><span>ink</span></li>
+                </ul>
+                <canvas class="rn-trace-canvas" data-trace-canvas role="img" aria-label="Trace of the measured case. After a pause of about two seconds, Build 30 holds the pen for 1,479 ms while the UI thread handles its own save echo. Now, the ink appears right away."></canvas>
+                <svg class="rn-static-trace" viewBox="0 0 420 108" role="img" aria-label="Timeline. Build 30: after the pause, the UI thread is busy handling its own save echo, and the pen is held for 1,479 ms until the ink flushes. Now: the ink appears right away.">
+                  <defs><pattern id="rn-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="rgb(224 96 79 / .14)"/><line x1="0" y1="0" x2="0" y2="6" stroke="rgb(224 96 79 / .75)" stroke-width="2"/></pattern></defs>
+                  <rect x="20" y="20" width="80" height="10" rx="3" fill="rgb(236 231 223 / .5)"/><rect x="240" y="20" width="80" height="10" rx="3" fill="rgb(236 231 223 / .5)"/>
+                  <rect x="20" y="46" width="80" height="10" rx="3" fill="rgb(236 231 223 / .5)"/><rect x="240" y="45" width="110" height="12" rx="3" fill="url(#rn-hatch)" stroke="rgb(224 96 79 / .7)"/><rect x="352" y="46" width="60" height="10" rx="3" fill="rgb(236 231 223 / .5)"/>
+                  <rect x="240" y="72" width="110" height="10" rx="3" fill="rgb(120 152 200 / .55)"/>
+                  <rect x="20" y="96" width="80" height="10" rx="3" fill="rgb(236 231 223 / .5)"/><rect x="240" y="96" width="80" height="10" rx="3" fill="rgb(236 231 223 / .5)"/>
+                </svg>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
-    </footer>
-  </body>
+    </section>
+
+    <!-- ================================================================ THE PEN FREEZE: what the pad replays -->
+    <section class="room tex-grid case-section rn-pen" id="pen-freeze" data-lamp aria-labelledby="pen-title">
+      <div class="wrap rn-pen-head">
+        <h2 class="case-h2" id="pen-title" tabindex="-1" data-room-heading>A pen freeze, traced and removed</h2>
+        <div class="rn-pen-intro">
+          <p class="body-2">In TestFlight Build 30’s code, pausing for about two seconds and then writing again froze the pen for about a second and a half. Profiling traced it to one long task on the UI thread: the app handling the sync echo of its own save, which re-encoded the whole library each time. The length of the pause only decided whether the next stroke landed inside that task.</p>
+          <p class="body-2">The main fix changed how that echo is merged: the catalog now compares page records by their metadata alone. After the fix, the hold sits at the harness’s timer floor.</p>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="rn-pen-foot" data-reveal>
+          <dl class="rn-result" aria-label="Pen held after a pause of about two seconds">
+            <div><dt>Build 30</dt><dd><span class="rn-big"><span class="num">1,479 ms</span></span> median, re-run <span class="num">1,462 ms</span></dd></div>
+            <div><dt>Now</dt><dd><span class="rn-big"><small>about</small> <span class="num">1.5 ms</span></span> median (the timer’s floor), worst <span class="num">8.3 ms</span></dd></div>
+          </dl>
+          <p class="rn-method">Measured in a desktop test that runs the app’s real editor, SQLite repository and sync service against an in-memory Firestore that mimics iOS delivery. Not yet confirmed on the iPad. The pad is a browser replay of the measured timing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ ONE PAGE ON EVERY DEVICE -->
+    <section class="case-section rn-devices" id="devices" aria-labelledby="devices-title">
+      <div class="wrap rn-dev-head">
+        <h2 class="case-h2" id="devices-title">One page on every device</h2>
+        <p class="body-2 measure">Pages use a fixed 900&nbsp;×&nbsp;1200 coordinate system, so nothing reflows between devices. The iPad is for Apple Pencil writing, the phone for board photos, scans and markup, and the laptop for typed notes, equations and code.</p>
+      </div>
+
+      <figure class="wrap devices rn-hero-devices" data-devices data-default="all" data-default-narrow="phone" data-reg>
+        <span class="lamp devices-lamp" aria-hidden="true"></span>
+        <div class="device-stage" id="device-stage" role="tabpanel" aria-labelledby="dev-all" data-device-stage data-active="all">
+          <button class="device device--laptop" type="button" data-device="laptop" data-zoom="../assets/world/rn-laptop.webp" data-caption="Laptop. Typed text, a rendered convolution integral and a Python block on the page.">
+            <img src="../assets/world/rn-laptop.webp" loading="lazy" alt="Room Notes on a laptop: the page Convolution and impulse response with typed text, a rendered convolution integral and a Python code block." width="1440" height="900" decoding="async" />
+          </button>
+          <button class="device device--ipad" type="button" data-device="ipad" data-zoom="../assets/world/rn-ipad.webp" data-caption="iPad. The same page, with rows of pen strokes written below it.">
+            <img src="../assets/world/rn-ipad.webp" loading="lazy" alt="Room Notes on an iPad: the same Convolution and impulse response page, with rows of pen strokes written below it." width="1024" height="1366" decoding="async" />
+          </button>
+          <button class="device device--phone" type="button" data-device="phone" data-zoom="../assets/world/rn-phone-page.webp" data-caption="Phone. The same page, Convolution &amp; impulse response, in reading mode." data-zoom-solo="../assets/world/rn-phone-photo.webp" data-caption-solo="Phone. The same page with the board-photo sheet open. A photo of the board, a slide or a handout becomes its own page after this one.">
+            <img class="ph-page" src="../assets/world/rn-phone-page.webp" loading="lazy" alt="Room Notes on a phone: the same Convolution and impulse response page in reading mode, under the notebook header and toolbar." width="430" height="932" decoding="async" />
+            <img class="ph-solo" src="../assets/world/rn-phone-photo.webp" loading="lazy" alt="" data-alt="Room Notes on a phone: the same page with the Board photo sheet open, offering Take a board photo or Choose from Photos." aria-hidden="true" width="430" height="932" decoding="async" />
+          </button>
+        </div>
+        <div class="seg device-tabs" role="tablist" aria-label="Show the page on">
+          <button type="button" role="tab" id="dev-all" data-device-tab="all" aria-selected="true" aria-controls="device-stage">All three</button>
+          <button type="button" role="tab" id="dev-laptop" data-device-tab="laptop" aria-selected="false" aria-controls="device-stage" tabindex="-1">Laptop</button>
+          <button type="button" role="tab" id="dev-ipad" data-device-tab="ipad" aria-selected="false" aria-controls="device-stage" tabindex="-1">iPad</button>
+          <button type="button" role="tab" id="dev-phone" data-device-tab="phone" aria-selected="false" aria-controls="device-stage" tabindex="-1">Phone</button>
+          <i class="seg-ink" aria-hidden="true"></i>
+        </div>
+        <figcaption class="device-caption" aria-live="polite">
+          <span data-device-cap="all"><strong>All three.</strong> One page, Convolution &amp; impulse response, rendered by the app on a laptop, an iPad and a phone.</span>
+          <span data-device-cap="laptop" hidden><strong>Laptop.</strong> Typed text, a rendered convolution integral and a Python block on the page.</span>
+          <span data-device-cap="ipad" hidden><strong>iPad.</strong> The same page, with rows of pen strokes written below it.</span>
+          <span data-device-cap="phone" hidden><strong>Phone.</strong> The same page with the board-photo sheet open. A photo of the board, a slide or a handout becomes its own page after this one.</span>
+          <small>Renders of the current app with sample content and scripted pen input.</small>
+        </figcaption>
+        <p class="rn-reg-hint" data-reg-hint hidden><span>Point at the page on one device to mark the same spot on the other two.</span> <span class="num rn-reg-read" data-reg-read aria-hidden="true"></span></p>
+      </figure>
+
+      <div class="wrap rn-phones-row">
+        <div class="rn-phones">
+          <figure class="rn-phone" data-reveal>
+            <button class="phone-frame" type="button" data-zoom="../assets/room-notes/rn-capture-sheet.webp">
+              <img src="../assets/room-notes/rn-capture-sheet.webp" alt="Room Notes on a phone: the Add material sheet over the Convolution and impulse response page, with Import lecture PDF, Scan paper notes, Add photo as a new page, Import pages, Choose an image and Paste from clipboard." width="430" height="932" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>The phone’s Add material sheet over the same page: import a lecture PDF, scan paper notes, add a photo as a new page, or place an image on the current page.</figcaption>
+          </figure>
+          <figure class="rn-phone" data-reveal>
+            <button class="phone-frame" type="button" data-zoom="../assets/room-notes/rn-phone-markup.webp">
+              <img src="../assets/room-notes/rn-phone-markup.webp" alt="Room Notes on a phone in markup mode: the Convolution and impulse response page with a toolbar of pen, highlighter, eraser, undo and Done." width="430" height="932" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>The same page in markup mode, with the pen selected and the highlighter, eraser and undo beside it.</figcaption>
+          </figure>
+          <figure class="rn-phone" data-reveal>
+            <button class="phone-frame" type="button" data-zoom="../assets/room-notes/rn-library.webp">
+              <img src="../assets/room-notes/rn-library.webp" alt="The Room Notes library on a phone: a Next lecture card for ECE 345 with a Start next lecture button, above notebook covers for Signals and Systems and Linear Algebra." width="430" height="932" loading="lazy" decoding="async" />
+            </button>
+            <figcaption>The phone library: a Next lecture card for ECE 345 with Start next lecture, above the notebook covers.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================ SAVES AND SYNC -->
+    <section class="case-section rn-saves" id="architecture" aria-labelledby="saves-title">
+      <div class="wrap">
+        <div class="rn-saves-head">
+          <h2 class="case-h2" id="saves-title">Saves and sync</h2>
+          <p class="body-2 measure">Each edit and its pending sync operation commit in one SQLite (Drift) transaction with a durable outbox. Cloud changes sync as append-only Firestore operations, and when two edits conflict, both are kept as alternate copies.</p>
+        </div>
+        <div class="rn-saves-cards">
+          <article class="erase-card matte" data-erase-grid aria-labelledby="erase-title" data-reveal>
+            <div class="erase-head">
+              <h3 id="erase-title">Erasing one stroke</h3>
+              <div class="seg" role="group" aria-label="Code version">
+                <button type="button" data-erase-mode="b30" aria-pressed="true">Build 30</button>
+                <button type="button" data-erase-mode="now" aria-pressed="false">Now</button>
+                <i class="seg-ink" aria-hidden="true"></i>
+              </div>
+            </div>
+            <p class="body-2">In Build 30’s code, one erase on a 2,000-stroke test page re-recorded about 1,000 strokes. Ink now lives in stable groups of at most 32, so the same erase touches about 30.</p>
+            <canvas class="erase-canvas" role="img" aria-label="2,000 dots, one per stroke. Lit dots are the strokes one erase re-records."></canvas>
+            <p class="erase-count"><span data-erase-count aria-live="polite"><b class="num">~1,000</b> of 2,000 strokes re-recorded</span> · one dot per stroke</p>
+          </article>
+
+          <article class="matte rn-kills" data-kills aria-labelledby="kills-title" data-reveal>
+            <h3 id="kills-title">Process kills</h3>
+            <p class="body-2">Each square is one hard kill, at a random moment in a save loop, of a test process that saves through the app’s own database setup. A reopen then checks what survived.</p>
+            <div class="rn-kill-grid" role="img" aria-label="40 squares, all marked as passed: 20 kills in the first run and 20 in an independent re-run.">
+              <p class="rn-kill-row"><span class="rn-kill-label">First run</span><span class="rn-kill-cells" data-kill-row="20"></span></p>
+              <p class="rn-kill-row"><span class="rn-kill-label">Re-run</span><span class="rn-kill-cells" data-kill-row="20"></span></p>
+            </div>
+            <dl class="rn-kill-stats">
+              <div><dt>40</dt><dd>hard process kills during saves</dd></div>
+              <div><dt>0</dt><dd>acknowledged saves lost</dd></div>
+            </dl>
+            <p class="rn-label rn-check-label">Each reopen checked, and passed every time</p>
+            <ul class="rn-checks">
+              <li>the SQLite integrity check</li>
+              <li>every acknowledged save present, with stroke ids contiguous</li>
+              <li>the sync outbox matching the stored page</li>
+            </ul>
+            <p class="rn-kill-foot">Desktop process kills; power loss on the iPad is untested.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ APPLE PENCIL INPUT -->
+    <section class="case-section rn-pencil" aria-labelledby="pencil-title">
+      <div class="wrap rn-text-split">
+        <h2 class="case-h2" id="pencil-title">Apple Pencil input</h2>
+        <p class="lead">Apple Pencil reports extra touch samples between display frames. I patched Flutter’s iOS engine so those coalesced samples reach the app, then compiled and signed the custom engine in Codemagic CI. TestFlight build 28, dated September 23, 2026, runs on it.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================ ENGINEERING CONTENT -->
+    <section class="room tex-grid case-section rn-eng" data-lamp aria-labelledby="eng-title">
+      <div class="wrap">
+        <div class="rn-eng-head">
+          <h2 class="case-h2" id="eng-title">Engineering content</h2>
+          <p class="body-2 measure">Logic gates and breadboard parts sit behind the ink as vector stickers, equations are built by tapping each side of a fraction, and code blocks behave like source. A built-in half-adder notebook shows them together.</p>
+        </div>
+        <p class="rn-label rn-row-label">The built-in half-adder notebook</p>
+        <div class="rn-justify">
+          <figure class="rn-shot" style="--ar: 1.3496" data-reveal>
+            <button class="shot" type="button" data-zoom="../assets/room-notes/rn-halfadder-intro.webp">
+              <img src="../assets/room-notes/rn-halfadder-intro.webp" alt="Room Notes on a laptop: the half-adder notebook, page 1 of 3, titled Two bits, one sum, with a truth table for A, B, S and C beside the equations S = A xor B and C = AB." width="1440" height="1067" loading="lazy" decoding="async" />
+              <span class="zoom-hint" aria-hidden="true">View full size</span>
+            </button>
+            <figcaption>Page 1 on the laptop: a truth table beside S&nbsp;=&nbsp;A&nbsp;⊕&nbsp;B and C&nbsp;=&nbsp;AB.</figcaption>
+          </figure>
+          <figure class="rn-shot" style="--ar: 0.7682" data-reveal>
+            <button class="shot" type="button" data-zoom="../assets/room-notes/rn-halfadder-wiring.webp">
+              <img src="../assets/room-notes/rn-halfadder-wiring.webp" alt="Room Notes on an iPad: page 2 of the half-adder notebook, Wire the half-adder, with XOR and AND gate stickers connected to inputs A and B and outputs S and C by drawn wires." width="1024" height="1333" loading="lazy" decoding="async" />
+              <span class="zoom-hint" aria-hidden="true">View full size</span>
+            </button>
+            <figcaption>Page 2 on the iPad: XOR and AND gate stickers wired in ink.</figcaption>
+          </figure>
+          <figure class="rn-shot" style="--ar: 1.3496" data-reveal>
+            <button class="shot" type="button" data-zoom="../assets/room-notes/rn-halfadder-source.webp">
+              <img src="../assets/room-notes/rn-halfadder-source.webp" alt="Room Notes on a laptop: page 3 of the half-adder notebook, From diagram to source, with a SystemVerilog half_adder module in a code block, followed by an exercise list." width="1440" height="1067" loading="lazy" decoding="async" />
+              <span class="zoom-hint" aria-hidden="true">View full size</span>
+            </button>
+            <figcaption>Page 3: the same circuit in SystemVerilog, in a code block with a language picker, line numbers and a copy button.</figcaption>
+          </figure>
+        </div>
+        <div class="rn-justify rn-justify--pair">
+          <figure class="rn-shot" style="--ar: 0.7496" data-reveal>
+            <button class="shot" type="button" data-zoom="../assets/room-notes/rn-logic-wiring.webp">
+              <img src="../assets/room-notes/rn-logic-wiring.webp" alt="Room Notes on an iPad: a page titled Build the path, then write over it, with AND, XOR, NAND and inverter gate stickers and a breadboard sticker, connected by drawn wires." width="1024" height="1366" loading="lazy" decoding="async" />
+              <span class="zoom-hint" aria-hidden="true">View full size</span>
+            </button>
+            <figcaption>Logic-gate and breadboard stickers in the back layer on the iPad. Every connection drawn over them is ordinary ink.</figcaption>
+          </figure>
+          <figure class="rn-shot" style="--ar: 1.3496" data-reveal>
+            <button class="shot" type="button" data-zoom="../assets/room-notes/rn-halfadder-present.webp">
+              <img src="../assets/room-notes/rn-halfadder-present.webp" alt="Room Notes in Present mode: page 1 of the half-adder notebook alone on screen, with Page 1 of 3, Fit, Pointer, Spotlight, Blank and Exit Present controls along the bottom." width="1440" height="1067" loading="lazy" decoding="async" />
+              <span class="zoom-hint" aria-hidden="true">View full size</span>
+            </button>
+            <figcaption>Present mode on the half-adder page: the page alone on screen, with page, Fit, Pointer, Spotlight and Blank controls below it.</figcaption>
+          </figure>
+          <figure class="rn-shot" style="--ar: 0.4875" data-reveal>
+            <button class="shot" type="button" data-zoom="../assets/room-notes/rn-halfadder-phone.webp">
+              <img src="../assets/room-notes/rn-halfadder-phone.webp" alt="Room Notes on a phone in markup mode: page 2 of the half-adder notebook, Wire the half-adder, above a toolbar of pen, highlighter, eraser, undo and Done." width="430" height="882" loading="lazy" decoding="async" />
+              <span class="zoom-hint" aria-hidden="true">View full size</span>
+            </button>
+            <figcaption>Page 2 again, on the phone in markup mode.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ LECTURER MODE + MY PART -->
+    <section class="case-section rn-close" aria-label="Lecturer mode and my part">
+      <div class="wrap rn-close-grid">
+        <div class="rn-close-col">
+          <h2 class="case-h2" id="lecturer-title">Lecturer mode</h2>
+          <p class="body-2">Built and in private testing. A lecturer shows a QR code, and each student gets a private, offline-capable copy of the lecture. Answers to in-page questions stay anonymous to the lecturer, and none are shown until at least five students have answered.</p>
+          <p class="body-2">If an answer is inappropriate, the lecturer can hide it or remove that student from the current question; a 30-day block is offered only after an earlier removal. Invitations last 90 minutes, and the server stores only a keyed digest of each one. I deployed it as a restricted pilot on August 29, 2026, on 31 Cloud Functions protected by App Check.</p>
+        </div>
+        <div class="rn-close-col my-part">
+          <h2 class="case-h2" id="mine">My part</h2>
+          <p class="body-2">I set the product direction from my own lectures and decided what each device is for. I started lecturer mode on my own initiative, run the release chain through Codemagic, TestFlight and Firebase, and test each build on my own iPad, iPhone and laptop.</p>
+          <p class="body-2">Most changes pass a verification gate I specified: evidence tied to file hashes, and separate verdicts for code, visuals and my own acceptance on device.</p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="wrap case-foot" aria-label="More work">
+      <a href="knowsy.html">Next room: Knowsy Breadboard Lab <span class="arr arr--fwd" aria-hidden="true">→</span></a>
+      <a class="back" href="../index.html#work"><span aria-hidden="true">←</span> All work</a>
+    </nav>
+  </main>
+
+  <footer class="wrap site-foot">
+    <span>© 2026 Mika Be</span>
+    <a href="../assets/licenses/OFL-EBGaramond.txt">Fonts under the SIL Open Font License</a>
+  </footer>
+
+  <dialog class="zoom" id="zoom" aria-label="Full-size image">
+    <img alt="" />
+    <div class="zoom-bar"><p class="zoom-cap"></p><form method="dialog"><button class="zoom-close">Close</button></form></div>
+  </dialog>
+</body>
 </html>

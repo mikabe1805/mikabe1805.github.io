@@ -1,368 +1,411 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Knowsy Breadboard Lab — Mika Be</title>
-    <meta
-      name="description"
-      content="A browser-based breadboard module connecting circuit construction, simulation, and feedback."
-    />
-    <link
-      rel="canonical"
-      href="https://mikabe1805.github.io/projects/knowsy.html"
-    />
-    <meta name="theme-color" content="#f5f3ed" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Knowsy Breadboard Lab — Mika Be" />
-    <meta
-      property="og:description"
-      content="A browser-based breadboard module connecting circuit construction, simulation, and feedback."
-    />
-    <meta
-      property="og:image"
-      content="https://mikabe1805.github.io/assets/social-preview.png"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-    <link
-      rel="preload"
-      href="../assets/instrument-serif.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link rel="stylesheet" href="../assets/site.css?v=144e8aa5ec" />
-    <script src="../assets/site.js?v=028b2a53f7" defer></script>
-    <noscript
-      ><style>
-        @media (max-width: 600px) {
-          .site-header {
-            height: auto;
-            min-height: 76px;
-          }
-          .header-inner {
-            flex-wrap: wrap;
-            padding-block: 18px;
-            gap: 14px;
-          }
-          .nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-          }
-          .nav a {
-            font: 12px var(--sans);
-            padding: 0;
-            border: 0;
-          }
-          .nav .resume-link {
-            padding: 0;
-            border: 0;
-          }
-          .menu-toggle {
-            display: none;
-          }
-        }
-      </style></noscript
-    >
-  <link rel="stylesheet" href="../assets/project-demos.css?v=ae2a647586" />
-    <script src="../assets/project-demos.js?v=career-20260913" defer></script>
-  </head>
-  <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="site-header">
-      <div class="wrap header-inner">
-        <a class="brand" href="../index.html" aria-label="Mika Be, home"
-          >mika be<span>.</span></a
-        >
-        <button
-          class="menu-toggle"
-          aria-expanded="false"
-          aria-controls="site-nav"
-        >
-          Menu +
-        </button>
-        <nav class="nav" id="site-nav" aria-label="Main navigation">
-          <a href="../index.html#work">Work</a
-          ><a href="../index.html#about">About</a
-          ><a href="../index.html#contact">Contact</a>
-          <a
-            class="resume-link"
-            href="../Mika-Be_Resume.pdf"
-            target="_blank"
-            rel="noopener"
-            >Résumé <span class="arrow" aria-hidden="true">↗</span></a
-          >
-        </nav>
-      </div>
-    </header>
-    <main id="main">
-      <section class="case-hero">
-        <div class="wrap">
-          <a class="breadcrumb" href="../index.html#work"
-            ><span aria-hidden="true">←</span> Back to selected work</a
-          >
-          <div class="case-title-grid">
-            <div>
-              <p class="eyebrow muted">
-                04 / Engineering education · simulation
-              </p>
-              <h1>Understand it<br />by building it.</h1>
-              <p class="case-deck">
-                A virtual breadboard for Rutgers’ Digital Logic and Principles
-                of EE II labs, wired like the real one, with a schematic that
-                draws itself and tools for debugging and teaching.
-              </p>
-            </div>
-            <dl class="case-meta">
-              <div>
-                <dt>Role</dt>
-                <dd>Module lead · three-person team</dd>
-              </div>
-              <div>
-                <dt>Context</dt>
-                <dd>Rutgers · Professor Kruger</dd>
-              </div>
-              <div>
-                <dt>Stack</dt>
-                <dd>JavaScript · digital simulation · MNA · Verilog export</dd>
-              </div>
-              <div>
-                <dt>Focus</dt>
-                <dd>Interactive learning &amp; validation</dd>
-              </div>
-            </dl>
-          </div>
-          <div class="notes-desktop-hero">
-            <figure class="capture">
-              <a
-                class="capture-link"
-                href="../assets/knowsy-lab1-20260929.webp"
-                data-gallery="knowsy"
-                data-caption="Lab 1, combinational logic: a powered 74LS04 inverter with a pull-up, DIP switch and LED. The guided checklist has confirmed 11 of the lab’s 17 checks."
-                aria-label="Enlarge: Knowsy Lab 1 bench with a 74LS04, DIP switch and lit LED"
-                ><img
-                  src="../assets/knowsy-lab1-20260929.webp"
-                  width="2160"
-                  height="1417"
-                  alt="Knowsy Breadboard Lab running Lab 1: a bench supply wired to the rails, a 74LS04 hex inverter, a pull-up resistor, a DIP switch and a lit LED, with the guided checklist showing power, inverter and switch-plus-LED steps complete"
-                  loading="eager"
-                /><span class="capture-open" aria-hidden="true">↗</span></a
-              >
-              <figcaption>
-                The real lab running Lab 1: a 74LS04 inverter with a pull-up, a
-                DIP switch and an LED. Closing the switch pulls the inverter’s
-                input low, so the LED lights, and the guided checklist has
-                confirmed 11 of the lab’s 17 checks.
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-      <div class="wrap case-layout">
-        <aside class="case-nav" aria-label="On this page">
-          <a href="#problem">Learn a circuit by working with it.</a
-          ><a href="#try-circuit">Try a circuit.</a><a href="#system">Make the simulation explainable.</a
-          ><a href="#validation">Compare against something independent.</a
-          ><a href="#takeaway">Software fundamentals travel well.</a>
-        </aside>
-        <div>
-          <section class="case-section" id="problem">
-            <h2>Learn a circuit by working with it.</h2>
-            <p>
-              Knowsy’s breadboard lab brings the lab bench into the browser.
-              Students practice on boards and 74LS-series chips that match the
-              real ones, with datasheet pinouts, passives, op-amps and a bench
-              supply, and can catch wiring mistakes before lab. Eight guided labs
-              built from the course materials run from a 4-bit ALU to a
-              traffic-light controller and a bandpass filter. The schematic redraws itself from whatever the
-              student wires, and the bench and schematic highlight each other.
-            </p>
-            <p>
-              I started the module and led its three-person team, one of seven
-              module leads on Professor Kruger’s Knowsy platform. I built the
-              bench, the automatic schematic, the logic probe, voltmeter and
-              wiring warnings, and the modified-nodal-analysis solver behind
-              the oscilloscope and Bode plotter, in plain JavaScript with no math
-              libraries; a teammate built the sequential logic. For instructors, a
-              share link restores an exact circuit, and any bench build exports to
-              Verilog with a testbench.
-            </p>
-            <figure class="capture">
-              <a
-                class="capture-link"
-                href="../assets/knowsy-bode-20260929.webp"
-                data-gallery="knowsy"
-                data-caption="A 1 kΩ resistor and 100 nF capacitor on the analog bench. The Bode plotter shows the rolloff near 1.6 kHz and the phase shift."
-                aria-label="Enlarge: Knowsy analog bench with the Bode plotter"
-                ><img
-                  src="../assets/knowsy-bode-20260929.webp"
-                  width="2040"
-                  height="846"
-                  alt="Knowsy analog bench with a 1 kilohm resistor and 100 nanofarad capacitor, beside a Bode plot whose magnitude rolls off above about 1.6 kilohertz"
-                  loading="lazy"
-                /><span class="capture-open" aria-hidden="true">↗</span></a
-              >
-              <figcaption>
-                The analog bench: a 1 kΩ resistor and a 100 nF capacitor. The
-                Bode plotter sweeps the circuit through my nodal-analysis solver
-                and shows the rolloff near 1.6 kHz, where 1/(2πRC) puts it.
-              </figcaption>
-            </figure>
-          </section>
-          <section class="case-section" id="try-circuit"><h2>Change a circuit. See why it changes.</h2><p>Keep the supply at 5 volts and adjust either resistor. The output changes with their ratio; the netlist shows the same circuit as connections and values.</p><section class="project-demo knowsy-demo" data-knowsy-demo aria-label="Knowsy interactive voltage divider model">
-  <div class="knowsy-demo__intro">
-    <p class="knowsy-demo__eyebrow">Interactive circuit model</p>
-    <h3>Find the voltage at the middle.</h3>
-    <p>A small illustration of the circuit reasoning behind Knowsy.</p>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Knowsy Breadboard Lab | Mika Be</title>
+  <meta name="description" content="Knowsy Breadboard Lab, a browser breadboard for Rutgers ECE labs: 74LS chips with their datasheet pinouts, a schematic that draws itself from the wiring, and guided labs that check each step by electrical connection. A team module Mika Be started and led." />
+  <meta name="author" content="Mika Be" />
+  <link rel="canonical" href="https://mikabe1805.github.io/projects/knowsy.html" />
+  <meta name="theme-color" content="#0d120f" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Mika Be" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Knowsy Breadboard Lab | Mika Be" />
+  <meta property="og:description" content="A browser breadboard for Rutgers ECE labs, with 74LS chips wired to their datasheet pinouts, a self-drawing schematic and eight guided labs that check each step by connection." />
+  <meta property="og:url" content="https://mikabe1805.github.io/projects/knowsy.html" />
+  <meta property="og:image" content="https://mikabe1805.github.io/assets/social/knowsy.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Knowsy Breadboard Lab: the Lab 1 build on the virtual breadboard, a 74LS04 inverter with a DIP switch and a lit LED, under the guided checklist." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Knowsy Breadboard Lab | Mika Be" />
+  <meta name="twitter:description" content="A browser breadboard for Rutgers ECE labs, with 74LS chips wired to their datasheet pinouts, a self-drawing schematic and eight guided labs that check each step by connection." />
+  <meta name="twitter:image" content="https://mikabe1805.github.io/assets/social/knowsy.jpg" />
+  <meta name="twitter:image:alt" content="Knowsy Breadboard Lab: the Lab 1 build on the virtual breadboard, a 74LS04 inverter with a DIP switch and a lit LED, under the guided checklist." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <!-- font preloads over http only: from file:// a crossorigin preload is blocked (origin null) and the faces would not load -->
+  <script>if (location.protocol !== "file:") ["EBGaramond-Variable", "Inter-Regular"].forEach(function (f) { var l = document.createElement("link"); l.rel = "preload"; l.as = "font"; l.type = "font/woff2"; l.crossOrigin = ""; l.href = "../assets/fonts/" + f + ".woff2"; document.head.appendChild(l); });</script>
+  <link rel="stylesheet" href="../assets/css/site.css" />
+  <link rel="stylesheet" href="../assets/css/case-knowsy.css" />
+  <noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+  <script src="../assets/js/data.js" defer></script>
+  <script src="../assets/js/core.js" defer></script>
+  <script src="../assets/js/probe.js" defer></script>
+  <script src="../assets/js/case-knowsy.js" defer></script>
+</head>
+<body data-world="knowsy" data-room="Knowsy Breadboard Lab" data-base="../">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="world-light" aria-hidden="true">
+    <i data-light="hall"></i><i data-light="rod"></i><i data-light="kuiper"></i><i data-light="notes"></i><i data-light="knowsy"></i><i data-light="shell"></i>
   </div>
+  <header class="nav-wrap">
+    <nav class="nav glass" data-fixed aria-label="Main">
+      <a class="nav-name" href="../index.html">Mika Be</a>
+      <span class="nav-room empty"><i aria-hidden="true"></i><span></span></span>
+      <span class="nav-links">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#about">About</a>
+        <a href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener">Résumé<span class="arr" aria-hidden="true">↗</span></a>
+      </span>
+    </nav>
+  </header>
 
-  <div class="knowsy-demo__workspace">
-    <div class="knowsy-demo__circuit" aria-label="A five volt voltage divider with two adjustable resistors">
-      <svg viewBox="0 0 480 350" role="img" aria-label="Voltage divider circuit. A five volt source feeds R1, the output node, R2, and ground in one closed series loop." focusable="false">
-        <path class="knowsy-demo__wire" d="M130 50H240V75M240 175V185M240 185V195M240 295V300H130M130 50V141M130 209V300" />
-        <circle class="knowsy-demo__source" cx="130" cy="175" r="34" />
-        <path class="knowsy-demo__resistor" d="M240 75v12l-16 10 32 14-32 14 32 14-32 14 16 10v12" />
-        <path class="knowsy-demo__resistor" d="M240 195v12l-16 10 32 14-32 14 32 14-32 14 16 10v12" />
-        <circle class="knowsy-demo__node-halo" data-knowsy-node-halo cx="240" cy="185" r="10" />
-        <circle class="knowsy-demo__node" cx="240" cy="185" r="5.5" />
-        <path class="knowsy-demo__ground" d="M130 300v8m-21 0h42m-33 8h24m-15 8h6" />
-        <path class="knowsy-demo__output-lead" d="M240 185h118" />
-        <text x="130" y="164" text-anchor="middle" class="knowsy-demo__source-mark">+</text>
-        <text x="130" y="186" text-anchor="middle" class="knowsy-demo__source-voltage">5 V</text>
-        <text x="130" y="201" text-anchor="middle" class="knowsy-demo__source-mark">−</text>
-        <text x="270" y="121" class="knowsy-demo__label">R1</text>
-        <text x="270" y="140" class="knowsy-demo__value" data-knowsy-r1-label>1.0 kΩ</text>
-        <text x="270" y="242" class="knowsy-demo__label">R2</text>
-        <text x="270" y="261" class="knowsy-demo__value" data-knowsy-r2-label>1.0 kΩ</text>
-        <text x="370" y="177" class="knowsy-demo__label">VOUT</text>
-        <text x="370" y="202" class="knowsy-demo__output-value" data-knowsy-vout-label>2.50 V</text>
-        <text x="83" y="342" class="knowsy-demo__label">GND</text>
-      </svg>
-      <p class="knowsy-demo__current">Circuit current <output data-knowsy-current>2.50 mA</output></p>
-    </div>
-
-    <div class="knowsy-demo__controls">
-      <div class="knowsy-demo__presets" aria-label="Voltage divider presets">
-        <button type="button" data-knowsy-preset="1000,1000" aria-pressed="true">Half voltage</button>
-        <button type="button" data-knowsy-preset="4700,1000" aria-pressed="false">Lower output</button>
-        <button type="button" data-knowsy-preset="1000,4700" aria-pressed="false">Higher output</button>
-      </div>
-
-      <label class="knowsy-demo__slider-label">
-        <span>R1 <output data-knowsy-r1-output>1.0 kΩ</output></span>
-        <input type="range" min="100" max="10000" step="100" value="1000" data-knowsy-r1 aria-label="R1 resistance, in ohms">
-      </label>
-      <label class="knowsy-demo__slider-label">
-        <span>R2 <output data-knowsy-r2-output>1.0 kΩ</output></span>
-        <input type="range" min="100" max="10000" step="100" value="1000" data-knowsy-r2 aria-label="R2 resistance, in ohms">
-      </label>
-
-      <div class="knowsy-demo__reading" aria-label="Calculated output">
-        <span>Output voltage</span>
-        <output data-knowsy-vout>2.50 V</output>
-      </div>
-      <p class="knowsy-demo__formula">The lower resistor takes its share of the 5 V supply: V<sub>out</sub> = 5 × R2 ÷ (R1 + R2).</p>
-      <p class="knowsy-demo__status" data-knowsy-status aria-live="polite">R1 and R2 match, so the output is half the supply.</p>
-
-      <details class="knowsy-demo__netlist">
-        <summary>View circuit netlist</summary>
-        <pre data-knowsy-netlist>V1 VIN 0 DC 5
-R1 VIN OUT 1000
-R2 OUT 0 1000</pre>
-      </details>
-    </div>
-  </div>
-</section>
-<p class="caption">This example calculates a simple voltage divider in the browser. The breadboard lab supports a broader set of circuits through its own simulation engine.</p><noscript><p class="caption">Enable JavaScript to try this interactive example. You can still explore the project details and captures on this page.</p></noscript></section>
-          <section class="case-section" id="system">
-            <h2>Make the simulation explainable.</h2>
-            <p>
-              The digital simulation represents HIGH, LOW, FLOAT, and CONFLICT
-              explicitly, alongside behavior for 74LS-series components. Keeping
-              these states separate helps distinguish an undriven signal from an
-              actual logical low or competing drivers.
-            </p>
-            <div class="flow">
-              <div>
-                <small>01 / Build</small><strong>Components &amp; wires</strong
-                ><span>An interactive breadboard.</span>
-              </div>
-              <div>
-                <small>02 / Model</small><strong>Connectivity</strong
-                ><span>Track the circuit topology.</span>
-              </div>
-              <div>
-                <small>03 / Solve</small><strong>Digital / analog state</strong
-                ><span>Logic propagation and circuit analysis.</span>
-              </div>
-              <div>
-                <small>04 / Observe</small
-                ><strong>Scopes &amp; validation</strong
-                ><span>Connect a result to its cause.</span>
-              </div>
-            </div>
-            <p>
-              The module also includes an analog solver using Modified Nodal
-              Analysis over complex admittances, plus Bode analysis for
-              frequency response. This is analytical software work where the
-              expected behavior can be checked against known circuit formulas.
-            </p>
-          </section>
-          <section class="case-section" id="validation">
-            <h2>Compare against something independent.</h2>
-            <p>
-              Tests cover known circuits such as dividers and filters, as well
-              as frequency-response calculations. Formula-based expectations
-              help prevent a visually plausible simulation from quietly teaching
-              the wrong behavior.
-            </p>
-            <p>
-              The next step in evaluating a learning tool is observing students
-              use it: where the explanation helps, where they get stuck, and
-              whether the feedback supports their understanding.
-            </p>
-          </section>
-          <section class="case-section" id="takeaway">
-            <h2>Software fundamentals travel well.</h2>
-            <p>
-              Explicit state, inspectable behavior, and independent checks
-              matter in AI systems too. This project is part of the software
-              foundation I bring to that work, along with experience owning a
-              module and coordinating a small team.
-            </p>
-          </section>
-        </div>
-      </div>
-      <section class="next-project">
-        <div class="wrap next-inner">
+  <main id="main">
+    <!-- ============================================================ ARRIVAL: the bench at night -->
+    <section class="room tex-holes kn-arrival" data-lamp data-kn-lamp aria-labelledby="page-title">
+      <div class="kn-lamp" aria-hidden="true"><div class="kn-lamp-pool"><div class="kn-lamp-holes"></div></div></div>
+      <div class="wrap kn-arrival-top">
+        <p class="kicker">Browser breadboard for Rutgers ECE labs</p>
+        <h1 id="page-title">Knowsy Breadboard Lab</h1>
+        <div class="kn-arrival-grid">
           <div>
-            <p class="eyebrow muted">Keep exploring</p>
-            <h2>Kuiper TTS</h2>
+            <p class="lead">A virtual breadboard for Rutgers’ Digital Logic Design and Principles of EE&nbsp;II labs. Students can wire switches, LEDs, passives and 74LS chips with their datasheet pinouts the way they would at the bench, and a schematic draws itself from the wiring. I started the module in May 2026 and led its three-person team.</p>
+            <div class="links">
+              <a class="pill pill--light" href="#try-circuit" data-arrive-focus>Probe the Lab 1 circuit <span class="arr kn-arr-down" aria-hidden="true">↓</span></a>
+            </div>
           </div>
-          <a class="text-link" href="kuiper-tts.html"
-            >Next project <span class="arrow" aria-hidden="true">↗</span></a
-          >
-        </div>
-      </section>
-    </main>
-    <footer class="site-footer">
-      <div class="wrap footer-inner">
-        <span>© 2026 Mika Be · made with care.</span>
-        <div class="footer-links">
-          <a href="https://github.com/mikabe1805" target="_blank" rel="noopener"
-            >GitHub <span class="arrow" aria-hidden="true">↗</span></a
-          ><a
-            href="https://linkedin.com/in/mika-be"
-            target="_blank"
-            rel="noopener"
-            >LinkedIn <span class="arrow" aria-hidden="true">↗</span></a
-          ><a href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener"
-            >Résumé <span class="arrow" aria-hidden="true">↗</span></a
-          ><a href="#main">Back to top ↑</a>
+          <dl class="kn-facts">
+            <div><dt>Status</dt><dd>Pre-release, not yet in front of students</dd></div>
+            <div><dt>Team</dt><dd>3 people, one of seven module teams on Prof. Dov Kruger’s Knowsy platform</dd></div>
+            <div><dt>Built with</dt><dd>JavaScript with no math libraries</dd></div>
+            <div><dt>Labs</dt><dd>8 guided labs, 90 auto-checked steps</dd></div>
+          </dl>
         </div>
       </div>
-    </footer>
-  </body>
+
+      <figure class="wrap kn-hero" data-kn-spots>
+        <div class="kn-hero-frame">
+          <div class="kn-pan" data-kn-pan>
+            <div class="kn-pan-inner">
+              <button class="shot" type="button" data-zoom="../assets/knowsy-lab1-bench-20260929.webp" data-caption="Lab 1 on the bench: a 74LS04 inverter with a pull-up, a DIP switch and an LED. Closing the switch pulls the inverter’s input low, so the LED lights, and the guided checklist has confirmed 11 of the lab’s 17 checks.">
+                <img src="../assets/knowsy-lab1-bench-20260929.webp" srcset="../assets/knowsy-lab1-bench-20260929-1200.webp 1200w, ../assets/knowsy-lab1-bench-20260929.webp 2160w" sizes="(max-width: 1312px) 92vw, 1312px" alt="Knowsy Breadboard Lab, Lab 1: a bench supply at +5.00 V, a 74LS04 inverter across the center trench, a 4.7 kilohm pull-up, a 220 ohm resistor, a lit LED and a DIP switch with position 1 on, under the guided checklist at 11 of 17 checks." width="2160" height="1333" decoding="async" fetchpriority="high" />
+                <span class="zoom-hint" aria-hidden="true">View full size</span>
+              </button>
+              <span class="kn-lights" aria-hidden="true"></span>
+              <span class="kn-spots" aria-hidden="true">
+                <i data-spot="1" style="--x: 5%; --y: 54.8%; --w: 10.9%; --h: 13.3%"></i>
+                <i data-spot="2" style="--x: 30%; --y: 59.2%; --w: 3.7%; --h: 5.1%"></i>
+                <i data-spot="3" style="--x: 33.5%; --y: 66.3%; --w: 10.5%; --h: 8.6%"></i>
+                <i data-spot="4" style="--x: 40.8%; --y: 56.2%; --w: 3.2%; --h: 4.6%"></i>
+                <i data-spot="5" style="--x: 62.1%; --y: 65.2%; --w: 12.1%; --h: 9.8%"></i>
+                <i data-spot="6" style="--x: 4%; --y: 14.3%; --w: 30.5%; --h: 10.1%"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <figcaption>
+          <p class="kn-hero-cap">Lab 1 on the bench: a 74LS04 inverter with a pull-up, a DIP switch and an LED. Closing the switch pulls the inverter’s input low, so the LED lights, and the guided checklist has confirmed 11 of the lab’s 17 checks.</p>
+          <div class="kn-legend" role="group" aria-label="Show a part on the capture">
+            <span class="kn-legend-label">On the bench</span>
+            <button type="button" aria-pressed="false" data-spot-for="1">Bench supply at +5.00&nbsp;V</button>
+            <button type="button" aria-pressed="false" data-spot-for="2">4.7&nbsp;kΩ pull-up</button>
+            <button type="button" aria-pressed="false" data-spot-for="3">74LS04 across the center trench</button>
+            <button type="button" aria-pressed="false" data-spot-for="4">LED, lit</button>
+            <button type="button" aria-pressed="false" data-spot-for="5">DIP switch, position&nbsp;1 on</button>
+            <button type="button" aria-pressed="false" data-spot-for="6">Guided steps, 11 of 17 checks</button>
+          </div>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ============================================================ WIRED LIKE THE BENCH -->
+    <section class="room tex-holes kn-section" data-lamp id="wired" aria-labelledby="wired-title" style="--pool-x: 24%; --pool-y: 34%">
+      <div class="wrap">
+        <div class="kn-head">
+          <h2 class="case-h2" id="wired-title">Wired like the bench</h2>
+          <p class="body-2">As a student wires the board, the lab draws a schematic from the wiring. Each gate gets its symbol from the chip’s pinout, unused gates are left out, and hovering a net on the board or in the schematic lights it in both.</p>
+        </div>
+
+        <h3 class="kn-sub">Board features</h3>
+        <ul class="kn-features" data-reveal>
+          <li><h4>Rails and the center trench</h4><p>+ and − rails run along both edges, and DIP chips straddle a center trench between five-hole tie strips, as on the boards at the bench.</p></li>
+          <li><h4>Datasheet pinouts</h4><p>Chips use their datasheet pinouts. Hovering a pin shows its name, number, role and live level.</p></li>
+          <li><h4>Wires that stay clear</h4><p>Jumpers route through the board’s empty channels, so they never cover a hole or a chip. Students can bend them by hand, and a bend never changes the circuit.</p></li>
+          <li><h4>Boards sized like the lab’s</h4><p>30, 52 or 63 columns wide, based on the BB400 and BB830 boards, with up to six boards stacked, each with its own rails.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================================ HOW THE LAB READS A NET (signature interaction) -->
+    <section class="room tex-holes kn-section" data-lamp id="try-circuit" aria-labelledby="probe-title" style="--pool-x: 46%; --pool-y: 42%">
+      <div class="wrap">
+        <div class="kn-head">
+          <h2 class="case-h2" id="probe-title" tabindex="-1" data-room-heading>How the lab reads a net</h2>
+          <p class="body-2">Every net resolves to one of four levels, and drivers have strength. A pull-up drives weakly, so a closed switch wins without a false conflict, while two strong drivers that disagree are a real one. This sketch applies the lab engine’s rule to the Lab 1 circuit.</p>
+        </div>
+
+        <div class="kn-bench matte probe" data-kn-bench data-probe-room data-a="HIGH" data-y="LOW" data-led="off" data-switch="open" data-pullup="in" data-stray="off" data-vcc="HIGH" data-gnd="LOW">
+          <span class="probe-glow" aria-hidden="true"></span>
+          <div class="kn-bench-grid">
+            <div class="kn-bench-left">
+              <p class="kn-instr">Set the parts, then touch the probe to a wire or a test point.</p>
+              <div class="kn-sch-wrap">
+                <svg class="schematic kn-sch" viewBox="0 0 640 330" role="img" aria-labelledby="kn-sch-desc">
+                  <desc id="kn-sch-desc">A sketch of the Lab 1 circuit: +5 V through a 4.7 kilohm pull-up to the inverter input A, a switch from A to ground, an optional stray wire from +5 V to A, a 74LS04 inverter whose output Y drives an LED, and a 220 ohm resistor from the LED to ground. Test points sit on the +5 V rail, net A, net Y and the ground rail.</desc>
+                  <g class="kn-halo" data-halo="vcc"><path d="M40 40 H500 M214 40 V64"/></g>
+                  <g class="kn-halo" data-halo="a"><path d="M150 156 H330 M214 128 V156 M280 156 V194"/><path class="kn-halo-stray" d="M150 40 V156"/></g>
+                  <g class="kn-halo" data-halo="y"><path d="M386 156 H480 V184"/></g>
+                  <g class="kn-halo" data-halo="gnd"><path d="M40 296 H610 M280 233 V296 M480 266 V296"/></g>
+
+                  <line class="w kn-vcc" x1="40" y1="40" x2="500" y2="40"/>
+                  <text class="kn-rail-label" x="40" y="24">+5 V</text>
+                  <line class="w kn-gnd" x1="40" y1="296" x2="610" y2="296"/>
+                  <text class="kn-rail-label" x="40" y="322">GND</text>
+
+                  <g class="pullup">
+                    <line class="w kn-vcc" x1="214" y1="40" x2="214" y2="64"/>
+                    <polyline class="res" points="214,64 224,71 204,81 224,91 204,101 224,111 204,121 214,128"/>
+                    <line class="w net-a" x1="214" y1="128" x2="214" y2="156"/>
+                    <text x="236" y="101">4.7 kΩ</text>
+                  </g>
+                  <path class="stray" d="M150 40 V156"/>
+                  <text class="kn-stray-label" x="140" y="101" text-anchor="end">stray wire</text>
+
+                  <line class="w net-a" x1="150" y1="156" x2="330" y2="156"/>
+                  <circle class="net-a-fill" cx="214" cy="156" r="3.5"/>
+                  <circle class="net-a-fill" cx="280" cy="156" r="3.5"/>
+                  <circle class="net-a-fill stray-node" cx="150" cy="156" r="3.5"/>
+                  <circle class="kn-vcc-fill stray-node" cx="150" cy="40" r="3.5"/>
+                  <circle class="kn-vcc-fill" cx="214" cy="40" r="3.5"/>
+
+                  <line class="w net-a" x1="280" y1="156" x2="280" y2="194"/>
+                  <circle class="sw-pin" cx="280" cy="196" r="3"/>
+                  <line class="sw-lever" x1="280" y1="196" x2="296" y2="224"/>
+                  <circle class="sw-pin" cx="280" cy="230" r="3"/>
+                  <line class="w kn-gnd" x1="280" y1="233" x2="280" y2="296"/>
+                  <circle class="kn-gnd-fill" cx="280" cy="296" r="3.5"/>
+                  <text x="306" y="222">switch</text>
+
+                  <path class="gate" d="M330 132 L330 180 L374 156 Z"/>
+                  <circle class="gate" cx="380" cy="156" r="6"/>
+                  <text x="316" y="120">74LS04</text>
+
+                  <path class="w net-y" d="M386 156 H480 V184"/>
+                  <g transform="translate(480 184)">
+                    <circle class="led-glow" cx="0" cy="10" r="24"/>
+                    <path class="led-body" d="M-11 0 L11 0 L0 20 Z"/>
+                    <line class="led-bar" x1="-11" y1="20" x2="11" y2="20"/>
+                  </g>
+                  <text x="504" y="200">LED</text>
+                  <line class="w kn-cath" x1="480" y1="204" x2="480" y2="214"/>
+                  <polyline class="res" points="480,214 490,220 470,228 490,236 470,244 490,252 470,260 480,266"/>
+                  <line class="w kn-gnd" x1="480" y1="266" x2="480" y2="296"/>
+                  <circle class="kn-gnd-fill" cx="480" cy="296" r="3.5"/>
+                  <text x="504" y="246">220 Ω</text>
+
+                  <text class="kn-tag" x="304" y="146">A</text>
+                  <text class="kn-tag" x="398" y="146">Y</text>
+
+                </svg>
+                <svg class="kn-pen" data-kn-pen data-touch-level="HIGH" viewBox="0 0 640 330" aria-hidden="true" focusable="false">
+                  <g transform="translate(5 8) rotate(140)"><rect class="kn-pen-shadow" x="20" y="-10" width="94" height="20" rx="8"/></g>
+                  <g transform="rotate(140)">
+                    <line class="kn-pen-needle" x1="0" y1="0" x2="22" y2="0"/>
+                    <rect class="kn-pen-body" x="20" y="-10" width="94" height="20" rx="8"/>
+                    <rect class="kn-pen-collar" x="20" y="-10" width="10" height="20" rx="4"/>
+                    <circle class="kn-pen-led kn-pen-led--r" cx="80" cy="0" r="4.6"/>
+                    <circle class="kn-pen-led kn-pen-led--g" cx="96" cy="0" r="4.6"/>
+                  </g>
+                </svg>
+                <div class="kn-tps" role="radiogroup" aria-label="Test point for the probe" data-kn-tps>
+                  <button type="button" role="radio" class="kn-tp" data-tp="vcc" aria-checked="false" tabindex="-1" style="--x: 73.4375%; --y: 12.12%" aria-label="Test point on the +5 V rail"><i></i></button>
+                  <button type="button" role="radio" class="kn-tp" data-tp="a" aria-checked="true" tabindex="0" style="--x: 38.594%; --y: 47.27%" aria-label="Test point on input A"><i></i></button>
+                  <button type="button" role="radio" class="kn-tp" data-tp="y" aria-checked="false" tabindex="-1" style="--x: 70%; --y: 47.27%" aria-label="Test point on output Y"><i></i></button>
+                  <button type="button" role="radio" class="kn-tp" data-tp="gnd" aria-checked="false" tabindex="-1" style="--x: 87.5%; --y: 89.7%" aria-label="Test point on the ground rail"><i></i></button>
+                </div>
+              </div>
+              <div class="probe-controls kn-controls">
+                <button type="button" class="toggle" aria-pressed="false" data-kn-toggle="switch"><i aria-hidden="true"></i>Switch closed</button>
+                <button type="button" class="toggle" aria-pressed="true" data-kn-toggle="pullup"><i aria-hidden="true"></i>Pull-up in</button>
+                <button type="button" class="toggle" aria-pressed="false" data-kn-toggle="stray"><i aria-hidden="true"></i>Stray wire to +5&nbsp;V</button>
+              </div>
+              <p class="probe-note kn-note" data-kn-note aria-live="polite">The pull-up holds the input high, so the inverter’s output is low and the LED stays dark.</p>
+            </div>
+
+            <div class="kn-bench-right">
+              <div class="kn-read" data-touch-level="HIGH">
+                <p class="kn-read-where">Probe on <b data-kn-where>input A</b></p>
+                <div class="kn-read-grid">
+                  <div class="kn-lp" data-kn-lp>
+                    <span class="kn-lp-name">Logic probe, LP&#8209;10A</span>
+                    <span class="kn-lp-leds" aria-hidden="true"><i class="kn-led-r"></i><i class="kn-led-g"></i></span>
+                    <b class="kn-lp-level" data-kn-level>High</b>
+                    <span class="kn-lp-cap" data-kn-lpcap>Red LED lit, high tone</span>
+                  </div>
+                  <div class="meter kn-meter" data-kn-meter data-level="HIGH">
+                    <span class="meter-where">Voltmeter</span>
+                    <span class="lcd"><span data-kn-v>5.00</span> <small>V</small></span>
+                    <span class="kn-vcap" data-kn-vcap>TTL high, driven to +5 V</span>
+                  </div>
+                </div>
+              </div>
+              <div class="kn-ledger">
+                <h3 class="kn-mini">Drivers on <span data-kn-net>input A</span></h3>
+                <ul class="kn-drivers" data-kn-drivers>
+                  <li data-on="true"><span class="kn-dlabel">+5 V through the 4.7 kΩ pull-up</span><span class="kn-dlevel" data-level="HIGH">High</span><span class="kn-dstrength">weak</span></li>
+                  <li data-on="false"><span class="kn-dlabel">Ground through the switch</span><span class="kn-dlevel" data-level="LOW">Low</span><span class="kn-dstrength">open</span></li>
+                  <li data-on="false"><span class="kn-dlabel">+5 V through the stray wire</span><span class="kn-dlevel" data-level="HIGH">High</span><span class="kn-dstrength">off</span></li>
+                </ul>
+                <p class="kn-result" data-kn-result>One weak high with nothing against it: <b>High</b>.</p>
+              </div>
+              <div class="kn-states">
+                <h3 class="kn-mini" id="kn-states-title">All eight states</h3>
+                <div class="kn-state-head" aria-hidden="true"><span>Switch</span><span>Pull-up</span><span>Stray</span><span>Input A</span><span>Output Y</span><span>LED</span></div>
+                <div class="kn-state-rows" role="radiogroup" aria-labelledby="kn-states-title" data-kn-states>
+                  <button type="button" role="radio" class="kn-state" data-st="0 1 0" aria-label="Switch open, pull-up in, stray wire off: input A high, output Y low, LED off" aria-checked="true" tabindex="0"><span>open</span><span>in</span><span>off</span><span data-col="a">High</span><span data-col="y">Low</span><span data-col="led"><i class="kn-led-dot"></i><em>off</em></span></button>
+                  <button type="button" role="radio" class="kn-state" data-st="1 1 0" aria-label="Switch closed, pull-up in, stray wire off: input A low, output Y high, LED lit" aria-checked="false" tabindex="-1"><span>closed</span><span>in</span><span>off</span><span data-col="a">Low</span><span data-col="y">High</span><span data-col="led"><i class="kn-led-dot is-on"></i><em>lit</em></span></button>
+                  <button type="button" role="radio" class="kn-state" data-st="0 0 0" aria-label="Switch open, pull-up out, stray wire off: input A floating, output Y floating, LED off" aria-checked="false" tabindex="-1"><span>open</span><span>out</span><span>off</span><span data-col="a">Floating</span><span data-col="y">Floating</span><span data-col="led"><i class="kn-led-dot"></i><em>off</em></span></button>
+                  <button type="button" role="radio" class="kn-state" data-st="1 0 0" aria-label="Switch closed, pull-up out, stray wire off: input A low, output Y high, LED lit" aria-checked="false" tabindex="-1"><span>closed</span><span>out</span><span>off</span><span data-col="a">Low</span><span data-col="y">High</span><span data-col="led"><i class="kn-led-dot is-on"></i><em>lit</em></span></button>
+                  <button type="button" role="radio" class="kn-state" data-st="0 1 1" aria-label="Switch open, pull-up in, stray wire on: input A high, output Y low, LED off" aria-checked="false" tabindex="-1"><span>open</span><span>in</span><span>on</span><span data-col="a">High</span><span data-col="y">Low</span><span data-col="led"><i class="kn-led-dot"></i><em>off</em></span></button>
+                  <button type="button" role="radio" class="kn-state" data-st="0 0 1" aria-label="Switch open, pull-up out, stray wire on: input A high, output Y low, LED off" aria-checked="false" tabindex="-1"><span>open</span><span>out</span><span>on</span><span data-col="a">High</span><span data-col="y">Low</span><span data-col="led"><i class="kn-led-dot"></i><em>off</em></span></button>
+                  <button type="button" role="radio" class="kn-state" data-st="1 1 1" aria-label="Switch closed, pull-up in, stray wire on: input A conflict, output Y floating, LED off" aria-checked="false" tabindex="-1"><span>closed</span><span>in</span><span>on</span><span data-col="a">Conflict</span><span data-col="y">Floating</span><span data-col="led"><i class="kn-led-dot"></i><em>off</em></span></button>
+                  <button type="button" role="radio" class="kn-state" data-st="1 0 1" aria-label="Switch closed, pull-up out, stray wire on: input A conflict, output Y floating, LED off" aria-checked="false" tabindex="-1"><span>closed</span><span>out</span><span>on</span><span data-col="a">Conflict</span><span data-col="y">Floating</span><span data-col="led"><i class="kn-led-dot"></i><em>off</em></span></button>
+                </div>
+              </div>
+            </div>
+            <div class="kn-bench-foot">
+              <p>The probe and meter show the lab’s logic-level readings: 5.00&nbsp;V for high, 0.00&nbsp;V for low, 1.60&nbsp;V for a floating net and 2.50&nbsp;V for a conflict. The Lab 6 manual teaches students to read about 1.6&nbsp;V as an input with no driver.</p>
+              <p class="kn-why-inline"><span class="kn-why-tag">Why?</span> The lab’s own card for the pull-up step reads “Pull-up is the weak default; the switch is the strong override.”</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ THE ANALOG SIDE -->
+    <section class="room tex-holes kn-section" data-lamp id="analog" aria-labelledby="analog-title" style="--pool-x: 72%; --pool-y: 44%">
+      <div class="wrap kn-analog">
+        <div class="kn-analog-copy">
+          <h2 class="case-h2" id="analog-title">The analog side</h2>
+          <p class="body-2">For the EE&nbsp;II labs I built a modified-nodal-analysis solver over complex admittances. It covers resistors, capacitors, inductors and an ideal op-amp, solves with dense complex Gaussian elimination and partial pivoting, and drives the oscilloscope and the Bode plotter.</p>
+          <p class="body-2">The EE&nbsp;II guided lab mixes 12 Morse-keyed tones into one input signal. A student tunes a bandpass filter onto one channel, with a Q of at least 20 and every other channel 20&nbsp;dB down, and the lab decodes that channel’s three-letter word. Today the guided lab completes with a passive series RLC filter.</p>
+          <div class="kn-formula" aria-label="Corner frequency check">
+            <math display="block" aria-label="f c equals 1 over 2 pi R C, which is about 1.59 kilohertz for 1 kilohm and 100 nanofarads"><msub><mi>f</mi><mi>c</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>π</mi><mi>R</mi><mi>C</mi></mrow></mfrac><mo>≈</mo><mn>1.59</mn><mspace width="0.2em"/><mtext>kHz</mtext></math>
+            <p>for R&nbsp;=&nbsp;1&nbsp;kΩ and C&nbsp;=&nbsp;100&nbsp;nF, the circuit in the capture</p>
+          </div>
+        </div>
+        <figure class="bench-fig kn-bode" data-reveal>
+          <button class="shot" type="button" data-zoom="../assets/knowsy-bode-20260929.webp">
+            <img src="../assets/knowsy-bode-20260929.webp" alt="Knowsy Bode plotter: a 1 kilohm resistor and 100 nanofarad capacitor on the board, with a magnitude plot rolling off near 1.6 kilohertz." width="2040" height="846" loading="lazy" decoding="async" />
+            <span class="zoom-hint" aria-hidden="true">View full size</span>
+          </button>
+          <figcaption>A 1&nbsp;kΩ resistor and a 100&nbsp;nF capacitor. The Bode plotter sweeps the circuit through my nodal-analysis solver and shows the rolloff near 1.6&nbsp;kHz, where 1/(2πRC) puts it.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================================================ GUIDED LABS -->
+    <section class="room tex-holes kn-section" data-lamp id="labs" aria-labelledby="labs-title" style="--pool-x: 30%; --pool-y: 40%">
+      <div class="wrap">
+        <div class="kn-head">
+          <h2 class="case-h2" id="labs-title">Guided labs</h2>
+          <p class="body-2">Eight guided labs based on the course materials, 32 sections and 90 steps, check themselves by electrical connection, so wire color can’t fail a step. Steps that hinge on a real concept carry a short “Why?” card, 35 in all. The guided steps and their cards were my idea, and I brought them to the PI.</p>
+        </div>
+
+        <div class="kn-shelf matte" data-kn-shelf data-reveal>
+          <div class="kn-shelf-top">
+            <p class="kn-shelf-key"><span class="kn-key-dot" aria-hidden="true"></span>One dot per auto-checked step, grouped by section</p>
+            <p class="kn-shelf-key"><span class="kn-key-dot is-lit" aria-hidden="true"></span>Lit in Lab 1: the 11 checks done in the capture at the top of this page</p>
+          </div>
+          <ol class="kn-labs">
+            <li class="kn-lab" data-groups="4" data-course="DLD">
+              <button type="button" class="kn-lab-row" aria-expanded="false" aria-controls="kn-lab-0"><span class="kn-lab-name">Power rails and bench supply</span> <span class="kn-lab-count"><span class="num">1</span> section · <span class="num">4</span> steps</span> <span class="kn-dots" aria-hidden="true"></span></button>
+              <p class="kn-lab-secs" id="kn-lab-0" hidden>Power and rails (4)</p>
+            </li>
+            <li class="kn-lab" data-groups="4 2 4 4 3" data-lit="4 2 4 1 0" data-course="DLD">
+              <button type="button" class="kn-lab-row" aria-expanded="true" aria-controls="kn-lab-1"><span class="kn-lab-name">Lab 1 · Combinational logic</span> <span class="kn-lab-count"><span class="num">5</span> sections · <span class="num">17</span> steps</span> <span class="kn-dots" aria-hidden="true"></span></button>
+              <p class="kn-lab-secs" id="kn-lab-1">Power and rails (4) · Place and power the 74LS04 inverter (2) · Switch, pull-up and LED on the inverter (4) · 74LS08 AND into the inverter and LED (4) · F(A,B,C) = AB + AC + BC (3)</p>
+            </li>
+            <li class="kn-lab" data-groups="4 3 3 3" data-course="DLD">
+              <button type="button" class="kn-lab-row" aria-expanded="false" aria-controls="kn-lab-2"><span class="kn-lab-name">Lab 3 · Combinational MSI, Gray code</span> <span class="kn-lab-count"><span class="num">4</span> sections · <span class="num">13</span> steps</span> <span class="kn-dots" aria-hidden="true"></span></button>
+              <p class="kn-lab-secs" id="kn-lab-2" hidden>Power and rails (4) · ICOD switch and LED block (3) · Binary to Gray encoder with a 74LS151 MUX (3) · Gray to binary decoder with a 74LS86 XOR chain (3)</p>
+            </li>
+            <li class="kn-lab" data-groups="1 2 1 2 2 1 4 1" data-course="DLD">
+              <button type="button" class="kn-lab-row" aria-expanded="false" aria-controls="kn-lab-3"><span class="kn-lab-name">Lab 4 · 4-bit ALU</span> <span class="kn-lab-count"><span class="num">8</span> sections · <span class="num">14</span> steps</span> <span class="kn-dots" aria-hidden="true"></span></button>
+              <p class="kn-lab-secs" id="kn-lab-3" hidden>Breadboard and power setup (1) · Component placement (2) · IC orientation and pin mapping (1) · Operand and control wiring (2) · MUX and Y-inverter wiring (2) · Output LED wiring (1) · Logic verification (4) · Final circuit test (1)</p>
+            </li>
+            <li class="kn-lab" data-groups="4 6 4" data-course="DLD">
+              <button type="button" class="kn-lab-row" aria-expanded="false" aria-controls="kn-lab-4"><span class="kn-lab-name">Lab 5 · Latches and flip-flops</span> <span class="kn-lab-count"><span class="num">3</span> sections · <span class="num">14</span> steps</span> <span class="kn-dots" aria-hidden="true"></span></button>
+              <p class="kn-lab-secs" id="kn-lab-4" hidden>Power and rails (4) · S-R latch from 74LS00 NANDs (6) · D flip-flop on a 74LS74 (4)</p>
+            </li>
+            <li class="kn-lab" data-groups="4 2 4 2" data-course="DLD">
+              <button type="button" class="kn-lab-row" aria-expanded="false" aria-controls="kn-lab-5"><span class="kn-lab-name">Lab 6 · Traffic signal controller</span> <span class="kn-lab-count"><span class="num">4</span> sections · <span class="num">12</span> steps</span> <span class="kn-dots" aria-hidden="true"></span></button>
+              <p class="kn-lab-secs" id="kn-lab-5" hidden>Power and rails (4) · Place and power the 74LS74 flip-flop (2) · Place and power the LM555 clock (4) · Place and power the NAND logic (2)</p>
+            </li>
+            <li class="kn-lab" data-groups="4 2 2 4" data-course="DLD">
+              <button type="button" class="kn-lab-row" aria-expanded="false" aria-controls="kn-lab-6"><span class="kn-lab-name">Buses · Tri-state and enable</span> <span class="kn-lab-count"><span class="num">4</span> sections · <span class="num">12</span> steps</span> <span class="kn-dots" aria-hidden="true"></span></button>
+              <p class="kn-lab-secs" id="kn-lab-6" hidden>Power and rails (4) · Place a 74LS125 or 74LS126 tri-state buffer (2) · Build the shared bus (2) · Wire the inputs and output enables (4)</p>
+            </li>
+            <li class="kn-lab" data-groups="1 1 2" data-course="EE II">
+              <button type="button" class="kn-lab-row" aria-expanded="false" aria-controls="kn-lab-7"><span class="kn-lab-name">EE&nbsp;II Lab 5 · Bandpass filter</span> <span class="kn-lab-count"><span class="num">3</span> sections · <span class="num">4</span> steps</span> <span class="kn-dots" aria-hidden="true"></span></button>
+              <p class="kn-lab-secs" id="kn-lab-7" hidden>Pick a probe net on the Bode panel (1) · Tune to a Lab 5 channel (1) · Sharpen the filter to a Q of 20 or more (2)</p>
+            </li>
+          </ol>
+          <p class="kn-shelf-total"><span class="num">8</span> labs · <span class="num">32</span> sections · <span class="num">90</span> steps, counted from the lab’s guide definitions</p>
+        </div>
+
+        <div class="kn-why" data-reveal>
+          <p class="kicker">Three of the lab’s 35 “Why?” cards, quoted as written</p>
+          <div class="kn-why-row">
+            <article class="kn-card matte"><p class="kn-card-lab"><b>Why?</b>Lab 4</p><h3>Subtraction in the adder</h3><p class="kn-card-idea">“Subtracting is just inverting and adding one.”</p><p>“Feed the adder Y flipped bit-for-bit, then sneak a +1 in through the carry input. Invert-plus-one is exactly −Y in two's complement, so X − Y falls out of a plain adder with no subtract circuit.”</p></article>
+            <article class="kn-card matte"><p class="kn-card-lab"><b>Why?</b>Lab 5</p><h3>D flip-flops and the clock edge</h3><p class="kn-card-idea">“A flip-flop only peeks at D on the clock's rising edge.”</p><p>“The S-R latch follows its inputs every instant; a D flip-flop samples D only when the clock ticks up and ignores it the rest of the time. That edge discipline is what makes synchronous systems predictable.”</p></article>
+            <article class="kn-card matte"><p class="kn-card-lab"><b>Why?</b>Lab 6</p><h3>Decoupling the flip-flop</h3><p class="kn-card-idea">“A decoupling cap is a tiny battery that catches each switching spike.”</p><p>“When the flip-flops flip, they yank a fast current spike off the supply, and the jumper back to the rail lets the local voltage sag. A 0.1&nbsp;µF cap across the power pins supplies that spike so the chip's power never dips and glitches your state.”</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ THE PRE-RELEASE AUDIT -->
+    <section class="room tex-holes kn-section" data-lamp id="validation" aria-labelledby="audit-title" style="--pool-x: 64%; --pool-y: 36%">
+      <div class="wrap kn-audit">
+        <div class="kn-audit-copy">
+          <h2 class="case-h2" id="audit-title">The pre-release audit</h2>
+          <p class="body-2">I directed an audit before the planned release and chose what to fix. The five findings below shipped fixed in the release PR; smaller items, such as the Bode panel’s Q sampling, went on a follow-up list.</p>
+          <h3 class="kn-sub">Decisions I made for the release PR</h3>
+          <ul class="kn-calls">
+            <li>Fix the pinouts to the real datasheets.</li>
+            <li>Export Verilog with a testbench for the student’s own Icarus run, and keep a WebAssembly simulator out of the page.</li>
+            <li>Add tri-state parts and a bus lab.</li>
+          </ul>
+        </div>
+        <ol class="kn-findings" data-reveal>
+          <li><h3>Lab 4 passed on an unwired board</h3><p>The reference build had +5&nbsp;V and ground merged into one net, and a fallback calculation hid it. The fallback was removed, so results now come from the simulated board.</p></li>
+          <li><h3>Flip-flops ignored their clock pin</h3><p>They now clock from the 555 wired to their CLK pin, so the Lab 6 traffic controller steps through its states.</p></li>
+          <li><h3>Four pinouts didn’t match the TI datasheets</h3><p>The 74LS151, 74LS153, 74LS283 and 74LS20. The 74LS283 had ground on pin 15; the datasheet puts it on pin 8.</p></li>
+          <li><h3>Wiring on stacked boards was dead</h3><p>Wires on a second or later board now join the circuit.</p></li>
+          <li><h3>A cross-site scripting hole in share links</h3><p>A wire color in a crafted share link reached the board’s SVG unescaped. The fix closed it.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================ MY PART -->
+    <section class="room kn-section kn-mine" id="my-part" aria-labelledby="mine-title">
+      <div class="wrap kn-mine-grid">
+        <h2 class="case-h2" id="mine-title">My part and the team’s</h2>
+        <div class="kn-mine-copy">
+          <p class="lead">I wrote the work split, with file ownership and API contracts for each teammate, and merged my teammates’ work into the module.</p>
+          <p class="body-2">I built the breadboard UX, the schematic renderer, the debugging tools, the circuit solver and most of the logic engine. A teammate built the sequential simulator (latches, flip-flops and the 555) and early Lab 4 work. Builds export to Verilog with a testbench.</p>
+          <p class="kn-status"><span class="kn-status-dot" aria-hidden="true"></span>Pre-release, not yet in front of students.</p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="wrap case-foot" aria-label="More work">
+      <a href="room-of-days.html">Next room: Room of Days <span class="arr arr--fwd" aria-hidden="true">→</span></a>
+      <a class="back" href="../index.html#work"><span aria-hidden="true">←</span> All work</a>
+    </nav>
+  </main>
+
+  <footer class="wrap site-foot">
+    <span>© 2026 Mika Be</span>
+    <a href="../assets/licenses/OFL-EBGaramond.txt">Fonts under the SIL Open Font License</a>
+  </footer>
+
+  <dialog class="zoom" id="zoom" aria-label="Full-size image">
+    <img alt="" />
+    <div class="zoom-bar"><p class="zoom-cap"></p><form method="dialog"><button class="zoom-close">Close</button></form></div>
+  </dialog>
+</body>
 </html>
