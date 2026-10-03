@@ -1,7 +1,7 @@
 /* Room of Days case page. Runs after quest-ui.js (it reads the engine instance quest-ui made). The theme's
    waveform ("rod-lamp-left-on") is in data.js, so the shared player in listen.js draws it.
-     1. the reward engine's receipt, stats, ledger and history sky (quest-ui drives the engine itself)
-     2. live readouts in "Each stat changes a rule"
+     1. beside the shared Quest board (quest-ui.js): the beat list, the days, the history sky
+     2. live readouts in "Five stats change a rule"
      3. the six rooms: plates crossfade, the app's fire sits at each room's hearth
      4. the App Store film strip and the tap and completion sounds */
 (function () {
@@ -11,37 +11,12 @@
   var noop = function () {};
 
   var QE = MB.QuestEngine;
-  var engineEl = MB.$("#engine");
 
-  /* ---------------------------------------------------------------- 1. the reward engine (2. the rule readouts live inside it) */
-  /* Per-stat rank names and thresholds from lib/content/stat_ranks.dart (same thresholds for every stat). */
-  var RANK_AT = [0, 10, 25, 50, 100, 200];
-  var RANKS = {
-    Body: ["Soft", "Limber", "Trained", "Strong", "Mighty", "Titan"],
-    Care: ["Frail", "Steady", "Hale", "Vital", "Radiant", "Undimmed"],
-    Mind: ["Curious", "Learner", "Sharp", "Astute", "Sage", "Luminary"],
-    Craft: ["Novice", "Apprentice", "Practiced", "Skilled", "Expert", "Master"],
-    People: ["Quiet", "Warming", "Kind", "Beloved", "Magnetic", "Beacon"],
-    Home: ["Cluttered", "Tidying", "Kept", "Homey", "Welcoming", "Sanctuary"]
-  };
-  function tierOf(v) { var t = 0; for (var i = 0; i < RANK_AT.length; i++) if (v >= RANK_AT[i]) t = i; return t; }
-  function rankProgress(v) { var t = tierOf(v); if (t >= RANK_AT.length - 1) return 1; return MB.clamp((v - RANK_AT[t]) / (RANK_AT[t + 1] - RANK_AT[t]), 0, 1); }
-  function ord(n) { return n + (n === 1 ? "st" : n === 2 ? "nd" : n === 3 ? "rd" : "th"); }
-
-  /* The receipt notes come from quest-ui.js, so the homepage card and this page always say the same thing. */
-  var receiptNote = MB.Quest && MB.Quest.note ? MB.Quest.note : function () { return ""; };
-  var SKIP_NOTE = (MB.Quest && MB.Quest.SKIP_NOTE) || "A day passed with nothing done. Your stats stayed where they were.";
-  var REST_NOTE = "Starting from the account in the App Store screenshots: level 18, a 12-day streak and 3 streak freezes ready.";
-  var NEXT_NOTE = "A new day. The first completion pays in full again.";
-
-  function chipsHTML(p) {
-    var parts = p.chips.map(function (c) { return '<span class="fx' + (c.hot ? " hot" : "") + '">' + c.value + " " + c.label + "</span>"; });
-    return parts.join('<span aria-hidden="true">×</span>') + '<span aria-hidden="true">=</span><span class="fx sum">' + p.xp + " XP</span>";
-  }
-
-  /* HISTORY SKY: a port of lib/widgets/constellation.dart (HistorySky). Every active day is a star on an
-     outward spiral; days that touch join into a thread; a missed day leaves no mark. Drawn still: the app's
-     stars breathe slowly, and this page keeps light reactive only. */
+  /* ---------------------------------------------------------------- 1. beside the Quest board: the beat list, the days, the sky
+     The board itself is the shared component in quest-ui.js (the same one as the homepage). This page listens to
+     its "mb:quest" beats and reads its engine. */
+  /* the sky (lib/widgets/constellation.dart HistorySky): every active day is a star on an outward spiral, days in a
+     row join into a thread, a missed day leaves no mark. Drawn still; light stays reactive only. */
   var SKY = { W: 145, H: 100, reachAt: 40 };
   function mix(a, b, t) { return a.map(function (v, i) { return Math.round(v + (b[i] - v) * t); }); }
   var XP_LIGHT = [242, 205, 147], EMBER = [236, 96, 7], SPECULAR = [255, 244, 217];
@@ -98,49 +73,33 @@
     return { svg: html, lit: lit, longest: longest };
   }
 
-  if (engineEl && engineEl._quest && QE) (function () {
-    var el = engineEl, eng = el._quest.engine;
-    var $ = function (s) { return MB.$(s, el); };
-    var ui = {
-      kicker: $("[data-e-kicker]"), xp: $("[data-e-xp]"), glim: $("[data-e-glim]"), gain: $("[data-e-gain]"), chips: $("[data-e-chips]"),
-      note: $("[data-e-note]"), ledgerEmpty: $("[data-e-ledger-empty]"), ledger: $("[data-e-ledger]"), day: $("[data-e-day]"),
-      status: $("[data-e-status]"), sky: $("[data-e-sky]"), skyMeta: $("[data-e-sky-meta]"), glow: $("[data-e-glow]"),
-      ladder: MB.$$("[data-q-ladder] li", el), stats: {}
-    };
-    MB.$$("[data-e-stat]", el).forEach(function (li) {
-      ui.stats[li.getAttribute("data-e-stat")] = { li: li, val: MB.$("[data-val]", li), rank: MB.$("[data-rank]", li), gain: MB.$("[data-gain]", li), bar: MB.$(".st-bar i", li) };
-    });
+  var boardEl = MB.$("#case-board"), board = boardEl && boardEl._board;
+  if (board && QE) (function () {
+    var eng = board.engine;
+    var beatRows = MB.$$("[data-beat]"), note = MB.$("[data-day-note]"), sky = MB.$("[data-e-sky]"), skyMeta = MB.$("[data-e-sky-meta]");
     var rules = { Mind: MB.$('[data-rule="Mind"]'), Care: MB.$('[data-rule="Care"]'), Home: MB.$('[data-rule="Home"]') };
+    var REST = "Day 1 starts from the account in the App Store screenshots: level 18, a 12-day streak and 3 streak freezes ready.";
 
-    /* the sky's history: the account's 12-day streak (days -12..-1), then the days played here.
-       Kept as snapshots beside quest-ui's undo stack, so Undo and Start over restore it exactly. */
-    var SEED = 12;
-    function seedHist() { var h = {}; for (var d = -SEED; d < 0; d++) h[d] = 1; return h; }
-    var hist = seedHist(), stack = [];
-    function copy(o) { var c = {}; for (var k in o) c[k] = o[k]; return c; }
-
-    function renderSky(flash) {
-      if (!ui.sky) return;
-      var s = skySVG(hist, flash);
-      ui.sky.innerHTML = s.svg;
-      var meta = s.lit + " active day" + (s.lit === 1 ? "" : "s") + (s.longest > 1 ? " · longest run " + s.longest + " days" : "");
-      if (ui.skyMeta) ui.skyMeta.textContent = meta;
-      ui.sky.setAttribute("aria-label", "History sky: " + meta + ". Missed days leave no mark.");
-    }
-
-    function renderStats(gainStat, gain, animate) {
-      var st = eng.state.stats;
-      Object.keys(ui.stats).forEach(function (k) {
-        var s = ui.stats[k], v = st[k], up = k === gainStat && gain > 0;
-        if (animate && up) MB.countTo(s.val, v, 320); else { s.val.setAttribute("data-value", v); s.val.textContent = v; }
-        s.rank.textContent = RANKS[k][tierOf(v)];
-        s.bar.style.setProperty("--p", rankProgress(v).toFixed(4));
-        s.li.classList.toggle("is-up", up);
-        s.gain.textContent = up ? "+" + gain : "";
-        s.gain.classList.toggle("on", up);
+    /* the beat list lights each row as its beat plays, and keeps the latest one brightest */
+    function lightBeat(beat, reset) {
+      if (reset) beatRows.forEach(function (li) { li.classList.remove("is-lit", "is-now"); });
+      if (!beat) return;
+      beatRows.forEach(function (li) {
+        if (li.getAttribute("data-beat") !== beat) return;
+        beatRows.forEach(function (x) { x.classList.remove("is-now"); });
+        li.classList.add("is-lit", "is-now");
       });
     }
-
+    function renderSky(flash) {
+      if (!sky) return;
+      var hist = {}, h = eng.state.history;
+      Object.keys(h).forEach(function (d) { if (+d <= eng.state.day) hist[d] = h[d]; });
+      var s = skySVG(hist, flash);
+      sky.innerHTML = s.svg;
+      var meta = s.lit + " active day" + (s.lit === 1 ? "" : "s") + (s.longest > 1 ? " · longest run " + s.longest + " days" : "");
+      if (skyMeta) skyMeta.textContent = meta;
+      sky.setAttribute("aria-label", "History sky: " + meta + ". Missed days leave no mark.");
+    }
     function renderRules() {
       var st = eng.state.stats;
       if (rules.Mind) {
@@ -152,108 +111,44 @@
         }
       }
       if (rules.Care) rules.Care.textContent = "refills every " + QE.cadence(st.Care) + " days at Care " + st.Care;
-      if (rules.Home) rules.Home.textContent = "idle bonus ×" + (1 + Math.min(1, st.Home / 200) * 0.25).toFixed(2) + " at Home " + st.Home;
+      if (rules.Home) rules.Home.textContent = "idle bonus ×" + QE.homeMult(st.Home).toFixed(2) + " at Home " + st.Home;
     }
-
-    function renderLedger() {
-      var rows = eng.state.ledger.slice(0, 5);
-      if (ui.ledgerEmpty) ui.ledgerEmpty.hidden = !!rows.length;
-      if (ui.ledger) ui.ledger.innerHTML = rows.map(function (r) {
-        return "<li><span>Day " + (r.day + 1) + " · " + ord(r.pass) + " today</span><span class=\"num\">" + Math.round(r.pct * 100) + "%</span><b class=\"num\">+" + r.xp + " XP</b></li>";
-      }).join("");
-    }
-
-    function renderAccount() {
-      var s = eng.state;
-      if (ui.day) ui.day.textContent = "Day " + (s.day + 1);
-      ui.ladder.forEach(function (li, i) { li.classList.toggle("is-next", i === Math.min(3, s.todayCount)); });
-      renderLedger();
-      renderRules();
-    }
-
-    function showNumbers(p, animate) {
-      if (animate) { ui.xp.textContent = "0"; ui.xp.setAttribute("data-value", "0"); MB.countTo(ui.xp, p.xp, 320); }
-      else { ui.xp.setAttribute("data-value", p.xp); ui.xp.textContent = p.xp; }
-      ui.glim.textContent = "+" + p.glimmers;
-      ui.gain.textContent = "+" + p.statGain;
-      ui.chips.innerHTML = chipsHTML(p);
-      ui.chips.setAttribute("aria-label", QE.chipsText(p));
-    }
-
-    /* the view before a completion: what the next completion would pay, and why */
-    function showPreview(note) {
-      var p = eng.preview(), s = eng.state;
-      el.classList.add("is-preview");
-      ui.kicker.textContent = "Day " + (s.day + 1) + " · next completion pays";
-      showNumbers(p, false);
-      if (p.comeback && note === SKIP_NOTE) note += " The gap is now longer than the freezes can cover, so the next completion pays a comeback bonus.";
-      ui.note.textContent = note;
-    }
-
-    /* the view after a completion: the receipt lands, the stat rises, tonight's star appears */
-    function showReceipt(p, animate) {
-      el.classList.remove("is-preview");
-      ui.kicker.textContent = "Day " + (eng.state.day + 1) + " · " + ord(p.pass) + " completion today";
-      showNumbers(p, animate);
-      ui.note.textContent = receiptNote(p);
-    }
-
-    function flare() {
-      if (MB.reduced() || !ui.glow || !ui.glow.animate) return;
-      ui.glow.animate([{ opacity: 0.35 }, { opacity: 0.85 }, { opacity: 0.35 }], { duration: 900, easing: "cubic-bezier(.2,.7,.1,1)" });
-    }
-
-    /* redraw everything from the engine state, with no motion (load, undo, start over) */
-    function restore() {
-      var last = eng.last;
-      if (last && last.type === "complete") { showReceipt(last.receipt, false); renderStats(last.receipt.stat, last.receipt.statGain, false); }
-      else { showPreview(!last ? REST_NOTE : last.type === "skip" ? SKIP_NOTE : situationNote()); renderStats(null, 0, false); }
-      renderAccount();
-      renderSky(null);
-    }
-    function situationNote() { return QE.situation(eng.state).gap ? SKIP_NOTE : NEXT_NOTE; }
-
-    /* quest-ui runs every action and tells this page through "mb:quest" (see quest-ui.js) */
-    var pending = null;
-    el.addEventListener("mb:quest", function (e) {
-      var d = e.detail || {}, act = d.type;
-      if (act === "complete" && d.phase === "act") {
-        var p = d.receipt, day = eng.state.day;
-        if (!p) return;
-        stack.push(copy(hist));
-        pending = { p: p, day: day, isNew: !hist[day] };
-        hist[day] = (hist[day] || 0) + 1;
-      } else if (act === "complete" && d.phase === "reveal") {
-        /* the receipt lands: the stat rises, tonight's star appears */
-        var r = pending; pending = null;
-        if (!r || r.p !== d.receipt) return;
-        renderAccount();
-        showReceipt(r.p, true);
-        renderStats(r.p.stat, r.p.statGain, true);
-        renderSky({ day: r.day, kind: r.isNew ? "new" : "grow" });
-        flare();
-        if (ui.status) ui.status.textContent = "Quest complete. " + r.p.xp + " XP and " + r.p.glimmers + " Glimmers. Mind " + r.p.statBefore + " to " + r.p.statAfter + ". " + receiptNote(r.p);
-      } else if (act === "skip" || act === "next") {
-        pending = null;
-        stack.push(copy(hist));
-        showPreview(act === "skip" ? SKIP_NOTE : situationNote());
-        renderStats(null, 0, false);
-        renderAccount();
-        renderSky(null);
-        if (ui.status) ui.status.textContent = ui.note.textContent;
-      } else if (act === "undo") {
-        pending = null;
-        if (stack.length) hist = stack.pop();
-        restore();
-        if (ui.status) ui.status.textContent = "Undone.";
-      } else if (act === "reset") {
-        pending = null;
-        hist = seedHist(); stack = [];
-        restore();
-        if (ui.status) ui.status.textContent = "Back to the account in the App Store screenshots.";
+    function dayNote(kind, b) {
+      var s = eng.state, d = "Day " + (s.day + 1) + ". ", sit = eng.situation();
+      if (kind === "rest") return REST;
+      if (kind === "near") return "One quest from level 19: 850 of 870 XP, with two of today’s three kept. Finish the last one and the level-up takes over once the receipt has gone.";
+      if (kind === "skip" || (kind === "next" && sit.gap)) {
+        if (sit.covered) return d + (sit.days === 1 ? "Yesterday was quiet." : "The last " + sit.days + " days were quiet.") + " Your first quest today spends " + (sit.days === 1 ? "a streak freeze" : sit.days + " streak freezes") + " to hold " + (sit.days === 1 ? "it" : "them") + ", so the " + s.streak + "-day streak carries on.";
+        return d + "The gap is longer than the " + s.freezes + " freezes ready, so your return pays a ×1.5 welcome back and the streak starts a new run. Stats and level stay where they were.";
       }
+      if (kind === "next") return d + "A new morning: today’s three are open again, and the first one finished is today’s first win.";
+      if (kind === "commit" && b) {
+        if (b.shieldHeld) return "A streak freeze held the quiet " + (b.freezesUsed === 1 ? "day" : b.freezesUsed + " days") + ". The streak is " + s.streak + " days, with " + s.freezes + " freezes ready.";
+        if (b.comebackMult) return "Welcome back: this return paid ×1.5, and the streak starts again from today.";
+        if (b.freezeEarned) return "Showing up again banked a freeze: " + s.freezes + " ready.";
+      }
+      return null;
+    }
+    function say(kind, b) { var t = dayNote(kind, b); if (t && note) note.textContent = t; }
+
+    board.on(function (e) {
+      if (e.type === "complete") {
+        if (e.beat === "tap") lightBeat("tap", true);
+        else if (e.beat === "receipt" || e.beat === "commit" || e.beat === "settle" || e.beat === "wash" || e.beat === "receipt-out") lightBeat(e.beat);
+        if (e.beat === "commit") { renderRules(); say("commit", e.bundle); renderSky({ day: eng.state.day, kind: eng.state.history[eng.state.day] === 1 ? "new" : "grow" }); }
+      } else if (e.type === "levelup") lightBeat("levelup");
+      else if (e.type === "undo") { lightBeat(null, true); renderRules(); renderSky(null); }
+      else if (e.type === "reset") { lightBeat(null, true); renderRules(); renderSky(null); say(e.beat === "near" ? "near" : "rest"); }
+      else if (e.type === "day") { lightBeat(null, true); renderRules(); renderSky(null); say(e.beat); }
     });
-    restore();
+    MB.$$("[data-day]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var k = btn.getAttribute("data-day");
+        /* the day note below announces the day, so the board stays quiet (one live region per event) */
+        if (k === "next") board.nextDay({ quiet: true }); else if (k === "skip") board.skipDay({ quiet: true }); else if (k === "level") board.nearLevel();
+      });
+    });
+    renderRules(); renderSky(null); say("rest");
   })();
 
   /* ---------------------------------------------------------------- 3. the six rooms */
@@ -423,7 +318,7 @@
   if (sfxBtn) sfxBtn.addEventListener("click", function () {
     try {
       MB.audio.stopAll();
-      var tap = new Audio(MB.base + "audio/world/rod-tap.wav"), done = new Audio(MB.base + "audio/world/rod-complete.wav");
+      var tap = new Audio(MB.base + "audio/world/rod-tap.wav"), done = new Audio(MB.base + "audio/world/rod-completion.wav");
       tap.volume = 0.6; done.volume = 0.8; done.preload = "auto";
       sfxBtn.classList.add("is-sounding");
       var p = tap.play(); if (p && p.catch) p.catch(noop);

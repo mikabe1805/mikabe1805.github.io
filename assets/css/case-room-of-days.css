@@ -1,6 +1,6 @@
 /* Room of Days case page: the whole page is the room. Firelit dark, one glass, one light.
    Shared components and tokens come from site.css; this file only lays out this page and
-   styles its own modules (the reward engine, the six rooms, the App Store film, the build list). */
+   styles its own modules (the Quest board beside its beats, days and sky, the six rooms, the App Store film, the build list). */
 
 body[data-world="rod"] { --bg: #0d0a08; background: var(--bg); }
 .rod-section { padding-top: clamp(76px, 8.4vw, 136px); }
@@ -57,110 +57,48 @@ a:hover .arr--down { transform: translateY(2px); }
 .rod-head p { margin: 0; max-width: 36em; }
 @media (max-width: 899px) { .rod-head { grid-template-columns: minmax(0, 1fr); align-items: start; } }
 
-/* ================================================================== THE REWARD ENGINE (quest-engine.js, quest-ui.js, this page's script) */
+/* ================================================================== TODAY'S THREE (the shared Quest board, quest-ui.js + rod-board.css; this page's script)
+   The board stands under a slice of the app's room, as it does on the app's Quest board; the beats, the days and the sky
+   sit beside it. */
 .engine {
-  isolation: isolate; overflow: hidden; display: grid;
-  grid-template-columns: minmax(0, .96fr) minmax(0, 1.14fr) minmax(0, 1.06fr);
-  grid-template-areas: "quest receipt account" "ladder history history";
+  isolation: isolate; overflow: hidden; overflow: clip; display: grid; /* clip, not a scroll box: the board's receipt anchor stays sticky to the screen */
+  grid-template-columns: minmax(0, 470px) minmax(0, 1fr);
   border-radius: 24px; border-color: rgb(255 226 186 / .09);
   background: linear-gradient(180deg, rgb(255 236 214 / .045), rgb(255 236 214 / .016) 60%), rgb(12 9 7 / .5);
   box-shadow: 0 50px 90px -60px rgb(0 0 0 / .9);
 }
-.engine-hearth { position: absolute; z-index: -1; left: 26%; top: -24%; width: 52%; height: 70%; pointer-events: none; border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(255 150 70 / .2), rgb(255 140 60 / .07) 55%, transparent); opacity: .35; }
-.engine-cell { position: relative; min-width: 0; padding: clamp(22px, 2.3vw, 34px); }
-.engine-quest { grid-area: quest; }
-.engine-receipt { grid-area: receipt; border-left: 1px solid rgb(255 226 186 / .08); }
-.engine-account { grid-area: account; border-left: 1px solid rgb(255 226 186 / .08); }
-.engine-ladder { grid-area: ladder; display: flex; flex-direction: column; border-top: 1px solid rgb(255 226 186 / .08); }
-.engine-history { grid-area: history; display: flex; flex-direction: column; border-top: 1px solid rgb(255 226 186 / .08); border-left: 1px solid rgb(255 226 186 / .08); }
+.engine-board { position: relative; isolation: isolate; display: flex; justify-content: center; padding: 176px 24px 30px; background: #191210; overflow: hidden; overflow: clip; }
+/* the room is the stage's own planes (already loaded for the arrival), stacked still: the board stands under it as on the app's
+   Quest board */
+.engine-room { position: absolute; z-index: -1; left: 0; top: 0; width: 100%; height: 330px; overflow: hidden;
+  -webkit-mask: linear-gradient(180deg, #000 52%, transparent 100%); mask: linear-gradient(180deg, #000 52%, transparent 100%); }
+.engine-room-in { position: absolute; left: 50%; top: 50%; width: 780px; aspect-ratio: 1635 / 962; transform: translate(-60%, -54%); }
+.engine-room-in img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+.engine-room-in .engine-fire { left: 78.9%; top: 48.86%; width: 19.57%; height: 31.19%; inset: auto; }
+.engine-board .rod-board { width: 100%; max-width: 367px; will-change: transform; } /* its own layer, as on the homepage: a completion re-rasters the board, not the page around it */
+.engine-side { display: flex; flex-direction: column; min-width: 0; border-left: 1px solid rgb(255 226 186 / .08); }
+.engine-cell { position: relative; min-width: 0; padding: clamp(22px, 2.3vw, 32px); }
+.engine-cell + .engine-cell { border-top: 1px solid rgb(255 226 186 / .08); }
 .engine-label { font: 500 12.5px/1.4 var(--sans); color: var(--text-3); margin: 0 0 10px; }
-
-/* act: the Quest */
-.engine-col-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: -4px 0 14px; }
-.engine-col-head .kicker { margin: 0; color: rgb(255 226 196 / .72); }
-.engine-card { grid-template-columns: auto minmax(0, 1fr) auto; row-gap: 8px; }
-.engine-meta { grid-column: 2 / -1; margin: 0; font-size: 12.5px; line-height: 1.3; color: var(--text-3); }
-.engine-meta .num { font-size: 12px; color: var(--text-2); }
-.engine.is-done .quest-ring circle { stroke: rgb(var(--sun)); fill: rgb(255 190 120 / .14); }
-.engine.is-done .quest-ring path { stroke-dashoffset: 0; }
-.engine-days { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
-.engine-days .pill { min-height: 42px; padding: 0 12px; border-radius: 12px; font-size: 14px; }
-.engine .quest-more { min-height: 38px; }
-.bars { margin-top: auto; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; align-items: end; padding: 0; }
-.bars li { display: grid; justify-items: center; gap: 6px; }
-.bars i { display: block; width: 100%; height: calc(var(--bar-h, 188px) * var(--h)); min-height: 7px; border-radius: 7px 7px 3px 3px; background: rgb(255 226 186 / .075); transition: background-color .35s var(--ease), box-shadow .35s var(--ease); }
-.bars b { font: 600 12px/1 var(--mono); color: var(--text-3); }
-.bars span { font-size: 11.5px; line-height: 1; color: var(--text-3); }
-.bars li.is-next i { box-shadow: inset 0 0 0 1px rgb(255 214 170 / .4); }
-.bars li.on i { background: linear-gradient(180deg, rgb(255 196 140 / .42), rgb(255 150 80 / .16)); box-shadow: inset 0 1px 0 rgb(255 226 186 / .55), inset 0 0 0 1px rgb(255 200 140 / .38), 0 0 26px -6px rgb(255 140 60 / .45); }
-.bars li.on b { color: rgb(255 222 184); }
-.bars li.on span { color: var(--text-2); }
-
-/* result: the receipt */
-.engine-xp {
-  display: flex; align-items: baseline; margin: 2px 0 10px; color: rgb(255 214 170);
-  font: 500 clamp(88px, 8.2vw, 132px)/.84 var(--serif); letter-spacing: -.035em; font-variant-numeric: lining-nums tabular-nums;
-  transition: color .35s var(--ease), opacity .35s var(--ease);
-}
-.engine-xp .sign { font-size: .46em; margin-right: .04em; color: rgb(255 200 150 / .66); align-self: center; transform: translateY(-.12em); }
-.engine-xp .unit { font: 500 15px/1 var(--sans); letter-spacing: .02em; color: var(--text-2); margin-left: 10px; }
-.engine.is-preview .engine-xp { color: rgb(236 231 223 / .3); }
-.engine.is-preview .engine-xp .sign { color: rgb(236 231 223 / .22); }
-.engine-sub { margin: 0 0 16px; font-size: 15px; color: var(--text-2); }
-.engine-sub .num { font-size: 14px; color: var(--text); }
-.engine .formula { margin-bottom: 14px; }
-.engine-note { margin: 0 0 18px; font-size: 14px; line-height: 1.55; color: var(--text-2); min-height: 4.65em; }
-.engine-ledger { padding-top: 2px; }
-.ledger-empty { margin: 0; padding: 4px 0; max-width: 24em; font-size: 13px; line-height: 1.5; color: var(--text-3); }
-.engine-ledger ol { list-style: none; display: grid; padding: 0; }
-.engine-ledger li:first-child { border-top: 0; }
-.engine-ledger li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 14px; align-items: baseline; padding: 7px 0; border-top: 1px solid rgb(255 226 186 / .08); font-size: 13px; color: var(--text-3); }
-.engine-ledger li .num { font-size: 12px; }
-.engine-ledger li b { color: var(--text-2); font-weight: 600; }
-.engine-ledger li:first-child, .engine-ledger li:first-child b { color: var(--text); }
-.engine-ledger li:first-child b { color: rgb(255 214 170); }
-
-/* state: the account */
-.acct-level { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-.acct-level p { margin: 0; }
-.acct-level .engine-label { margin: 0; }
-.lvl { margin-left: 6px; font: 500 30px/1 var(--serif); color: var(--text); font-variant-numeric: lining-nums; }
-.acct-xp { font-size: 13px; color: var(--text-3); }
-.acct-xp .num { font-size: 12.5px; }
-.acct-xp b { color: var(--text); }
-.xp-track { height: 5px; margin: 10px 0 20px; border-radius: 99px; overflow: hidden; background: rgb(255 226 186 / .08); }
-.xp-track i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, rgb(224 168 101 / .65), rgb(255 206 150)); transform-origin: 0 50%; transform: scaleX(.3264); transition: transform .6s var(--ease); }
-.acct-stats { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px 20px; padding: 0; }
-.acct-stats li { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: baseline; gap: 0 8px; }
-.st-name { font: 500 13px/1.2 var(--sans); color: var(--text-2); }
-.st-rank { font: italic 400 14px/1.2 var(--serif); color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.st-val { justify-self: end; font: 500 21px/1 var(--serif); color: var(--text); font-variant-numeric: lining-nums tabular-nums; }
-.st-gain { grid-column: 3; grid-row: 1; font-size: 11px; color: rgb(255 210 160); opacity: 0; transform: translateY(3px); transition: opacity .35s var(--ease), transform .35s var(--ease); pointer-events: none; }
-.st-val { grid-column: 4; grid-row: 1; }
-.st-gain.on { opacity: 1; transform: none; }
-.st-bar { grid-column: 1 / -1; height: 3px; margin-top: 7px; border-radius: 9px; overflow: hidden; background: rgb(255 226 186 / .08); }
-.st-bar i { display: block; height: 100%; border-radius: inherit; background: rgb(255 226 186 / .42); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); transition: transform .7s var(--ease), background-color .35s; }
-.acct-stats li.is-up .st-bar i { background: rgb(255 190 120 / .9); }
-.acct-stats li.is-up .st-val { color: rgb(255 222 184); }
-.acct-streak { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 22px 0 10px; padding-top: 16px; border-top: 1px solid rgb(255 226 186 / .08); }
-.acct-streak p { margin: 0; font: 500 19px/1.2 var(--serif); }
-.acct-streak b { font-weight: 500; font-variant-numeric: lining-nums; }
-.acct-streak .acct-day { font: 500 13px/1.2 var(--sans); color: var(--text-3); }
-.acct-freezes { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.acct-freezes .engine-label { margin: 0; }
-.dots { display: inline-flex; gap: 6px; }
-.dots i { width: 9px; height: 9px; border-radius: 50%; box-shadow: inset 0 0 0 1.2px rgb(205 222 236 / .38); transition: background-color .3s, box-shadow .3s; }
-.dots i.on { background: rgb(218 233 245 / .9); box-shadow: 0 0 8px rgb(190 220 245 / .3); }
-.history-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.beat-list { list-style: none; margin: 0; padding: 0; }
+.beat-list li { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 14px; padding: 9px 0; border-top: 1px solid rgb(255 226 186 / .06); font-size: 14px; line-height: 1.5; color: var(--text-3); transition: color .45s var(--ease); }
+.beat-list li:first-child { border-top: 0; }
+.beat-list li b { font: 600 12px/1.75 var(--mono); color: var(--text-3); white-space: nowrap; transition: color .45s var(--ease); }
+.beat-list li.is-lit { color: var(--text-2); }
+.beat-list li.is-lit b { color: rgb(255 214 170 / .78); }
+.beat-list li.is-now { color: var(--text); }
+.beat-list li.is-now b { color: #f2cd93; }
+.engine-days-cell .engine-label { font-size: 15px; color: var(--text); }
+.days-copy { margin: 0 0 14px; max-width: 34em; font-size: 14.5px; line-height: 1.55; color: var(--text-2); }
+.engine-days { display: flex; flex-wrap: wrap; gap: 8px; }
+.engine-days .pill { min-height: 42px; padding: 0 14px; border-radius: 12px; font-size: 14px; }
+.day-note { margin: 14px 0 0; min-height: 4.6em; max-width: 36em; font-size: 14px; line-height: 1.55; color: var(--text-2); }
+.engine-history { flex: 1; display: flex; flex-direction: column; }
+.history-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
 .history-head .engine-label { margin: 0; }
 .sky-meta { font: italic 400 14px/1.3 var(--serif); color: var(--text-3); text-align: right; }
-.history-panel {
-  flex: 1; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; gap: 0 8px; border-radius: 16px;
-  background: radial-gradient(70% 120% at 28% 50%, rgb(36 27 40 / .6), rgb(14 11 14 / .55) 70%), rgb(8 7 9 / .5); box-shadow: inset 0 0 0 1px rgb(255 226 186 / .06);
-}
-.sky { display: block; width: 100%; height: auto; aspect-ratio: 1.45; }
-.history-panel .engine-ledger { align-self: stretch; padding: 22px 24px 18px 8px; }
+.sky { display: block; width: 100%; max-width: 340px; height: auto; aspect-ratio: 1.45; margin: 0; border-radius: 16px;
+  background: radial-gradient(70% 120% at 50% 50%, rgb(36 27 40 / .55), rgb(14 11 14 / .5) 70%), rgb(8 7 9 / .45); box-shadow: inset 0 0 0 1px rgb(255 226 186 / .06); }
 .sky .dust { fill: #b3a594; }
 .sky .thread { stroke: #e0a865; stroke-opacity: .32; stroke-width: .5; stroke-linecap: round; fill: none; }
 .sky .halo { pointer-events: none; }
@@ -174,30 +112,17 @@ a:hover .arr--down { transform: translateY(2px); }
 .sky-note { margin: 10px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--text-3); }
 .engine-foot { margin: 16px 2px 0; max-width: 64em; font-size: 13.5px; line-height: 1.55; color: var(--text-3); }
 
-@media (max-width: 1180px) {
-  .engine { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "quest receipt" "account ladder" "history history"; }
-  .engine-account { border-left: 0; border-top: 1px solid rgb(255 226 186 / .08); }
-  .engine-ladder { border-left: 1px solid rgb(255 226 186 / .08); --bar-h: 150px; }
-  .engine-history { border-left: 0; }
+@media (max-width: 960px) {
+  .engine { grid-template-columns: minmax(0, 1fr); border-radius: 20px; }
+  .engine-side { border-left: 0; border-top: 1px solid rgb(255 226 186 / .08); }
 }
 @media (max-width: 720px) {
-  .engine { grid-template-columns: minmax(0, 1fr); grid-template-areas: "quest" "receipt" "ladder" "account" "history"; border-radius: 20px; }
-  .engine-cell { padding: 20px 18px 22px; }
-  .engine-receipt, .engine-account, .engine-ladder, .engine-history { border-left: 0; border-top: 1px solid rgb(255 226 186 / .08); }
-  .engine-ladder { --bar-h: 84px; }
-  .history-panel { grid-template-columns: minmax(0, 1fr); }
-  .history-panel .engine-ledger { padding: 4px 18px 16px; }
-  .engine-xp { font-size: 96px; }
-  .engine-hearth { left: -10%; width: 120%; top: 16%; height: 30%; }
-  .engine-note { min-height: 0; }
-  .acct-stats { gap: 14px 18px; }
-  .acct-stats li { grid-template-columns: minmax(0, 1fr) auto auto; }
-  .acct-stats .st-name { grid-column: 1; grid-row: 1; }
-  .acct-stats .st-rank { grid-column: 1 / -1; grid-row: 2; margin-top: 2px; font-size: 13px; }
-  .acct-stats .st-gain { grid-column: 2; }
-  .acct-stats .st-val { grid-column: 3; }
-  .acct-stats .st-bar { grid-row: 3; }
-  .engine .quest-more { min-height: 0; }
+  .engine { margin-inline: calc(var(--gutter) * -1); border-radius: 0; border-left: 0; border-right: 0; }
+  .engine-board { padding: 150px 16px 24px; }
+  .engine-room { height: 270px; }
+  .engine-cell { padding: 20px var(--gutter) 22px; }
+  .beat-list li { grid-template-columns: 70px minmax(0, 1fr); gap: 10px; font-size: 13.5px; }
+  .day-note { min-height: 0; }
 }
 
 /* ================================================================== EACH STAT CHANGES A RULE */

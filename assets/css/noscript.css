@@ -9,7 +9,7 @@
 .nav-links { margin-left: auto; }
 /* controls that need a script: the frame-strip arrows and the room picker (the large plate above it stays) */
 .film-btn, .rooms-pick { display: none !important; }
-/* the reward engine needs its script: without it the case page keeps the section’s own explanation of the rules */
+/* the Quest board needs its script: without it the case page keeps the section’s own explanation */
 .engine, .engine-foot, .rules-live { display: none !important; }
 /* the bench lamp needs its script to come on; without it the LED on the homepage board shows lit */
 .kn-strip-led { opacity: 1 !important; }

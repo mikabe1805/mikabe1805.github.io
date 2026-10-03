@@ -156,6 +156,10 @@
 #rod-stage .depth-view { -webkit-mask: linear-gradient(180deg, transparent 0, #000 13%, #000 84%, transparent 100%); mask: linear-gradient(180deg, transparent 0, #000 13%, #000 84%, transparent 100%); }
 #rod-stage .rod-vignette { background: linear-gradient(90deg, rgb(8 6 5 / .58) 0%, rgb(8 6 5 / .24) 30%, transparent 54%), linear-gradient(0deg, rgb(12 13 15 / .5) 0%, rgb(12 13 15 / 0) 26%); }
 
+/* the Quest board stands in the stage at its full height (all of today's three kept, with Enough for today): short laptops get a
+   room taller than the screen rather than a board that runs past the room's foot */
+@media (min-width: 1200px) { #rod-stage { min-height: 840px; } }
+
 /* under the stage */
 .rod-more { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 88px); align-items: center; margin-top: clamp(32px, 3.6vw, 52px); }
 .rod-credit { font: italic 400 clamp(22px, 2vw, 28px)/1.3 var(--serif); color: var(--text); margin: 0 0 26px; letter-spacing: -.005em; }
@@ -328,12 +332,26 @@
   #rod-stage { height: auto; display: flex; flex-direction: column; }
   #rod-stage .depth-view { position: relative; inset: auto; height: min(72svh, 640px); min-height: 420px; order: 0; }
   #rod-stage .rod-vignette { background: linear-gradient(0deg, rgb(12 13 15 / .5) 0%, rgb(12 13 15 / 0) 30%); }
-  #rod-stage > .quest { position: relative; left: auto; bottom: auto; order: 2; z-index: 3; margin: 16px 0 0 var(--gutter); width: 380px; }
+  #rod-stage > .quest { position: relative; left: auto; top: auto; bottom: auto; order: 2; z-index: 4; margin: 16px 0 0 var(--gutter); width: 367px; }
   #rod-stage .rod-overlay { position: static; order: 1; display: block; padding: 0; pointer-events: auto; }
   #rod-stage .rod-plate { width: auto; margin: 16px 0 0; -webkit-backdrop-filter: none; backdrop-filter: none; background: rgb(255 252 246 / .035); border: 1px solid var(--line); border-radius: var(--r-matte); box-shadow: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 40px; }
   #rod-stage .rod-plate::before, #rod-stage .rod-plate::after { display: none; }
   #rod-stage .rod-plate > .kicker, #rod-stage .rod-plate > h2 { grid-column: 1 / -1; }
   #rod-stage .rod-caption { position: static; order: 3; margin-top: 14px; }
+}
+/* 900 to 1199: under the room, the plate and the Quest stand side by side, as they do over the room on a wide screen,
+   so the board is never left alone at one edge of an empty band; 700 to 899: the board stands centred under the plate,
+   as it does on a phone */
+@media (min-width: 900px) and (max-width: 1199px) {
+  #rod-stage { display: grid; grid-template-columns: var(--gutter) minmax(0, 1fr) 28px 367px var(--gutter); grid-template-rows: auto auto auto 1fr; align-items: start; }
+  #rod-stage .depth-view { grid-column: 1 / -1; grid-row: 1; }
+  #rod-stage .rod-overlay { grid-column: 2; grid-row: 2; width: auto; margin: 0; }
+  #rod-stage .rod-plate { display: block; }
+  #rod-stage .rod-caption { grid-column: 2; grid-row: 3; width: auto; margin: 14px 0 0; }
+  #rod-stage > .quest { grid-column: 4; grid-row: 2 / span 3; margin: 16px 0 0; width: 367px; }
+}
+@media (min-width: 700px) and (max-width: 899px) {
+  #rod-stage > .quest { margin-left: auto; margin-right: auto; }
 }
 @media (max-width: 900px) {
   .kuiper-top, .voice, .notes-top, .bench-top, .bench-pair, .bench-role, .notes-more { grid-template-columns: minmax(0, 1fr); }

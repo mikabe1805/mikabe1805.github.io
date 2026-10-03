@@ -353,10 +353,7 @@ body:not([data-world]) .nav-wrap[data-scrim="kuiper"]::before { left: var(--shee
 /* the pause has to outrank the burning glow rule above (the animation shorthand resets play-state) */
 .depth-room.is-paused .fire-sway, .depth-room.is-paused .depth-fire img, .depth-room.is-burning.is-lit.is-paused .hearth-glow { animation-play-state: paused; }
 
-/* ------------------------------------------------------------------ QUEST (quest-ui.js) */
-.quest { padding: 16px; width: min(360px, 100%); }
-.quest-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; padding-left: 4px; }
-.quest-head .kicker { margin: 0; color: rgb(255 226 196 / .72); }
+/* ------------------------------------------------------------------ SOUND TOGGLE (the Quest board, quest-ui.js, carries one; its own styles are rod-board.css) */
 .sound-toggle { display: inline-flex; align-items: center; gap: 7px; min-height: 32px; padding: 0 8px; border: 0; border-radius: 10px; background: none; cursor: pointer; font: 500 13px/1 var(--sans); color: var(--text-3); transition: color var(--t-hover), background-color var(--t-hover); }
 .sound-toggle:hover { color: var(--text); background: rgb(255 255 255 / .05); }
 .sound-toggle svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
@@ -365,41 +362,6 @@ body:not([data-world]) .nav-wrap[data-scrim="kuiper"]::before { left: var(--shee
 .sound-toggle[aria-pressed="true"] { color: rgb(var(--sun)); }
 .sound-toggle[aria-pressed="true"] .wv { display: inline; }
 .sound-toggle[aria-pressed="true"] .mt { display: none; }
-.quest-card { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 14px; border-radius: 14px; background: rgb(10 7 5 / .5); box-shadow: inset 0 0 0 1px rgb(255 200 140 / .13); }
-.quest-ring svg { width: 32px; height: 32px; fill: none; }
-.quest-ring circle { stroke: rgb(255 214 170 / .5); stroke-width: 1.5; transition: stroke .28s var(--ease), fill .28s var(--ease); }
-.quest-ring path { stroke: rgb(var(--sun)); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 16; stroke-dashoffset: 16; transition: stroke-dashoffset 280ms var(--ease); }
-.quest.is-done .quest-ring circle { stroke: rgb(var(--sun)); fill: rgb(255 190 120 / .14); }
-.quest.is-done .quest-ring path { stroke-dashoffset: 0; }
-.quest-title { font: 500 21px/1.15 var(--serif); margin: 0; letter-spacing: -.005em; }
-.quest-sub { margin: 2px 0 0; font-size: 13px; color: rgb(255 226 196 / .66); }
-.quest-badge { font-size: 12.5px; color: rgb(255 220 180); padding: 7px 9px; border-radius: var(--r-chip); background: rgb(255 180 110 / .10); box-shadow: inset 0 0 0 1px rgb(255 190 120 / .26); white-space: nowrap; }
-.quest-main { width: 100%; margin-top: 10px; min-height: 46px; border-radius: 12px; font-weight: 600; font-size: 14.5px; letter-spacing: .005em; }
-.quest-more { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 2px; margin: 6px -4px 0; }
-.quest-receipt { margin-top: 12px; padding: 14px 4px 2px; border-top: 1px solid rgb(255 220 180 / .10); }
-.quest-receipt .kicker { margin: 0 0 4px; color: rgb(255 226 196 / .72); }
-.receipt-main { font: 500 26px/1.1 var(--serif); margin: 0 0 6px; letter-spacing: -.01em; font-variant-numeric: lining-nums; }
-.receipt-main .xp { color: rgb(255 214 170); font-size: 1.42em; font-variant-numeric: lining-nums tabular-nums; text-shadow: 0 0 22px rgb(255 170 90 / .35); }
-/* beat two (stat line, formula, ladder, note) arrives about 400 ms after the XP, a step quieter */
-.quest-receipt .receipt-stat, .quest-receipt .formula, .quest-receipt .ladder, .quest-receipt .receipt-note { transition: opacity .5s var(--ease), transform .5s var(--ease); }
-.quest-receipt.beat-1 .receipt-stat, .quest-receipt.beat-1 .formula, .quest-receipt.beat-1 .ladder, .quest-receipt.beat-1 .receipt-note { opacity: 0; transform: translateY(5px); }
-.quest-receipt .formula, .quest-receipt .ladder { opacity: .82; }
-.receipt-stat { font-size: 13px; color: var(--text-2); margin: 0 0 10px; }
-.receipt-stat b { color: var(--text); font-weight: 600; }
-.formula { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 4px; margin: 0 0 12px; font-size: 11.5px; line-height: 1; color: var(--text-3); }
-.formula .fx { padding: 5px 7px; border-radius: 7px; background: rgb(255 255 255 / .05); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .08); color: var(--text-2); white-space: nowrap; }
-.formula .fx.hot { background: rgb(255 180 110 / .10); box-shadow: inset 0 0 0 1px rgb(255 190 120 / .28); color: rgb(255 220 180); }
-.formula .fx.sum { color: var(--text); background: rgb(255 190 120 / .14); }
-.ladder { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 0 0 10px; }
-.ladder li { display: grid; gap: 3px; padding: 7px 4px 6px; border-radius: 10px; text-align: center; background: rgb(255 255 255 / .035); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .06); transition: background-color .3s, box-shadow .3s; }
-.ladder b { font: 600 12px/1 var(--mono); color: var(--text-3); }
-.ladder span { font-size: 11px; line-height: 1; color: var(--text-3); }
-.ladder li.on { background: rgb(255 190 120 / .14); box-shadow: inset 0 0 0 1px rgb(255 200 140 / .42); }
-.ladder li.on b { color: rgb(255 222 184); }
-.ladder li.on span { color: var(--text-2); }
-.receipt-note { font-size: 13.5px; line-height: 1.5; color: var(--text-2); margin: 0; }
-.quest.sweep::before { animation: mb-sweep 600ms var(--ease); }
-@keyframes mb-sweep { 0% { --gx: -20%; --gy: 0%; } 100% { --gx: 120%; --gy: 0%; } }
 @property --gx { syntax: "<percentage>"; inherits: true; initial-value: 30%; }
 @property --gy { syntax: "<percentage>"; inherits: true; initial-value: -10%; }
 
@@ -615,10 +577,10 @@ body:not([data-world]) .nav-wrap[data-scrim="kuiper"]::before { left: var(--shee
 .rod-p2 { font-size: 15.5px; line-height: 1.6; color: var(--text-2); margin-bottom: 0; }
 .rod-plate .chips { margin: 20px 0 0; }
 .rod-plate .links { margin-top: 22px; }
-.rod-stage > .quest { position: absolute; z-index: 3; left: var(--clear-x, 56%); bottom: 72px; background:
-    linear-gradient(180deg, rgb(255 170 100 / .07), rgb(18 12 8 / .3)),
-    linear-gradient(rgb(255 252 246 / .05), rgb(255 252 246 / .02)),
-    rgb(16 11 8 / .36); }
+/* the Quest board (rod-board.css, loaded with quest-ui.js as it nears the viewport) stands between the plate and the hearth */
+.rod-stage > .quest { position: absolute; z-index: 4; left: var(--clear-x, 56%); top: calc(var(--nav-top) + var(--nav-h) + 14px); width: 367px; }
+/* the stage clips without becoming a scroll box, so the board's receipt anchor can stay sticky to the screen (rod-board.css) */
+#rod-stage { overflow: clip; }
 .rod-caption { position: absolute; left: 0; right: 0; bottom: 18px; z-index: 3; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 13px; line-height: 1.5; color: var(--text-3); }
 .rod-caption span { max-width: 62em; }
 /* the tilt control: a small glass pill over the room's lower left, clear of the hearth and of the Quest that
@@ -708,7 +670,7 @@ body:not([data-world]) .nav-wrap[data-scrim="kuiper"]::before { left: var(--shee
   .rod-stage { height: auto; display: flex; flex-direction: column; }
   .rod-stage .depth-view { position: relative; inset: auto; height: min(70svh, 620px); min-height: 380px; order: 0; }
   .rod-vignette { background: linear-gradient(0deg, var(--bg) 0%, rgb(12 13 15 / .6) 10%, rgb(12 13 15 / 0) 30%), linear-gradient(180deg, var(--bg) 0%, rgb(12 13 15 / 0) 16%); }
-  .rod-stage > .quest { position: relative; left: auto; bottom: auto; order: 2; z-index: 3; margin: 16px 0 0 var(--gutter); width: min(380px, calc(100% - 2 * var(--gutter))); }
+  .rod-stage > .quest { position: relative; left: auto; top: auto; bottom: auto; order: 2; z-index: 4; margin: 16px 0 0 var(--gutter); width: min(367px, calc(100% - 2 * var(--gutter))); }
   .rod-overlay { position: static; order: 1; display: block; padding: 0; pointer-events: auto; }
   .rod-plate { width: auto; margin: 16px 0 0; -webkit-backdrop-filter: none; backdrop-filter: none; background: rgb(255 252 246 / .035); border: 1px solid var(--line); border-radius: var(--r-matte); box-shadow: none; }
   .rod-plate::before, .rod-plate::after { display: none; }
@@ -723,7 +685,7 @@ body:not([data-world]) .nav-wrap[data-scrim="kuiper"]::before { left: var(--shee
 @media (max-width: 699px) {
   .device-stage { aspect-ratio: auto; height: var(--stage-h, 360px); max-height: none; }
   .rod-stage .depth-view { height: 62svh; min-height: 360px; }
-  .rod-stage > .quest { margin: 14px auto 0; }
+  .rod-stage > .quest { margin: 14px auto 0; width: calc(100% - 2 * var(--gutter)); max-width: 367px; }
   .rod-plate { padding: 24px 20px 22px; }
   .rod-plate h2 { font-size: 48px; }
   .store-row { grid-template-columns: repeat(3, 72vw); overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); margin-inline: calc(var(--gutter) * -1); padding: 4px var(--gutter) 12px; scrollbar-width: none; gap: 16px; }
@@ -765,17 +727,10 @@ body:not([data-world]) .nav-wrap[data-scrim="kuiper"]::before { left: var(--shee
   .facts dd { font-size: 14.5px; }
 }
 @media (prefers-reduced-transparency: reduce) {
-  .rod-plate, .rod-stage > .quest, .tilt-pill { background: #1b1714; }
+  .rod-plate, .tilt-pill { background: #1b1714; }
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .rod-plate, .rod-stage > .quest, .tilt-pill { background: #1b1714; }
-}
-/* short laptops: while the receipt is open the plate's secondary lines step back so the room stays the subject;
-   the kicker, title, first paragraph and links stay at full strength (every line keeps at least 4.5:1) */
-@media (max-height: 799px) and (min-width: 1024px) {
-  .rod-stage .rod-p2, .rod-stage .rod-plate .chips { transition: opacity .5s var(--ease); }
-  .rod-stage.has-receipt .rod-p2, .rod-stage.has-receipt .rod-plate .chips { opacity: .72; }
-  .rod-stage.has-receipt .rod-plate:hover .rod-p2, .rod-stage.has-receipt .rod-plate:hover .chips, .rod-stage.has-receipt .rod-plate:focus-within .rod-p2, .rod-stage.has-receipt .rod-plate:focus-within .chips { opacity: 1; }
+  .rod-plate, .tilt-pill { background: #1b1714; }
 }
 @media (prefers-reduced-motion: reduce) {
   .paper { transform: rotate(8deg); }
@@ -967,3 +922,7 @@ body[data-world="knowsy"] { background: #0d120f; }
 
 /* a number never parts from its unit at a line end */
 span.num, .lcd, .rn-big { white-space: nowrap; }
+/* the Quest board builds as it nears the screen; its place is held at its built height so nothing below it moves
+   (quest-ui.js holds the same height once built: the board at rest, or the kept day, whichever is taller) */
+@media (max-width: 1199px) { #rod-stage > .quest { min-height: 756px; } }
+@media (max-width: 385px) { #rod-stage > .quest { min-height: 796px; } }

@@ -34,7 +34,7 @@ preloads; they are expected, and the fonts still load through `@font-face`.
 | `assets/css/case-*.css` | one file per case page |
 | `assets/css/noscript.css` | the fallback without JavaScript: a still of the room, native audio controls, all devices shown |
 | `assets/js/core.js` | the shared layer: one animation scheduler, world light, reveals, the zoom dialog, the audio manager, the sound preference, content flags |
-| `assets/js/depth-room.js`, `quest-engine.js`, `quest-ui.js`, `listen.js`, `notes.js`, `probe.js` | the components (below) |
+| `assets/js/depth-room.js`, `quest-engine.js`, `quest-ui.js`, `listen.js`, `notes.js`, `probe.js` | the components (below); `assets/css/rod-board.css` styles the Quest board |
 | `assets/js/case-*.js` | one file per case page |
 | `assets/js/data.js`, `data-kuiper-tts.js` | inlined data: waveform peaks, word timings, the Kuiper phrase cuts, the content flags |
 | `assets/world/` | the room art, captures and App Store frames the homepage uses |
@@ -55,14 +55,16 @@ are both honored, and the site works with storage blocked.
 - **The room.** The app's own four depth planes and three fire frames, moved by the coefficients from the app's
   depth-room code, with its 900 ms hearth ignition and its fire crossfade. On a phone it can follow tilt after
   iOS asks for permission. It is a browser rebuild of the app's room, not the app and not a video.
-- **The Quest.** A JavaScript port of the app's reward formula, starting from the account in the App Store
-  screenshots (level 18, a 12-day streak, 3 streak freezes, Mind 116). Completing the same Quest four times in a
-  day pays 26, 13, 7 and 3 XP, and skipping a day shows a streak freeze at work. It leaves out critical hits and
-  loot, is not connected to any account, and forgets everything on reload.
-- **The case page** adds the engine's full state (level, the six stats with the app's rank names, streak, freezes,
-  the last five passes), the history sky ported from the app's history view, the six rooms with the app's fire set
-  in each hearth, the App Store frames, the soundtrack "Lamp left on" and the app's tap and completion sounds.
-  Sounds are off until asked for.
+- **Today's three.** The app's Quest board rebuilt for the browser: the HUD, three real quests from the account in the
+  App Store screenshots (level 18, a 12-day streak, 3 streak freezes), and the app's completion sequence at its own
+  timings. The ring closes with the app's completion sound, a gold thread carries the XP to the bar, a receipt lists
+  what changed, the stat swells, and a swipe undoes it. Keeping all three brings "Enough for today"; closing the day
+  opens the next morning, and enough mornings reach a level-up. The numbers come from a JavaScript port of the app's
+  reward formula, without critical hits or loot. It is not connected to any account and forgets everything on reload.
+- **The case page** puts the same board under a slice of the room, with the beats of one completion lit as they play,
+  controls to pass a day or skip one (a streak freeze holds it), a run one quest from level 19, the history sky ported
+  from the app's history view, the six rooms with the app's fire set in each hearth, the App Store frames, the
+  soundtrack "Lamp left on" and the app's tap and completion sounds. Sounds are off until asked for.
 
 ### Kuiper TTS
 

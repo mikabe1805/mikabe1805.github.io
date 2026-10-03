@@ -178,6 +178,27 @@
     MB.$$("img[data-src]:not([data-src-on])").forEach(function (img) { imgIO.observe(img); });
   } else MB.$$("img[data-src]").forEach(MB.loadImg);
 
+  /* ---------------------------------------------------------------- deferred components
+     [data-load-js="a.js b.js"] (+ data-load-css) loads its stylesheet, then its scripts in order, when the element
+     starts to enter the viewport: the homepage's Quest board keeps its script, styles and fonts out of the first
+     load, and fades in over the room once its faces are ready. Paths resolve through MB.base, so the pages still open from file://. */
+  function loadComponent(el) {
+    if (el._loading) return; el._loading = true;
+    var js = (el.getAttribute("data-load-js") || "").split(/\s+/).filter(Boolean), css = el.getAttribute("data-load-css");
+    function scripts() { js.forEach(function (src) { var sc = doc.createElement("script"); sc.src = MB.base + src; sc.async = false; doc.body.appendChild(sc); }); }
+    if (!css) { scripts(); return; }
+    var l = doc.createElement("link"); l.rel = "stylesheet"; l.href = MB.base + css;
+    l.onload = l.onerror = scripts;
+    doc.head.appendChild(l);
+  }
+  MB.loadComponent = loadComponent;
+  if ("IntersectionObserver" in window) {
+    var compIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { compIO.unobserve(e.target); loadComponent(e.target); } });
+    }, { rootMargin: "0px" });
+    MB.$$("[data-load-js]").forEach(function (el) { compIO.observe(el); });
+  } else MB.$$("[data-load-js]").forEach(loadComponent);
+
   /* ---------------------------------------------------------------- reveal, once */
   if ("IntersectionObserver" in window) {
     var revealIO = new IntersectionObserver(function (entries) {
@@ -553,17 +574,20 @@
   doc.addEventListener("pointerover", primeWithin, { passive: true });
   doc.addEventListener("focusin", primeWithin);
 
-  /* ---------------------------------------------------------------- sound preference (off by default) */
+  /* ---------------------------------------------------------------- sound preference
+     On unless the visitor turned it off. Only the quest board uses it, and every sound answers the
+     visitor's own click there, so nothing ever plays on its own. */
   var sfx = {};
-  var SFX = { tap: { src: "audio/world/rod-tap.wav", vol: 0.5 }, complete: { src: "audio/world/rod-complete.wav", vol: 0.7 } };
+  var SFX = { tap: { src: "audio/world/rod-tap.wav", vol: 0.5 }, complete: { src: "audio/world/rod-completion.wav", vol: 1 } };
   MB.sound = {
-    on: MB.store.get("mb-sound") === "on",
+    on: MB.store.get("mb-sound") !== "off",
     set: function (v) {
       this.on = !!v;
       MB.store.set("mb-sound", this.on ? "on" : "off");
       MB.$$("[data-sound-toggle]").forEach(function (b) {
         b.setAttribute("aria-pressed", String(MB.sound.on));
-        var l = MB.$("[data-sound-label]", b); if (l) l.textContent = MB.sound.on ? "Sound on" : "Sound off";
+        var l = MB.$("[data-sound-label]", b);
+        if (l) l.textContent = (MB.sound.on ? l.getAttribute("data-label-on") : l.getAttribute("data-label-off")) || (MB.sound.on ? "Sound on" : "Sound off");
       });
     },
     play: function (name) {
