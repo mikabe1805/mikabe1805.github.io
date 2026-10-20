@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Knowsy Breadboard Lab | Mika Be</title>
-  <meta name="description" content="Knowsy Breadboard Lab, a browser breadboard for Rutgers ECE labs: 74LS chips with their datasheet pinouts, a schematic that draws itself from the wiring, and guided labs that check each step by electrical connection. A team module Mika Be started and led." />
+  <meta name="description" content="Knowsy Breadboard Lab, a browser breadboard for Rutgers ECE labs with 74LS chips and guided labs that check each step. Mika Be led its three-person team." />
   <meta name="author" content="Mika Be" />
   <link rel="canonical" href="https://mikabe1805.github.io/projects/knowsy.html" />
   <meta name="theme-color" content="#0d120f" />
@@ -140,88 +140,111 @@
           <span class="probe-glow" aria-hidden="true"></span>
           <div class="kn-bench-grid">
             <div class="kn-bench-left">
-              <p class="kn-instr">Set the parts, then touch the probe to a wire or a test point.</p>
-              <div class="kn-sch-wrap">
-                <svg class="schematic kn-sch" viewBox="0 0 640 330" role="img" aria-labelledby="kn-sch-desc">
-                  <desc id="kn-sch-desc">A sketch of the Lab 1 circuit: +5 V through a 4.7 kilohm pull-up to the inverter input A, a switch from A to ground, an optional stray wire from +5 V to A, a 74LS04 inverter whose output Y drives an LED, and a 220 ohm resistor from the LED to ground. Test points sit on the +5 V rail, net A, net Y and the ground rail.</desc>
-                  <g class="kn-halo" data-halo="vcc"><path d="M40 40 H500 M214 40 V64"/></g>
-                  <g class="kn-halo" data-halo="a"><path d="M150 156 H330 M214 128 V156 M280 156 V194"/><path class="kn-halo-stray" d="M150 40 V156"/></g>
-                  <g class="kn-halo" data-halo="y"><path d="M386 156 H480 V184"/></g>
-                  <g class="kn-halo" data-halo="gnd"><path d="M40 296 H610 M280 233 V296 M480 266 V296"/></g>
-
-                  <line class="w kn-vcc" x1="40" y1="40" x2="500" y2="40"/>
-                  <text class="kn-rail-label" x="40" y="24">+5 V</text>
-                  <line class="w kn-gnd" x1="40" y1="296" x2="610" y2="296"/>
-                  <text class="kn-rail-label" x="40" y="322">GND</text>
-
-                  <g class="pullup">
-                    <line class="w kn-vcc" x1="214" y1="40" x2="214" y2="64"/>
-                    <polyline class="res" points="214,64 224,71 204,81 224,91 204,101 224,111 204,121 214,128"/>
-                    <line class="w net-a" x1="214" y1="128" x2="214" y2="156"/>
-                    <text x="236" y="101">4.7 kΩ</text>
-                  </g>
-                  <path class="stray" d="M150 40 V156"/>
-                  <text class="kn-stray-label" x="140" y="101" text-anchor="end">stray wire</text>
-
-                  <line class="w net-a" x1="150" y1="156" x2="330" y2="156"/>
-                  <circle class="net-a-fill" cx="214" cy="156" r="3.5"/>
-                  <circle class="net-a-fill" cx="280" cy="156" r="3.5"/>
-                  <circle class="net-a-fill stray-node" cx="150" cy="156" r="3.5"/>
-                  <circle class="kn-vcc-fill stray-node" cx="150" cy="40" r="3.5"/>
-                  <circle class="kn-vcc-fill" cx="214" cy="40" r="3.5"/>
-
-                  <line class="w net-a" x1="280" y1="156" x2="280" y2="194"/>
-                  <circle class="sw-pin" cx="280" cy="196" r="3"/>
-                  <line class="sw-lever" x1="280" y1="196" x2="296" y2="224"/>
-                  <circle class="sw-pin" cx="280" cy="230" r="3"/>
-                  <line class="w kn-gnd" x1="280" y1="233" x2="280" y2="296"/>
-                  <circle class="kn-gnd-fill" cx="280" cy="296" r="3.5"/>
-                  <text x="306" y="222">switch</text>
-
-                  <path class="gate" d="M330 132 L330 180 L374 156 Z"/>
-                  <circle class="gate" cx="380" cy="156" r="6"/>
-                  <text x="316" y="120">74LS04</text>
-
-                  <path class="w net-y" d="M386 156 H480 V184"/>
-                  <g transform="translate(480 184)">
-                    <circle class="led-glow" cx="0" cy="10" r="24"/>
-                    <path class="led-body" d="M-11 0 L11 0 L0 20 Z"/>
-                    <line class="led-bar" x1="-11" y1="20" x2="11" y2="20"/>
-                  </g>
-                  <text x="504" y="200">LED</text>
-                  <line class="w kn-cath" x1="480" y1="204" x2="480" y2="214"/>
-                  <polyline class="res" points="480,214 490,220 470,228 490,236 470,244 490,252 470,260 480,266"/>
-                  <line class="w kn-gnd" x1="480" y1="266" x2="480" y2="296"/>
-                  <circle class="kn-gnd-fill" cx="480" cy="296" r="3.5"/>
-                  <text x="504" y="246">220 Ω</text>
-
-                  <text class="kn-tag" x="304" y="146">A</text>
-                  <text class="kn-tag" x="398" y="146">Y</text>
-
-                </svg>
-                <svg class="kn-pen" data-kn-pen data-touch-level="HIGH" viewBox="0 0 640 330" aria-hidden="true" focusable="false">
-                  <g transform="translate(5 8) rotate(140)"><rect class="kn-pen-shadow" x="20" y="-10" width="94" height="20" rx="8"/></g>
-                  <g transform="rotate(140)">
-                    <line class="kn-pen-needle" x1="0" y1="0" x2="22" y2="0"/>
-                    <rect class="kn-pen-body" x="20" y="-10" width="94" height="20" rx="8"/>
-                    <rect class="kn-pen-collar" x="20" y="-10" width="10" height="20" rx="4"/>
-                    <circle class="kn-pen-led kn-pen-led--r" cx="80" cy="0" r="4.6"/>
-                    <circle class="kn-pen-led kn-pen-led--g" cx="96" cy="0" r="4.6"/>
-                  </g>
-                </svg>
-                <div class="kn-tps" role="radiogroup" aria-label="Test point for the probe" data-kn-tps>
-                  <button type="button" role="radio" class="kn-tp" data-tp="vcc" aria-checked="false" tabindex="-1" style="--x: 73.4375%; --y: 12.12%" aria-label="Test point on the +5 V rail"><i></i></button>
-                  <button type="button" role="radio" class="kn-tp" data-tp="a" aria-checked="true" tabindex="0" style="--x: 38.594%; --y: 47.27%" aria-label="Test point on input A"><i></i></button>
-                  <button type="button" role="radio" class="kn-tp" data-tp="y" aria-checked="false" tabindex="-1" style="--x: 70%; --y: 47.27%" aria-label="Test point on output Y"><i></i></button>
-                  <button type="button" role="radio" class="kn-tp" data-tp="gnd" aria-checked="false" tabindex="-1" style="--x: 87.5%; --y: 89.7%" aria-label="Test point on the ground rail"><i></i></button>
+              <figure class="kn-shot" data-kn-shot>
+                <button class="shot kn-shot-frame" type="button" data-zoom="../assets/knowsy-lab1-state-010-20261019.webp" data-alt="Capture of the Knowsy lab’s Lab 1 board with the switch open, the 4.7 kilohm pull-up in place and no stray wire. The LED is dark.">
+                  <span class="kn-shot-stack">
+                    <img class="is-on" data-src="../assets/knowsy-lab1-state-010-20261019.webp" data-shot="0 1 0" alt="Capture of the Knowsy lab’s Lab 1 board with the switch open, the 4.7 kilohm pull-up in place and no stray wire. The LED is dark." width="1230" height="465" decoding="async" /><noscript><img class="is-on" src="../assets/knowsy-lab1-state-010-20261019.webp" alt="Capture of the Knowsy lab’s Lab 1 board with the switch open, the 4.7 kilohm pull-up in place and no stray wire. The LED is dark." width="1230" height="465" decoding="async" /></noscript>
+                  </span>
+                  <span class="kn-rings" aria-hidden="true">
+                    <i data-ring="switch" style="--x: 76.4%; --y: 42.2%; --w: 3.1%; --h: 18%"></i>
+                    <i data-ring="pullup" style="--x: 17.9%; --y: 20.4%; --w: 11%; --h: 13.6%"></i>
+                    <i data-ring="stray" style="--x: 75.6%; --y: 34.4%; --w: 2.9%; --h: 64%"></i>
+                    <i data-ring="led" style="--x: 39.8%; --y: 12.9%; --w: 4.1%; --h: 9.7%"></i>
+                  </span>
+                  <span class="zoom-hint" aria-hidden="true">View full size</span>
+                </button>
+                <figcaption class="kn-shot-cap"><b>In the lab:</b> <span data-kn-shot-cap>switch open, pull-up in, no stray wire. The LED is dark.</span></figcaption>
+              </figure>
+              <div class="kn-scope">
+                <div class="kn-scope-main">
+                  <p class="kn-instr">Set the parts, then touch the probe to a wire or a test point.</p>
+                  <div class="kn-sch-wrap">
+                    <svg class="schematic kn-sch" viewBox="0 0 640 330" role="img" aria-labelledby="kn-sch-desc">
+                      <desc id="kn-sch-desc">A sketch of the Lab 1 circuit: +5 V through a 4.7 kilohm pull-up to the inverter input A, a switch from A to ground, an optional stray wire from +5 V to A, a 74LS04 inverter whose output Y drives an LED, and a 220 ohm resistor from the LED to ground. Test points sit on the +5 V rail, net A, net Y and the ground rail.</desc>
+                      <g class="kn-halo" data-halo="vcc"><path d="M40 40 H500 M214 40 V64"/></g>
+                      <g class="kn-halo" data-halo="a"><path d="M150 156 H330 M214 128 V156 M280 156 V194"/><path class="kn-halo-stray" d="M150 40 V156"/></g>
+                      <g class="kn-halo" data-halo="y"><path d="M386 156 H480 V184"/></g>
+                      <g class="kn-halo" data-halo="gnd"><path d="M40 296 H610 M280 233 V296 M480 266 V296"/></g>
+    
+                      <line class="w kn-vcc" x1="40" y1="40" x2="500" y2="40"/>
+                      <text class="kn-rail-label" x="40" y="24">+5 V</text>
+                      <line class="w kn-gnd" x1="40" y1="296" x2="610" y2="296"/>
+                      <text class="kn-rail-label" x="40" y="322">GND</text>
+    
+                      <g class="pullup">
+                        <line class="w kn-vcc" x1="214" y1="40" x2="214" y2="64"/>
+                        <polyline class="res" points="214,64 224,71 204,81 224,91 204,101 224,111 204,121 214,128"/>
+                        <line class="w net-a" x1="214" y1="128" x2="214" y2="156"/>
+                        <text x="236" y="101">4.7 kΩ</text>
+                      </g>
+                      <path class="stray" d="M150 40 V156"/>
+                      <text class="kn-stray-label" x="140" y="101" text-anchor="end">stray wire</text>
+    
+                      <line class="w net-a" x1="150" y1="156" x2="330" y2="156"/>
+                      <circle class="net-a-fill" cx="214" cy="156" r="3.5"/>
+                      <circle class="net-a-fill" cx="280" cy="156" r="3.5"/>
+                      <circle class="net-a-fill stray-node" cx="150" cy="156" r="3.5"/>
+                      <circle class="kn-vcc-fill stray-node" cx="150" cy="40" r="3.5"/>
+                      <circle class="kn-vcc-fill" cx="214" cy="40" r="3.5"/>
+    
+                      <line class="w net-a" x1="280" y1="156" x2="280" y2="194"/>
+                      <circle class="sw-pin" cx="280" cy="196" r="3"/>
+                      <line class="sw-lever" x1="280" y1="196" x2="296" y2="224"/>
+                      <circle class="sw-pin" cx="280" cy="230" r="3"/>
+                      <line class="w kn-gnd" x1="280" y1="233" x2="280" y2="296"/>
+                      <circle class="kn-gnd-fill" cx="280" cy="296" r="3.5"/>
+                      <text x="306" y="222">switch</text>
+    
+                      <path class="gate" d="M330 132 L330 180 L374 156 Z"/>
+                      <circle class="gate" cx="380" cy="156" r="6"/>
+                      <text x="316" y="120">74LS04</text>
+    
+                      <path class="w net-y" d="M386 156 H480 V184"/>
+                      <g transform="translate(480 184)">
+                        <circle class="led-glow" cx="0" cy="10" r="24"/>
+                        <path class="led-body" d="M-11 0 L11 0 L0 20 Z"/>
+                        <line class="led-bar" x1="-11" y1="20" x2="11" y2="20"/>
+                      </g>
+                      <text x="504" y="200">LED</text>
+                      <line class="w kn-cath" x1="480" y1="204" x2="480" y2="214"/>
+                      <polyline class="res" points="480,214 490,220 470,228 490,236 470,244 490,252 470,260 480,266"/>
+                      <line class="w kn-gnd" x1="480" y1="266" x2="480" y2="296"/>
+                      <circle class="kn-gnd-fill" cx="480" cy="296" r="3.5"/>
+                      <text x="504" y="246">220 Ω</text>
+    
+                      <text class="kn-tag" x="304" y="146">A</text>
+                      <text class="kn-tag" x="398" y="146">Y</text>
+    
+                    </svg>
+                    <svg class="kn-pen" data-kn-pen data-touch-level="HIGH" viewBox="0 0 640 330" aria-hidden="true" focusable="false">
+                      <g transform="translate(5 8) rotate(140)"><rect class="kn-pen-shadow" x="20" y="-10" width="94" height="20" rx="8"/></g>
+                      <g transform="rotate(140)">
+                        <line class="kn-pen-needle" x1="0" y1="0" x2="22" y2="0"/>
+                        <rect class="kn-pen-body" x="20" y="-10" width="94" height="20" rx="8"/>
+                        <rect class="kn-pen-collar" x="20" y="-10" width="10" height="20" rx="4"/>
+                        <circle class="kn-pen-led kn-pen-led--r" cx="80" cy="0" r="4.6"/>
+                        <circle class="kn-pen-led kn-pen-led--g" cx="96" cy="0" r="4.6"/>
+                      </g>
+                    </svg>
+                    <div class="kn-tps" role="radiogroup" aria-label="Test point for the probe" data-kn-tps>
+                      <button type="button" role="radio" class="kn-tp" data-tp="vcc" aria-checked="false" tabindex="-1" style="--x: 73.4375%; --y: 12.12%" aria-label="Test point on the +5 V rail"><i></i></button>
+                      <button type="button" role="radio" class="kn-tp" data-tp="a" aria-checked="true" tabindex="0" style="--x: 38.594%; --y: 47.27%" aria-label="Test point on input A"><i></i></button>
+                      <button type="button" role="radio" class="kn-tp" data-tp="y" aria-checked="false" tabindex="-1" style="--x: 70%; --y: 47.27%" aria-label="Test point on output Y"><i></i></button>
+                      <button type="button" role="radio" class="kn-tp" data-tp="gnd" aria-checked="false" tabindex="-1" style="--x: 87.5%; --y: 89.7%" aria-label="Test point on the ground rail"><i></i></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="kn-scope-side">
+                  <div class="probe-controls kn-controls">
+                    <button type="button" class="toggle" aria-pressed="false" data-kn-toggle="switch"><i aria-hidden="true"></i>Switch closed</button>
+                    <button type="button" class="toggle" aria-pressed="true" data-kn-toggle="pullup"><i aria-hidden="true"></i>Pull-up in</button>
+                    <button type="button" class="toggle" aria-pressed="false" data-kn-toggle="stray"><i aria-hidden="true"></i>Stray wire to +5&nbsp;V</button>
+                  </div>
                 </div>
               </div>
-              <div class="probe-controls kn-controls">
-                <button type="button" class="toggle" aria-pressed="false" data-kn-toggle="switch"><i aria-hidden="true"></i>Switch closed</button>
-                <button type="button" class="toggle" aria-pressed="true" data-kn-toggle="pullup"><i aria-hidden="true"></i>Pull-up in</button>
-                <button type="button" class="toggle" aria-pressed="false" data-kn-toggle="stray"><i aria-hidden="true"></i>Stray wire to +5&nbsp;V</button>
+              <div class="kn-note-box">
+                <p class="probe-note kn-note" data-kn-note aria-live="polite">The pull-up holds the input high, so the inverter’s output is low and the LED stays dark.</p>
               </div>
-              <p class="probe-note kn-note" data-kn-note aria-live="polite">The pull-up holds the input high, so the inverter’s output is low and the LED stays dark.</p>
             </div>
 
             <div class="kn-bench-right">
@@ -267,6 +290,7 @@
             </div>
             <div class="kn-bench-foot">
               <p>The probe and meter show the lab’s logic-level readings: 5.00&nbsp;V for high, 0.00&nbsp;V for low, 1.60&nbsp;V for a floating net and 2.50&nbsp;V for a conflict. The Lab 6 manual teaches students to read about 1.6&nbsp;V as an input with no driver.</p>
+              <p>The capture above the sketch is the lab itself, one capture per state, each loaded through a share link with the same three parts set. The lab also warns of a short circuit when the stray wire meets the closed switch, and flags the inverter’s input as floating when the pull-up is out and the switch is open.</p>
               <p class="kn-why-inline"><span class="kn-why-tag">Why?</span> The lab’s own card for the pull-up step reads “Pull-up is the weak default; the switch is the strong override.”</p>
             </div>
           </div>
@@ -362,7 +386,7 @@
       <div class="wrap kn-audit">
         <div class="kn-audit-copy">
           <h2 class="case-h2" id="audit-title">The pre-release audit</h2>
-          <p class="body-2">I directed an audit before the planned release and chose what to fix. The five findings below shipped fixed in the release PR; smaller items, such as the Bode panel’s Q sampling, went on a follow-up list.</p>
+          <p class="body-2">I directed an audit before the planned release and chose what to fix. The five findings below were fixed in the pull request that merged the module in June 2026; smaller items, such as the Bode panel’s Q sampling, went on a follow-up list.</p>
           <h3 class="kn-sub">Decisions I made for the release PR</h3>
           <ul class="kn-calls">
             <li>Fix the pinouts to the real datasheets.</li>
@@ -396,6 +420,7 @@
       <a href="room-of-days.html">Next room: Room of Days <span class="arr arr--fwd" aria-hidden="true">→</span></a>
       <a class="back" href="../index.html#work"><span aria-hidden="true">←</span> All work</a>
     </nav>
+    <p class="wrap kn-contact">Contact: <a href="mailto:mika.be@rutgers.edu">mika.be@rutgers.edu</a> · <a href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener">Résumé<span class="arr" aria-hidden="true">↗</span></a></p>
   </main>
 
   <footer class="wrap site-foot">

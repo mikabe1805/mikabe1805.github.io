@@ -4,7 +4,8 @@
    2. the legend under the Lab 1 capture spotlights each part on it;
    3. (removed: the Circuit view capture, until the lab's renderer draws Lab 1's topology correctly);
    4. the probe bench: the LP-10A probe touches any net of the Lab 1 sketch, with readings, the drivers on the
-      touched net, and all eight states of the three parts;
+      touched net, and all eight states of the three parts; above the sketch, a capture of the lab itself in the
+      same state (4a);
    5. the guided-lab shelf: one dot per auto-checked step, and each lab's sections. */
 (function () {
   "use strict";
@@ -75,6 +76,91 @@
   })();
 
 
+  /* ---------------------------------------------------------------- 4a. the lab's own board, in the bench's state
+     One capture of the lab per state of the three parts, taken through the lab's share links; each file name
+     carries its state as switch, pull-up, stray ("state-010" is open, in, off). Only the first state's file is in
+     the markup. The others load on demand (the neighbours of the shown state once the visitor reaches for the
+     bench), and a new one fades in over the old once it has decoded, taking the caption, the alt text and the
+     zoom target with it. A ring marks each part that differs from the capture it replaced, and the LED when it
+     changed too. */
+  function labShots(fig) {
+    var frame = fig && MB.$(".kn-shot-frame", fig), stack = fig && MB.$(".kn-shot-stack", fig);
+    var cap = fig && MB.$("[data-kn-shot-cap]", fig), first = stack && MB.$("img", stack);
+    if (!frame || !first || !cap) return null;
+    /* the first capture is in the markup as a deferred image (core.js loads it 600 px before it scrolls in) */
+    var FILES = {
+      "0 1 0": "assets/knowsy-lab1-state-010-20261019.webp", "1 1 0": "assets/knowsy-lab1-state-110-20261019.webp",
+      "0 0 0": "assets/knowsy-lab1-state-000-20261019.webp", "1 0 0": "assets/knowsy-lab1-state-100-20261019.webp",
+      "0 1 1": "assets/knowsy-lab1-state-011-20261019.webp", "0 0 1": "assets/knowsy-lab1-state-001-20261019.webp",
+      "1 1 1": "assets/knowsy-lab1-state-111-20261019.webp", "1 0 1": "assets/knowsy-lab1-state-101-20261019.webp"
+    };
+    var PARTS = ["switch", "pullup", "stray"];
+    /* the LED is lit in exactly these two captures (the lab's LED title reads "· lit" in them and in no other) */
+    var LIT = { "1 1 0": true, "1 0 0": true };
+    var rings = MB.$$("[data-ring]", fig);
+    var shown = first.getAttribute("data-shot"), want = shown, imgs = {}, tidyT = 0;
+    imgs[shown] = first;
+    function file(k) { return (MB.base || "") + FILES[k]; }
+    function text(k) {
+      var v = k.split(" ").map(function (x) { return x === "1"; }), led = LIT[k] ? "lit" : "dark";
+      return {
+        cap: (v[0] ? "switch closed" : "switch open") + ", " + (v[1] ? "pull-up in" : "pull-up out") + ", " +
+          (v[2] ? "stray wire from input A to the + rail" : "no stray wire") + ". The LED is " + led + ".",
+        alt: "Capture of the Knowsy lab’s Lab 1 board with the switch " + (v[0] ? "closed" : "open") + ", the 4.7 kilohm pull-up " +
+          (v[1] ? "in place" : "removed") + " and " + (v[2] ? "a stray wire from input A to the + rail" : "no stray wire") + ". The LED is " + led + "."
+      };
+    }
+    function get(k) {
+      if (imgs[k]) return imgs[k];
+      var im = doc.createElement("img");
+      im.alt = ""; im.setAttribute("aria-hidden", "true");
+      im.width = 1230; im.height = 465; im.decoding = "async";
+      im.setAttribute("data-shot", k);
+      im.src = file(k);
+      stack.appendChild(im);
+      return (imgs[k] = im);
+    }
+    function ready(im, fn) {
+      function go() { if (im.decode) im.decode().then(fn, fn); else fn(); }
+      if (im.complete && im.naturalWidth) go(); else im.addEventListener("load", go, { once: true });
+    }
+    function around(k) {
+      var v = k.split(" ");
+      v.forEach(function (x, i) { var n = v.slice(); n[i] = x === "1" ? "0" : "1"; get(n.join(" ")); });
+    }
+    function swap(k) {
+      var im = imgs[k], a = shown.split(" "), b = k.split(" ");
+      var changed = PARTS.filter(function (p, i) { return a[i] !== b[i]; });
+      if (!LIT[shown] !== !LIT[k]) changed.push("led");
+      Object.keys(imgs).forEach(function (x) { imgs[x].classList.remove("is-top"); });
+      im.classList.add("is-top", "is-on");
+      im.alt = text(k).alt; im.removeAttribute("aria-hidden");
+      if (imgs[shown] && shown !== k) { imgs[shown].alt = ""; imgs[shown].setAttribute("aria-hidden", "true"); }
+      shown = k;
+      /* the old capture stays under the new one until the fade is done, so the board never dims between them */
+      clearTimeout(tidyT);
+      tidyT = setTimeout(function () { Object.keys(imgs).forEach(function (x) { if (x !== shown) imgs[x].classList.remove("is-on"); }); }, MB.reduced() ? 0 : 500);
+      cap.textContent = text(k).cap;
+      frame.setAttribute("data-zoom", file(k));
+      frame.setAttribute("data-alt", im.alt);
+      rings.forEach(function (r) { r.classList.toggle("on", changed.indexOf(r.getAttribute("data-ring")) >= 0); });
+      around(k);
+    }
+    return {
+      show: function (k) {
+        if (k === want) return;
+        want = k;
+        var im = get(k);
+        ready(im, function () { if (want === k && shown !== k) swap(k); });
+      },
+      warm: function () { around(shown); },
+      current: function () {
+        return { state: shown, want: want, src: file(shown), loaded: !!(imgs[shown].complete && imgs[shown].naturalWidth), caption: cap.textContent, alt: imgs[shown].alt,
+          rings: rings.filter(function (r) { return r.classList.contains("on"); }).map(function (r) { return r.getAttribute("data-ring"); }) };
+      }
+    };
+  }
+
   /* ---------------------------------------------------------------- 4. the probe bench */
   (function bench() {
     var el = MB.$("[data-kn-bench]");
@@ -119,6 +205,16 @@
       result: q("[data-kn-result]"), note: q("[data-kn-note]")
     };
     var touchEls = [pen, q(".kn-read")].filter(Boolean);
+    var shot = labShots(q("[data-kn-shot]"));
+    /* a hidden copy of the longest note shares the note's cell, so the bench keeps one height in every state */
+    var noteBox = ui.note && ui.note.parentNode;
+    if (noteBox && noteBox.classList.contains("kn-note-box")) {
+      var sizer = doc.createElement("p");
+      sizer.className = "probe-note kn-note kn-note-sizer";
+      sizer.setAttribute("aria-hidden", "true");
+      sizer.textContent = Object.keys(P.NOTES).map(function (k) { return P.NOTES[k]; }).sort(function (a, b) { return b.length - a.length; })[0];
+      noteBox.appendChild(sizer);
+    }
     var status = doc.createElement("p");
     status.className = "sr-only";
     status.setAttribute("aria-live", "polite");
@@ -231,6 +327,7 @@
         var w = MB.$("[data-state]", b); if (w) w.textContent = WORD[k][+st[k]];
       });
       var key = [+st.switch, +st.pullup, +st.stray].join(" ");
+      if (shot) shot.show(key);
       rows.forEach(function (r) {
         var on = r.getAttribute("data-st") === key;
         r.setAttribute("aria-checked", String(on));
@@ -366,8 +463,11 @@
       reading: function () {
         var s = solve(), net = (preview || pinned).net || pinned.net;
         return { net: net, level: s[net], volts: VOLTS[s[net]], led: s.r.led, note: s.r.note, air: !(preview || pinned).net };
-      }
+      },
+      shot: function () { return shot ? shot.current() : null; }
     };
+    /* the neighbouring states' captures start loading once the visitor reaches for the bench */
+    if (shot) ["pointerenter", "focusin", "touchstart"].forEach(function (t) { el.addEventListener(t, shot.warm, { once: true, passive: true }); });
     render();
   })();
 
