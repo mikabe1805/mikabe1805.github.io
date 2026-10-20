@@ -73,7 +73,7 @@ are both honored, and the site works with storage blocked.
   start times, transcribed locally with faster-whisper, and the phrases the rewrite changed are underlined. Nothing
   is synthesized in the browser.
 - **A voice trained on his own recordings.** Saved clips from versions 3 and 5 of his trained voice.
-- **The case page** has five equations instead of three. The equation follows the voice, and each "Hear both" row
+- **The case page** has four equations instead of three. The equation follows the voice, and each "Hear both" row
   plays the literal phrase and then the rewritten one, cut from the same two recordings. The pitch sketch is a
   labeled, exaggerated illustration, and the caching study shows the study's own nine test sentences.
 

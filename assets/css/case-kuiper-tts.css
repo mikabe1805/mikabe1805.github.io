@@ -20,6 +20,8 @@
 .kt-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(18px, 2.4vw, 36px); max-width: 640px; }
 .kt-facts div { padding-bottom: 12px; }
 .kt-facts div:nth-child(n + 3) { border-top: 1px solid var(--line); }
+/* an odd last fact (Compute, after Built with) takes the whole row */
+.kt-facts div:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .kt-desk { position: relative; isolation: isolate; display: grid; place-items: center; padding: 24px 0 36px; }
 .kt-desk-lamp { z-index: -1; left: -30%; right: -30%; top: -24%; bottom: -24%; --wl: 255 250 238; --wa: .55; }
 .kt-paper { width: min(380px, 82%); }
@@ -102,9 +104,72 @@ html:not(.js) .kt-hint { display: none; }
 .kt-hear[aria-pressed="true"] .i-play { display: none; }
 .kt-hear[aria-pressed="true"] .i-stop { display: inline; }
 html:not(.js) .kt-hear { display: none; }
-.kt-panel--static { padding: clamp(22px, 3vw, 36px); display: grid; gap: 12px; }
+.kt-panel--static { display: grid; gap: 12px; }
 .kt-static-lit { color: var(--text-3); }
 .kt-eq--static { min-height: 0; padding: 14px 0 10px; }
+
+/* ------------------------------------------------------------------ the panel as a printed page
+   A sheet of paper lying on the desk paper: a straight edge (no card radius), a contact shadow and a soft
+   shadow cast toward the lower left, away from the window light up and to the right, and its own fibre.
+   Inside it the two readings are set like a journal page: two columns with a rule between them, each
+   waveform a numbered figure with a caption, each play control a small mark hanging in the margin beside
+   its column head, and the source note set as a footnote under a short rule. */
+.kt {
+  --kt-rule: rgb(28 30 34 / .15);
+  --kt-mar: clamp(56px, 5vw, 76px);     /* the outer margin of the sheet; the first play mark hangs in it */
+  --kt-gut: clamp(96px, 7.6vw, 112px);  /* the gutter; the rule sits in its middle and the second mark beside it */
+}
+.kt .kt-panel {
+  border: 0; border-radius: 2px;
+  padding: clamp(28px, 3vw, 42px) var(--kt-mar) clamp(26px, 2.8vw, 38px);
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .32  0 0 0 0 .26  0 0 0 0 .18  0 0 0 1 0'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='.035'/></svg>"),
+    linear-gradient(200deg, #fcfaf5 0%, #f8f5ee 50%, #f3efe6 100%);
+  box-shadow:
+    0 0 0 1px rgb(60 44 24 / .08),
+    inset 0 1px 0 rgb(255 255 255 / .9),
+    0 1px 2px rgb(60 44 24 / .10),
+    -20px 34px 46px -30px rgb(70 50 20 / .36),
+    -8px 80px 90px -70px rgb(70 50 20 / .26);
+}
+.kt .kt-panel-top { padding-bottom: 18px; border-bottom: 1px solid var(--kt-rule); }
+.kt .kt-panel .kt-hint { max-width: 30em; font: italic 400 16px/1.45 var(--serif); color: var(--text-3); }
+
+/* two columns and a rule */
+.kt .kt-cols { gap: 0; padding-top: 6px; }
+.kt .kt-col { position: relative; padding: 0; border-radius: 0; background: none; box-shadow: none; }
+.kt .kt-col:first-child { padding-right: calc(var(--kt-gut) / 2); }
+.kt .kt-col + .kt-col { padding-left: calc(var(--kt-gut) / 2); border-left: 1px solid var(--kt-rule); }
+.kt .kt-col-head { position: relative; display: flex; align-items: center; min-height: 32px; gap: 0; }
+.kt .kt-col .player-name { margin: 0; font: 500 18px/1.2 var(--serif); font-variant-caps: all-small-caps; letter-spacing: .09em; color: var(--text); }
+/* the play mark: 30 px to see, 44 px to press */
+.kt .kt-mark { position: absolute; right: calc(100% + 12px); top: 50%; width: 30px; height: 30px; margin-top: -15px; }
+.kt .kt-mark::before { content: ""; position: absolute; inset: -7px; border-radius: 50%; }
+.kt .kt-mark svg { width: 12px; height: 12px; }
+.kt .kt-col.is-playing .player-name { color: var(--kt-teal); }
+/* each waveform a printed figure: the bars on a time axis, a numbered caption under it */
+.kt .kt-fig { margin: 12px 0 16px; }
+.kt .kt-fig .wave { height: 42px; margin: 0; border-radius: 0; background: linear-gradient(rgb(28 30 34 / .2), rgb(28 30 34 / .2)) 0 50% / 100% 1px no-repeat; }
+.kt .kt-fig .wave rect { fill: rgb(28 30 34 / .52); transform-box: fill-box; transform-origin: 50% 50%; transform: scaleX(.6); }
+.kt .kt-fig .wave rect.on { fill: var(--kt-teal); }
+.kt .kt-fig figcaption { margin: 8px 0 0; font: 400 15.5px/1.45 var(--serif); color: var(--text-2); }
+/* the duration is set in the caption's own figures, not the mono readout face */
+.kt .kt-fig figcaption .num { font: inherit; font-variant-numeric: lining-nums tabular-nums; color: inherit; }
+.kt .kt-fig-n { font-weight: 600; color: var(--text); }
+.kt .kt-col .transcript { margin: 0; }
+
+/* what the rewrite changed, and the footnote */
+.kt .kt-panel .kt-changes { margin-top: clamp(26px, 2.8vw, 36px); }
+.kt .kt-panel .kt-changes-h { font: 500 18px/1.2 var(--serif); font-variant-caps: all-small-caps; letter-spacing: .09em; color: var(--text); margin-bottom: 8px; }
+.kt .kt-panel .kt-change { border-top-color: var(--kt-rule); }
+.kt .kt-panel .kt-change:last-child { border-bottom-color: var(--kt-rule); }
+.kt .kt-panel .kt-rule { font: italic 400 18px/1.35 var(--serif); }
+.kt .kt-panel .kt-change .kt-hear { min-height: 38px; padding: 0 10px 0 4px; border-color: transparent; background: none; color: var(--text-2); }
+.kt .kt-panel .kt-change .kt-hear:hover { background: rgb(31 74 87 / .07); color: var(--text); }
+.kt .kt-panel .kt-change .kt-hear[aria-pressed="true"] { color: var(--kt-teal); }
+.kt .kt-panel .kt-change .kt-dot { width: 24px; height: 24px; }
+.kt .kt-panel .listen-foot { position: relative; margin-top: 26px; padding-top: 12px; max-width: 52em; font: 400 15.5px/1.5 var(--serif); color: var(--text-3); }
+.kt .kt-panel .listen-foot::before { content: ""; position: absolute; left: 0; top: 0; width: 72px; border-top: 1px solid var(--kt-rule); }
 
 /* ------------------------------------------------------------------ how an equation becomes speech */
 .kt-flow { position: relative; isolation: isolate; --col-gap: clamp(16px, 2vw, 28px); }
@@ -206,6 +271,12 @@ html:not(.js) .kt-when-stretch { display: none; }
 .kt-cite { margin: 0 0 8px; font: 400 clamp(20px, 1.7vw, 24px)/1.45 var(--serif); color: var(--text); max-width: 36em; }
 .kt-cite cite { font-style: italic; }
 .kt-evidence .caption { margin: 0 0 22px; color: var(--text-3); }
+/* one plain contact line under "Next room" */
+.kt .case-foot { padding-bottom: 10px; }
+.kt .case-contact { margin-top: 0; margin-bottom: 40px; font-size: 15px; color: var(--text-2); }
+.kt .case-contact a { display: inline-block; padding-block: 4px; color: var(--text); text-underline-offset: 3px; text-decoration-color: rgb(28 30 34 / .3); }
+.kt .case-contact a:hover { text-decoration-color: currentColor; }
+.kt .case-contact .arr { margin-left: 4px; }
 
 /* ------------------------------------------------------------------ narrower screens */
 @media (max-width: 1100px) {
@@ -230,15 +301,23 @@ html:not(.js) .kt-when-stretch { display: none; }
   .kt-stage--mine { padding: 14px 14px 18px; }
   .kt-stage { padding-bottom: 12px; }
   .kt-trace-row { gap: 10px; }
+  /* the printed page drops to one column; the rule between the readings turns horizontal */
+  .kt .kt-cols { grid-template-columns: minmax(0, 1fr); }
+  .kt .kt-col:first-child { padding-right: 0; }
+  .kt .kt-col + .kt-col { margin-top: 10px; padding: 22px 0 0; border-left: 0; border-top: 1px solid var(--kt-rule); }
 }
 @media (max-width: 699px) {
   .kt-paper { width: 200px; }
   .kt-arrival .arrival-facts { margin-top: 18px; }
   .kt-panel-top { gap: 12px; }
-  .kt-tabs.eq-tabs { display: flex; width: auto; max-width: 100%; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; scroll-snap-type: x proximity; -webkit-mask: linear-gradient(90deg, #000 85%, transparent); mask: linear-gradient(90deg, #000 85%, transparent); }
-  .kt-tabs.eq-tabs::-webkit-scrollbar { display: none; }
-  .kt-tabs.eq-tabs button { white-space: nowrap; min-height: 40px; padding: 0 13px; scroll-snap-align: start; }
-  .kt-tabs.eq-tabs button:last-of-type { margin-right: 24px; }
+  /* the equation tabs wrap onto a second row instead of scrolling sideways; each row fills the width */
+  .kt-tabs.eq-tabs { display: flex; flex-wrap: wrap; width: 100%; max-width: 100%; overflow: visible; scroll-snap-type: none; -webkit-mask: none; mask: none; border-radius: 23px; }
+  .kt-tabs.eq-tabs button { flex: 1 1 auto; white-space: nowrap; min-height: 40px; padding: 0 13px; }
+  .kt-tabs.eq-tabs button:last-of-type { margin-right: 0; }
+  /* the sheet keeps its edge and shadow with a phone's margins; the play marks move into the column heads */
+  .kt .kt-panel { padding: 22px 18px 20px; }
+  .kt .kt-mark { position: relative; right: auto; top: auto; width: 36px; height: 36px; margin: 0 12px 0 0; }
+  .kt .kt-mark::before { inset: -4px; }
   .kt-eq { min-height: 112px; padding: 22px 0 18px; }
   .kt-eq math { font-size: 1.12em; }
   .kt-change { grid-template-columns: minmax(0, 1fr) auto; padding: 14px 0; gap: 8px 12px; }
@@ -254,6 +333,7 @@ html:not(.js) .kt-when-stretch { display: none; }
   .kt-diag dd, .kt-list li, .kt-story-copy .body-2, .kt-voice-copy .body-2, .kt .kt-head p { font-size: 15px; }
   .kt-cell .transcript { font-size: 16px; }
   .kt-hint { font-size: 13px; }
+  .kt .kt-panel .kt-hint { font-size: 15.5px; }
   .kt-svg-label { font-size: 19px; }
   .kt-svg-small { font-size: 16px; }
 }
@@ -262,6 +342,10 @@ html:not(.js) .kt-when-stretch { display: none; }
   .kt-seg button { flex: 1; padding: 0 8px; font-size: 13px; }
   .kt-voice-players .player-top { flex-wrap: wrap; }
   .kt-voice-players .mini-eq { flex-basis: 100%; margin: 4px 0 0 58px; }
+}
+/* the narrowest phones: the displacement-current equation fits its sheet without a sideways scroll */
+@media (max-width: 359px) {
+  .kt-eq math { font-size: 1em; }
 }
 @media (prefers-reduced-motion: reduce) {
   .kt-marker, .kt-contexts li, .kt-contexts i::after, .kt-contexts i::before { transition: none !important; }

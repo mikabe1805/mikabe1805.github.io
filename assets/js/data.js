@@ -5,15 +5,15 @@
      times  start time in seconds of each space-separated word in text, from faster-whisper
             (large-v3, local) aligned to the manifest narration
      marks  inclusive word-index ranges of phrases the rewrite changed (underlined in the transcript)
-   flags: switches for content that still needs Mika's yes. Setting one to false removes every
+   flags: switches for content that needed Mika's yes (each comment says whether it has it). Setting one to false removes every
    element carrying data-flag="<name>" before the page is shown (see SYSTEM.md). */
 (function () {
   "use strict";
   var MB = (window.MB = window.MB || {});
   MB.FLAGS = {
-    voiceV5: true,   /* his trained voice, version 5 clip: pending Mika's approval before publishing */
+    voiceV5: true,   /* his trained voice, version 5 clip: approved 2026-10-01 */
     abClips: true,   /* Kuiper A/B clips in the public Piper voice en_US-lessac-medium: pending Mika's approval */
-    robotics: true   /* About: "Long term I want to work in robotics, with software as my base." pending Mika's yes */
+    robotics: true   /* About: "Long term I want to work in robotics, with software as my base." approved 2026-10-01 */
   };
   MB.DATA = { clips: {"eq0002-lit":{"src":"audio/world/eq0002-lit.m4a","dur":3.23,"peaks":[0.19,0.51,0.25,0.97,1.0,0.92,0.9,0.74,0.25,0.23,0.51,0.56,0.09,0.03,0.03,0.29,0.48,0.33,0.33,0.35,0.22,0.24,0.28,0.1,0.09,0.48,0.53,0.06,0.13,0.29,0.2,0.57,0.46,0.53,0.46,0.4,0.41,0.33,0.07,0.1,0.15,0.42,0.74,0.73,0.45,0.33,0.23,0.21,0.18,0.17,0.35,0.23,0.09,0.0,0.33,0.6,0.43,0.24,0.17,0.16,0.2,0.24,0.12,0.55,0.68,0.34,0.18,0.49,0.38,0.09,0.36,0.47,0.45,0.33,0.05,0.04,0.06,0.67,0.86,0.69,0.6,0.47,0.38,0.33,0.27,0.23,0.09,0.08,0.25,0.2,0.05,0.0,0.0,0.0,0.0,0.0],"times":[0.0,0.12,0.48,0.98,1.42,1.94,2.2,2.38],"text":"C equals epsilon times s over d farads","date":"Jan 17, 2026"},
     "eq0002-new":{"src":"audio/world/eq0002-new.m4a","dur":5.57,"peaks":[0.31,0.57,0.84,0.59,0.04,0.41,0.92,0.61,0.01,0.04,0.46,0.39,0.37,0.25,0.27,0.07,0.14,0.7,0.4,0.19,0.41,0.43,0.52,0.73,0.64,0.64,0.68,0.17,0.15,0.27,0.75,0.83,0.63,0.55,0.56,0.34,0.1,0.42,0.44,0.44,1.0,0.77,0.34,0.39,0.54,0.79,0.74,0.87,0.79,0.78,0.83,0.22,0.21,0.18,0.55,0.76,0.44,0.19,0.09,0.1,0.44,0.43,0.35,0.75,0.47,0.29,0.25,0.2,0.13,0.03,0.0,0.0,0.26,0.67,0.79,0.24,0.03,0.56,1.0,0.86,0.78,0.71,0.51,0.46,0.39,0.32,0.24,0.1,0.2,0.36,0.1,0.0,0.0,0.0,0.0,0.0],"times":[0.0,0.1,0.54,1.18,1.76,2.16,2.62,2.96,3.28,3.5,3.68,4.2],"text":"C equals epsilon times the ratio of s to d, in farads","date":"Jan 25, 2026","marks":[[4,9]]},
