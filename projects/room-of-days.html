@@ -96,11 +96,12 @@
               <div><dt>Status</dt><dd>On the App Store · version 1.0.4, Sep 29, 2026</dd></div>
               <div><dt>Rating</dt><dd><svg class="star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.5 5.3 5.8.7-4.3 4 1.1 5.7L10 14.7l-5.1 2.8 1.1-5.7-4.3-4 5.8-.7z"/></svg>5.0 from 5 ratings</dd></div>
               <div><dt>Users</dt><dd>10+ active users</dd></div>
-              <div><dt>Built with</dt><dd>Flutter and Dart, Firebase, TypeScript Cloud Functions, Swift WidgetKit (latest builds), Codemagic CI</dd></div>
+              <div><dt>Built with</dt><dd>Flutter and Dart, Firebase, TypeScript Cloud Functions, Swift WidgetKit, Codemagic CI</dd></div>
             </dl>
             <div class="links">
               <a class="pill pill--bronze" href="https://apps.apple.com/us/app/room-of-days/id6781401469" target="_blank" rel="noopener">View on the App Store <span class="arr" aria-hidden="true">↗</span></a>
               <a class="text-link" href="#try-quest">Try today’s three <span class="arr arr--down" aria-hidden="true">↓</span></a>
+              <a class="text-link" href="#engineering">How it’s built <span class="arr arr--down" aria-hidden="true">↓</span></a>
             </div>
           </div>
         </div>
@@ -168,7 +169,7 @@
       <div class="wrap rules">
         <div class="rules-head" data-reveal>
           <h2 id="rules-title">Five stats change a rule</h2>
-          <p class="caption rules-live">The tags read the account on the board above and follow it as you play.</p>
+          <p class="caption rules-live">These are the rules in version 1.0.4, the App Store version. The tags read the account on the board above and follow it as you play.</p>
         </div>
         <dl class="rules-list" data-reveal>
           <div><dt>Mind</dt><dd>Mind raises XP by up to 15%.</dd><dd class="rule-now num" data-rule="Mind">XP ×1.09 at Mind 116</dd></div>
@@ -185,7 +186,7 @@
       <div class="wrap">
         <header class="rod-head" data-reveal>
           <h2 id="rooms-title">Six rooms</h2>
-          <p class="body-2">Every player starts in a finished room. These are the six room identities in the app’s latest build, with the names and lines the app gives them. Three are free from the start, and three unlock with Glimmers earned in play.</p>
+          <p class="body-2">Every player starts in a finished room. These are the six room identities in the App Store version, with the names and lines the app gives them. Three are free from the start, and three unlock with Glimmers earned in play.</p>
         </header>
       </div>
       <div class="rooms-stage" data-rooms>
@@ -341,8 +342,10 @@
         <dl class="built" data-reveal>
           <div><dt>Offline first</dt><dd>The save on the phone is the source of truth. The core app works with no account, and Firebase backup is optional.</dd></div>
           <div><dt>A protected social layer</dt><dd>Shared rooms and an opt-in directory run on TypeScript Cloud Functions that filter public names, rate-limit reports and support blocking. Protected writes require Firebase App Check with Apple App Attest, and calls without attestation are rejected on the live deployment.</dd></div>
-          <div><dt>Release pipeline</dt><dd>Codemagic CI tests, signs and uploads each iOS build with a written release record: builds up to 49 across versions 1.0.0 to 1.0.4.</dd></div>
-          <div><dt>Native widget</dt><dd>The latest builds add a Swift WidgetKit Home Screen widget beside the Flutter app.</dd></div>
+          <div><dt>Release pipeline</dt><dd>Codemagic CI tests, signs and uploads each iOS build with a written release record: builds up to 56 across versions 1.0.0 to 1.0.5. Version 1.0.5 is in TestFlight; 1.0.4 is the App Store version.</dd></div>
+          <div><dt>Native widget</dt><dd>Version 1.0.4, the App Store version, added a Swift WidgetKit Home Screen widget, the Day Ledger, beside the Flutter app. It shows the next class and up to three unfinished Quests.</dd></div>
+          <div><dt>Tests that only failed in the cloud</dt><dd>Builds 53 and 54 passed every test on Windows and failed in Codemagic’s test step. Codemagic’s Mac runs on UTC, and under UTC three tests failed that pass on Eastern time. A run on a free GitHub macOS runner found the fourth: a layout test whose card measured slightly taller on a Mac. All four are fixed, and the full suite now runs on Windows, under UTC and on a Mac before a build is tagged.</dd></div>
+          <div><dt>A size check that counted the wrong unit</dt><dd>The cloud backup checked a save’s size in UTF-16 code units, but Firestore measures a document in UTF-8 bytes, which a Hebrew journal fills faster. So a long Hebrew journal could pass the check, be rejected by Firestore, and show only “last sync didn’t go through” instead of saying the save was too large to back up. A benchmark audit found it. The fix was checked against the Firestore emulator, has a regression test, and has been in every TestFlight build since 1.0.5 (51).</dd></div>
           <div class="built-sound">
             <dt>Sound and music</dt>
             <dd>In-key interaction sounds tuned on an iPhone speaker, and an original soundtrack synthesized in code.</dd>
@@ -378,6 +381,7 @@
       <a href="kuiper-tts.html">Next room: Kuiper TTS <span class="arr arr--fwd" aria-hidden="true">→</span></a>
       <a class="back" href="../index.html#work"><span aria-hidden="true">←</span> All work</a>
     </nav>
+    <p class="wrap case-contact">Contact: <a class="text-link" href="mailto:mika.be@rutgers.edu">mika.be@rutgers.edu</a> <span class="cc-sep" aria-hidden="true">·</span> <a class="text-link" href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener">Résumé <span class="arr" aria-hidden="true">↗</span></a></p>
   </main>
 
   <footer class="wrap site-foot">

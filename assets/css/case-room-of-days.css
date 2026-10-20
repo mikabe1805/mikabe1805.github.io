@@ -250,6 +250,12 @@ a:hover .arr--down { transform: translateY(2px); }
 .rod-mine .lead { margin-bottom: 18px; }
 @media (max-width: 899px) { .rod-mine { grid-template-columns: minmax(0, 1fr); } }
 
+/* ================================================================== CONTACT, under Next room */
+.case-foot { padding-bottom: 8px; }
+.case-contact { display: flex; flex-wrap: wrap; align-items: center; column-gap: 10px; margin-block: 0; padding-bottom: 34px; font: 500 15px/1.4 var(--sans); color: var(--text-3); }
+.case-contact .text-link { padding: 0; }
+@media (max-width: 374px) { .case-contact .cc-sep { display: none; } } /* Résumé takes its own line on a narrow phone, with no dot left at the end of the first */
+
 /* ================================================================== reduced motion and transparency */
 @media (prefers-reduced-motion: reduce) {
   .room-layer .fire-sway, .room-layer .room-fire img, .room-layer .room-glow { animation: none !important; }
