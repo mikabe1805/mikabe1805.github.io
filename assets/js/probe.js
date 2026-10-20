@@ -59,13 +59,15 @@
      lab's share links, named by switch, pull-up, stray ("state-010" is open, in, off), as on the Knowsy case page
      (case-knowsy.js). Only the first is in the markup, as a deferred image; the others load on demand (the neighbours
      of the shown state once the visitor reaches for the probe), and a new one fades in over the old once it has
-     decoded, taking the caption, the alt text and the zoom target with it. Captures only: no lab code. */
+     decoded, taking the caption, the alt text and the zoom target with it; a ring marks the part that changed.
+     Captures only: no lab code. */
   var LIT = { "1 1 0": true, "1 0 0": true }; /* the LED is lit in exactly these two captures */
   function shots(fig) {
     var frame = fig && MB.$(".probe-shot-frame", fig), stack = fig && MB.$(".probe-shot-stack", fig);
     var cap = fig && MB.$("[data-probe-shot-cap]", fig), first = stack && MB.$("img", stack);
     if (!frame || !first || !cap) return null;
     var doc = document, shown = first.getAttribute("data-shot"), want = shown, imgs = {}, tidyT = 0;
+    var PARTS = ["switch", "pullup", "stray"], rings = MB.$$("[data-ring]", fig);
     imgs[shown] = first;
     function file(k) { return (MB.base || "") + "assets/knowsy-lab1-state-" + k.replace(/ /g, "") + "-20261019.webp"; }
     function text(k) {
@@ -95,7 +97,10 @@
       v.forEach(function (x, i) { var n = v.slice(); n[i] = x === "1" ? "0" : "1"; get(n.join(" ")); });
     }
     function swap(k) {
-      var im = imgs[k];
+      var im = imgs[k], a = shown.split(" "), b = k.split(" ");
+      /* a ring marks each part that differs from the capture this one replaces, and the LED when it changed too */
+      var changed = PARTS.filter(function (p, i) { return a[i] !== b[i]; });
+      if (!LIT[shown] !== !LIT[k]) changed.push("led");
       Object.keys(imgs).forEach(function (x) { imgs[x].classList.remove("is-top"); });
       im.classList.add("is-top", "is-on");
       im.alt = text(k).alt; im.removeAttribute("aria-hidden");
@@ -107,6 +112,7 @@
       cap.textContent = text(k).cap;
       frame.setAttribute("data-zoom", file(k));
       frame.setAttribute("data-alt", im.alt);
+      rings.forEach(function (r) { r.classList.toggle("on", changed.indexOf(r.getAttribute("data-ring")) >= 0); });
       around(k);
     }
     return {
@@ -117,7 +123,10 @@
         ready(im, function () { if (want === k && shown !== k) swap(k); });
       },
       warm: function () { around(shown); },
-      current: function () { return { state: shown, want: want, src: file(shown), caption: cap.textContent, alt: imgs[shown].alt }; }
+      current: function () {
+        return { state: shown, want: want, src: file(shown), caption: cap.textContent, alt: imgs[shown].alt,
+          rings: rings.filter(function (r) { return r.classList.contains("on"); }).map(function (r) { return r.getAttribute("data-ring"); }) };
+      }
     };
   }
 

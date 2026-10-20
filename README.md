@@ -7,7 +7,7 @@ The homepage is a hall with four doors. Each project is a room with its own ligh
 the app's firelit room, Kuiper TTS sits on daylit paper, Room Notes on slate grid paper under a cool lamp, and the
 Knowsy Breadboard Lab on a breadboard bench at night. One glass material and one light system run through all of
 them. Each room has a working piece of the project in it, and each project has a case page that goes further. The
-hall's door lights arrive once on load, and the page ends back in the hall, at the four door sills.
+hall's door lights arrive once a visit, and the page ends back in the hall, at the four door sills.
 
 ## Preview
 
@@ -19,9 +19,8 @@ npx serve -l 8765 .
 
 Range support matters for the audio: without it Chromium treats every clip as unseekable. `python -m http.server`
 ignores Range, so there a seek plays the clip from the start; everything else works. The pages also open straight from the
-file system, because no script is a module and nothing is fetched (only the font preloads and `404.html`, which uses
-root-relative paths, need a server). Opened from `file://`, each page logs two CORS errors for the font
-preloads; they are expected, and the fonts still load through `@font-face`.
+file system, because no script is a module and nothing is fetched; only `404.html`, which uses root-relative paths,
+needs a server.
 
 ## Structure
 

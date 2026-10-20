@@ -318,11 +318,14 @@
       if (force) this.planes.forEach(function (p) { p.el.style.transform = ""; p.last = ""; });
       return;
     }
-    var u = this.unit, cx = this.cam.x, cy = this.cam.y, sc = this.scroll;
+    var u = this.unit, cx = this.cam.x, cy = this.cam.y, sc = this.scroll, fit = this.fit, dpr = window.devicePixelRatio || 1;
     for (var i = 0; i < this.planes.length; i++) {
       var p = this.planes[i];
-      var x = -cx * p.kx * u, y = (-cy * p.ky - sc * p.ks) * u;
-      var t = "translate3d(" + x.toFixed(1) + "px," + y.toFixed(1) + "px,0) scale(1.08)";
+      var x = -cx * p.kx * u, y = (-cy * p.ky - sc * p.ks) * u, t;
+      /* a fitted room's planes are sized 108% in CSS rather than scaled, and move in whole device pixels: a scaled or
+         half-pixel layer is resampled, which softened the paper's text and the breadboard's holes in Chromium */
+      if (fit) t = "translate3d(" + Math.round(x * dpr) / dpr + "px," + Math.round(y * dpr) / dpr + "px,0)";
+      else t = "translate3d(" + x.toFixed(1) + "px," + y.toFixed(1) + "px,0) scale(1.08)";
       if (t !== p.last || force) { p.el.style.transform = t; p.last = t; }
     }
     if (this.roomLight) {

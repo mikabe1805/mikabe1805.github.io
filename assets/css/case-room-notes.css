@@ -198,6 +198,7 @@ html:not(.js) .rn-bench-pad, html:not(.js) .rn-bench-mode, html:not(.js) .rn-rea
 /* ------------------------------------------------------------------ engineering content: justified rows, equal heights */
 .rn-eng { --pool-x: 50%; --pool-y: 46%; }
 .rn-row-label { margin: clamp(30px, 3.4vw, 44px) 0 14px; }
+.rn-row-label + .rn-row-note { margin: -8px 0 14px; font-size: 12.5px; line-height: 1.5; color: var(--text-3); } /* the small print under a row label, as under the lineup */
 .rn-justify { display: flex; align-items: flex-start; gap: clamp(14px, 1.6vw, 22px); }
 .rn-shot { flex: var(--ar) 1 14px; min-width: 0; margin: 0; }
 .rn-shot .shot { padding: 6px; border-radius: 14px; background: rgb(255 252 246 / .04); border: 1px solid var(--line); }
