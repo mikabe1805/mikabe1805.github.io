@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Kuiper TTS | Mika Be</title>
-  <meta name="description" content="Kuiper TTS is an offline text-to-speech system that reads scientific papers aloud, equations included, for blind and low-vision readers. Mika Be led its 18-member team and ran the speech research behind its 2nd Place Best Full Paper at IEEE ISEC 2026." />
+  <meta name="description" content="Kuiper TTS reads scientific papers aloud, equations included. Mika Be led its 18-member team as research lead. 2nd Place Best Full Paper, IEEE ISEC 2026." />
   <meta name="author" content="Mika Be" />
   <link rel="canonical" href="https://mikabe1805.github.io/projects/kuiper-tts.html" />
   <meta name="theme-color" content="#ebe5d8" />
@@ -76,6 +76,7 @@
           <dl class="arrival-facts kt-facts">
             <div><dt>Role</dt><dd>Undergraduate research lead · <span class="kt-nw">co-author, one of 11</span></dd></div>
             <div><dt>Team</dt><dd>18 members · PI Prof. Dov Kruger</dd></div>
+            <div><dt>Built with</dt><dd>Python, PyTorch Lightning, Piper (VITS), ONNX</dd></div>
             <div><dt>On the team</dt><dd>Sep 2025 to present</dd></div>
             <div><dt>Compute</dt><dd>Jetstream2 GPUs through the lab’s NAIRR Pilot allocation</dd></div>
           </dl>
@@ -124,24 +125,32 @@
               <math display="block" data-eq-math="eq0002" hidden aria-label="C equals epsilon s over d farads"><mi data-t="0">C</mi><mo data-t="1">=</mo><mi data-t="2">&#x3F5;</mi><mfrac data-t="3"><mi>s</mi><mi>d</mi></mfrac><mspace width="0.4em"/><mtext data-t="4">farads</mtext></math>
             </div>
 
-            <div class="ab">
-              <div class="player" data-player data-kind="lit" data-label="the literal reading">
-                <div class="player-top">
-                  <button class="play" type="button" aria-label="Play the literal reading"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="i-play" d="M6 4l10 6-10 6z"/><path class="i-pause" d="M5.5 4h3v12h-3zM11.5 4h3v12h-3z"/></svg></button>
-                  <div><p class="player-name">Literal</p><p class="player-meta">Rendered <span data-date>Jan 17, 2026</span> · <span class="num" data-dur>0:09</span></p></div>
+            <!-- the two readings set as a printed page: two columns with a rule, each waveform a numbered figure,
+                 each play control a mark in the margin beside its column head -->
+            <div class="ab kt-cols">
+              <div class="player kt-col" data-player data-kind="lit" data-label="the literal reading">
+                <div class="player-top kt-col-head">
+                  <button class="play kt-mark" type="button" aria-label="Play the literal reading"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="i-play" d="M6 4l10 6-10 6z"/><path class="i-pause" d="M5.5 4h3v12h-3zM11.5 4h3v12h-3z"/></svg></button>
+                  <p class="player-name">Literal</p>
                 </div>
-                <svg class="wave" data-wave viewBox="0 0 96 32" preserveAspectRatio="none" role="slider" tabindex="0" aria-label="Seek the literal reading" aria-valuemin="0" aria-valuemax="8.9" aria-valuenow="0"></svg>
+                <figure class="kt-fig">
+                  <svg class="wave" data-wave viewBox="0 0 96 32" preserveAspectRatio="none" role="slider" tabindex="0" aria-label="Seek the literal reading" aria-valuemin="0" aria-valuemax="8.9" aria-valuenow="0"></svg>
+                  <audio preload="none" src="../audio/world/eq0003-lit.m4a" controls></audio>
+                  <figcaption class="player-meta"><span class="kt-fig-n">Fig. 1.</span> The literal reading (<span class="num" data-dur>0:09</span>), rendered <span data-date>Jan 17, 2026</span>.</figcaption>
+                </figure>
                 <p class="transcript" data-transcript>i equals d q over d t equals C times d v over d t equals negative 2 pi f C V sub zero times sine of 2 pi f t</p>
-                <audio preload="none" src="../audio/world/eq0003-lit.m4a" controls></audio>
               </div>
-              <div class="player" data-player data-kind="new" data-label="the rewritten reading">
-                <div class="player-top">
-                  <button class="play" type="button" aria-label="Play the rewritten reading"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="i-play" d="M6 4l10 6-10 6z"/><path class="i-pause" d="M5.5 4h3v12h-3zM11.5 4h3v12h-3z"/></svg></button>
-                  <div><p class="player-name">Rewritten</p><p class="player-meta">Rendered <span data-date>Jan 25, 2026</span> · <span class="num" data-dur>0:21</span></p></div>
+              <div class="player kt-col" data-player data-kind="new" data-label="the rewritten reading">
+                <div class="player-top kt-col-head">
+                  <button class="play kt-mark" type="button" aria-label="Play the rewritten reading"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="i-play" d="M6 4l10 6-10 6z"/><path class="i-pause" d="M5.5 4h3v12h-3zM11.5 4h3v12h-3z"/></svg></button>
+                  <p class="player-name">Rewritten</p>
                 </div>
-                <svg class="wave" data-wave viewBox="0 0 96 32" preserveAspectRatio="none" role="slider" tabindex="0" aria-label="Seek the rewritten reading" aria-valuemin="0" aria-valuemax="20.8" aria-valuenow="0"></svg>
+                <figure class="kt-fig">
+                  <svg class="wave" data-wave viewBox="0 0 96 32" preserveAspectRatio="none" role="slider" tabindex="0" aria-label="Seek the rewritten reading" aria-valuemin="0" aria-valuemax="20.8" aria-valuenow="0"></svg>
+                  <audio preload="none" src="../audio/world/eq0003-new.m4a" controls></audio>
+                  <figcaption class="player-meta"><span class="kt-fig-n">Fig. 2.</span> The rewritten reading (<span class="num" data-dur>0:21</span>), rendered <span data-date>Jan 25, 2026</span>.</figcaption>
+                </figure>
                 <p class="transcript" data-transcript>i equals the derivative of q with respect to t, equals C times the derivative of v with respect to t, equals negative two pi f C V sub zero, times sine of, open parenthesis, two pi f t, close parenthesis</p>
-                <audio preload="none" src="../audio/world/eq0003-new.m4a" controls></audio>
               </div>
             </div>
 
@@ -245,7 +254,7 @@
       <div class="wrap kt-voice-grid">
         <div class="kt-voice-copy">
           <h2 id="voice-title" class="case-h2">A voice trained on my own recordings</h2>
-          <p class="body-2">I designed a coverage-balanced recording corpus and a pronunciation testbench, then recorded 886 clips of my own voice, about 41 minutes, with a terminal recording tool I built. A one-command pipeline on the lab’s Jetstream2 allocation trims silence, normalizes loudness, rejects clipped or noisy takes, resumes from checkpoints and exports the trained voice to ONNX.</p>
+          <p class="body-2">I designed a coverage-balanced recording corpus and a pronunciation testbench, then recorded 886 clips of my own voice, about 41 minutes, with a terminal recording tool I built. A one-command pipeline on the lab’s Jetstream2 allocation trims silence, normalizes loudness and rejects clipped or noisy takes. It then fine-tunes Piper’s pretrained VITS voice on my clips with PyTorch Lightning, resuming from checkpoints, and exports the result to ONNX; version 5 ran 15,000 steps.</p>
           <p class="body-2">I turned the pipeline into a step-by-step guide; another student recorded 341 clips with it, and I trained a second voice from them.</p>
         </div>
         <div class="voice-players kt-voice-players">
@@ -355,7 +364,7 @@
             <ul>
               <li>Led the 18-member team, helped recruit it and assigned work across the codebase</li>
               <li>Ran the text-to-speech research and experiments behind the paper, including the 46-equation comparison</li>
-              <li>Built the narration rules, recording tool, training pipeline and evaluation toolkit</li>
+              <li>Built the narration rules, recording tool and training pipeline, and an evaluation toolkit that scores voices by mel cepstral distortion, F0 RMSE, PESQ and STOI</li>
               <li>Trained the custom voices</li>
               <li>One of two students named on the project’s founding IEEE proposal</li>
             </ul>
@@ -377,7 +386,7 @@
       <div class="wrap kt-evidence-inner">
         <a class="kt-thumb" href="../kuiper-tts-paper.pdf" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="../assets/kuiper-paper-520.webp" alt="" width="1082" height="1400" loading="lazy" decoding="async" /></a>
         <h2 id="evidence-title" class="case-h2">Paper</h2>
-        <p class="kt-cite"><cite>Kuiper TTS: Making Legacy Scientific Papers Accessible by Converting Equations into Spoken Language.</cite> 16th IEEE Integrated STEM Education Conference (ISEC&nbsp;2026), Princeton, March 2026. 2nd Place Best Full Paper.</p>
+        <p class="kt-cite"><cite>Making Legacy Scientific Papers Accessible by Converting Equations into Spoken Language</cite> (manuscript title: Kuiper&nbsp;TTS). 16th IEEE Integrated STEM Education Conference (ISEC&nbsp;2026), Princeton, March 2026. 2nd Place Best Full Paper.</p>
         <p class="caption">Authors’ manuscript.</p>
         <div class="links">
           <a class="pill pill--light" href="../kuiper-tts-paper.pdf" target="_blank" rel="noopener">Read the paper (PDF) <span class="arr" aria-hidden="true">↗</span></a>
@@ -391,6 +400,7 @@
       <a href="room-notes.html">Next room: Room Notes <span class="arr arr--fwd" aria-hidden="true">→</span></a>
       <a class="back" href="../index.html#work"><span aria-hidden="true">←</span> All work</a>
     </nav>
+    <p class="wrap case-contact">Contact: <a href="mailto:mika.be@rutgers.edu">mika.be@rutgers.edu</a> · <a href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener">Résumé<span class="arr" aria-hidden="true">↗</span></a></p>
   </main>
 
   <footer class="wrap site-foot">
