@@ -518,7 +518,9 @@
       /* the freeze reserve and the streak (streak_freeze_status.dart); after a gap no freeze can hold, the best run is what it keeps */
       var sit = eng.situation(), stale = sit.gap && !sit.covered;
       ui.reserve.classList.toggle("is-stale", stale);
-      ui.reserve.innerHTML = icon(stale ? "history_rounded" : "ac_unit_rounded") + "<span>" + (stale ? s.freezes + " READY · BEST " + Math.max(s.best, s.streak) + " KEPT" : s.freezes + " READY · " + s.streak + " DAY STREAK") + "</span>";
+      /* two unbreakable halves, so a narrow phone breaks the line at its dot instead of cutting it (rod-board.css) */
+      ui.reserve.innerHTML = icon(stale ? "history_rounded" : "ac_unit_rounded") + '<span><span class="rb-nw">' + s.freezes + ' READY</span><span class="rb-nw rb-nw2"> · ' +
+        (stale ? "BEST " + Math.max(s.best, s.streak) + " KEPT" : s.streak + " DAY STREAK") + "</span></span>";
       ui.reserve.setAttribute("aria-label", s.freezes + (s.freezes === 1 ? " freeze" : " freezes") + " ready. " + (stale ? "Best streak " + Math.max(s.best, s.streak) + " kept." : s.streak + " day streak."));
     }
     function setFill(v, animate) {
@@ -577,7 +579,7 @@
     var heroH = 254, rowH = 72, receiptH = 198, enoughH = 0;
     /* while a receipt is up the column keeps the height it had when the receipt rose, so the receipt's anchor (the
        column's foot) never moves under it as the list settles */
-    var colHold = 0;
+    var colHold = 0, nightHold = 0;
     function outerH(el) { if (!el) return 0; var cs = getComputedStyle(el); return el.offsetHeight + (parseFloat(cs.marginTop) || 0) + (parseFloat(cs.marginBottom) || 0); }
     function holdHeight() {
       if (!ready) return;
@@ -593,7 +595,7 @@
          three rows), so nothing below it moves when the day is kept */
       var inFlow = getComputedStyle(root).position !== "absolute";
       var kept = inFlow && enoughH ? hud + top + enoughH + gap + 3 * rowH + 2 * gap + foot : 0;
-      ui.col.style.minHeight = Math.ceil(Math.max(rest, settled, kept, colHold)) + "px";
+      ui.col.style.minHeight = Math.ceil(Math.max(rest, settled, kept, colHold, nightHold)) + "px";
     }
 
     /* ---------- the moving parts of one completion */
@@ -685,13 +687,26 @@
       out.push({ t: b.message, wide: true });
       return out;
     }
+    /* The reward line reads in full at every width (the App Store frame shows all of it): it runs under SWIPE TO UNDO
+       (rod-board.css), and if it is still too long it breaks at its dot, "+41 XP" over "+13 Glimmers", with the dot
+       hidden at the start of the second line. Its text is unchanged: "+41 XP · +13 Glimmers". */
+    function heroHTML(t) {
+      var at = t.indexOf(" · ");
+      if (at < 0) return '<span class="rb-r-p">' + esc(t) + "</span>";
+      return '<span class="rb-r-p">' + esc(t.slice(0, at)) + '</span><span class="rb-r-p rb-r-p2"><span class="rb-r-sep"> · </span>' + esc(t.slice(at + 3)) + "</span>";
+    }
     function receiptHTML(b, bub) {
       var hero = bub.filter(function (x) { return x.hero; })[0], compact = bub.filter(function (x) { return !x.hero && !x.wide; }).slice(0, 5);
-      var goal = b.goalAfter ? "GOAL · " + b.goalTitle + " · " + b.goalAfter.progress + "/" + b.goalAfter.target : null;
+      /* the goal thread; on a narrow phone it takes two lines, and its last word stays with the count */
+      var goal = null;
+      if (b.goalAfter) {
+        var words = ("GOAL · " + b.goalTitle).split(" "), last = words.pop();
+        goal = esc(words.join(" ")) + ' <span class="rb-nw">' + esc(last + " · " + b.goalAfter.progress + "/" + b.goalAfter.target) + "</span>";
+      }
       return '<div class="rb-glass rb-facet"><i class="rb-glass-fill"></i><i class="rb-glass-low"></i><div class="rb-r-head"><span class="rb-medal rb-facet">' + icon("done_rounded") + '</span>' +
-        '<span class="rb-r-titles"><span class="rb-r-kick">QUEST COMPLETE</span><span class="rb-r-hero">' + esc(hero.t) + "</span></span>" +
+        '<span class="rb-r-titles"><span class="rb-r-kick">QUEST COMPLETE</span><span class="rb-r-hero">' + heroHTML(hero.t) + "</span></span>" +
         '<button class="rb-r-undo" type="button" aria-label="Swipe to undo">SWIPE TO UNDO</button></div>' +
-        (goal ? '<p class="rb-r-goal">' + icon("route_rounded") + "<span>" + esc(goal) + "</span></p>" : "") +
+        (goal ? '<p class="rb-r-goal">' + icon("route_rounded") + "<span>" + goal + "</span></p>" : "") +
         '<div class="rb-chips">' + compact.map(function (x) {
           var tag = x.why ? "button" : "span";
           return "<" + tag + ' class="rb-rchip rb-facet"' + (x.why ? ' type="button" aria-label="' + esc(x.t.replace(" · WHY", "")) + ', why this works"' : "") + ' style="--cc:' + x.c + '" data-i="' + bub.indexOf(x) + '">' +
@@ -1032,6 +1047,17 @@
         function () { if (receipt === r) r.resume(); });
     }
 
+    /* While the night ledger or Goodnight is up, nothing on the board runs under the sheet's top edge: the three rows
+       step back (they sit under the sheet), and "Enough for today" folds to its title when the sheet would reach its
+       lines. The column keeps its height, so the sheet's anchor stays where it was when it rose. */
+    function nightOn() {
+      nightHold = Math.max(nightHold, ui.col.offsetHeight); holdHeight();
+      root.classList.add("rb-night");
+      root.classList.remove("rb-night-fold");
+      var top = ui.rail2.getBoundingClientRect().bottom - ui.sheet.offsetHeight;
+      if (ui.enough.classList.contains("is-on") && ui.enough.getBoundingClientRect().bottom > top - 8) root.classList.add("rb-night-fold");
+    }
+    function nightOff() { root.classList.remove("rb-night", "rb-night-fold"); nightHold = 0; holdHeight(); }
     /* the night: Close the ledger, then Goodnight and the next morning (routine_flows.dart, in one sheet) */
     function openNight() {
       if (sheet || !ui.lu.hidden) return;
@@ -1050,7 +1076,8 @@
           MB.$("[data-x]", el).addEventListener("click", function () { closeSheet(false); });
           var btn = MB.$("[data-close]", el); btn.focus({ preventScroll: true });
           btn.addEventListener("click", function () { eng.closeDay(); undoQuest = null; renderCards(); goodnight(); });
-        });
+          nightOn();
+        }, nightOff);
     }
     function goodnight() {
       var line = eng.night();
@@ -1060,7 +1087,8 @@
           el.setAttribute("aria-labelledby", id + "-gn");
           var btn = MB.$("[data-open]", el); btn.focus({ preventScroll: true });
           btn.addEventListener("click", function () { closeSheet(true); self.nextDay(); var k = cardOf[featuredId()]; if (k) k.plate.focus({ preventScroll: true }); });
-        });
+          nightOn();
+        }, nightOff);
     }
     if (ui.close) ui.close.addEventListener("click", openNight);
     ui.closeDay.addEventListener("click", openNight);
@@ -1231,7 +1259,12 @@
     function warmBox(full) {
       var q = eng.quests[0], base = { quest: q.id, title: q.title, xp: 26, glimmers: 8, statGain: 6, abbr: QE.ABBR[q.stat], stat: q.stat,
         hasEvidence: true, streakMult: 1.6, levelProgress: "560 XP · LEVEL 19", message: "Pages add up. Readers are dangerous people." };
+      /* the tallest receipt the board shows: the dreaded quest's, with its goal thread, the longest reward line and a
+         two-line message, so the column's measured room is the real one */
       var goal = {}; Object.keys(base).forEach(function (n) { goal[n] = base[n]; });
+      var dq = eng.quests[1];
+      goal.quest = dq.id; goal.title = dq.title; goal.stat = dq.stat; goal.abbr = QE.ABBR[dq.stat]; goal.xp = 41; goal.glimmers = 13; goal.statGain = 11;
+      goal.levelProgress = "519 XP · LEVEL 19"; goal.message = "You did the thing you were avoiding. Everything’s easier now.";
       goal.goalAfter = { progress: 12, target: 25 }; goal.goalTitle = "Make the apartment feel calm";
       var box = document.createElement("div");
       box.className = "rb-warm"; box.setAttribute("aria-hidden", "true"); box.inert = true;

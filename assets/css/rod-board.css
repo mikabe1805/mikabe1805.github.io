@@ -273,6 +273,12 @@
 .rb-honey:active .rb-gold { transform: translateY(4px); }
 .rb-more { display: flex; align-items: center; justify-content: center; gap: 4px; margin: 10px 0 0; font: 600 11px/1.3 var(--mono); letter-spacing: 1.1px; color: var(--streak); }
 .rb-more svg.ic { --is: 13px; }
+/* under the night ledger and Goodnight (quest-ui.js nightOn): the rows step back behind the sheet, and "Enough for today"
+   folds to its title when the sheet would cut its lines */
+.rb-item { transition: opacity 260ms var(--respond), visibility 0s; }
+.rod-board.rb-night .rb-item, .rod-board.rb-night .rb-foot { opacity: 0; visibility: hidden; transition: opacity 200ms var(--respond), visibility 0s linear 200ms; }
+.rod-board.rb-night-fold .rb-enough p.body, .rod-board.rb-night-fold .rb-enough p.sub,
+.rod-board.rb-night-fold .rb-enough .rb-honey, .rod-board.rb-night-fold .rb-enough .rb-more { display: none; }
 
 /* ------------------------------------------------------------------ the receipt */
 .rb-receipt-slot { position: relative; }
@@ -300,14 +306,37 @@
 .rb-r-head { position: relative; }
 .rb-r-titles { flex: 1; min-width: 0; margin-left: 11px; }
 .rb-r-kick { display: block; font: 600 11px/1.3 var(--mono); letter-spacing: 1.7px; color: var(--xp-light); }
-.rb-r-hero { display: block; font: 700 19px/1.25 var(--num); letter-spacing: .2px; color: var(--xp); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* the reward line never clips: it is two unbreakable parts, "+41 XP" and "· +13 Glimmers", that share a line when they fit;
+   otherwise the second starts the next line and its dot falls into the clipped margin (quest-ui.js heroHTML) */
+.rb-r-hero { display: flex; flex-wrap: wrap; font: 700 19px/1.25 var(--num); letter-spacing: .2px; color: var(--xp); overflow: hidden; }
+.rb-r-p { white-space: nowrap; }
+.rb-r-p:first-child:not(:last-child) { margin-right: .76em; }
+.rb-r-p2 { margin-left: -.76em; }
+.rb-r-sep { display: inline-block; width: .76em; text-align: center; }
+/* the head (reward_receipt.dart's Row): the medal, QUEST COMPLETE with SWIPE TO UNDO on its line, and the reward line
+   under both. The app gives that line the width of its screen; here the board is the app's 367 pt column, so the line
+   runs on under the undo label instead of stopping short of it */
+.rb-receipt .rb-r-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: end; }
+.rb-receipt .rb-medal { grid-column: 1; grid-row: 1 / span 2; align-self: center; margin-right: 11px; }
+.rb-receipt .rb-r-titles { display: contents; }
+.rb-receipt .rb-r-kick { grid-column: 2; grid-row: 1; }
+.rb-receipt .rb-r-hero { grid-column: 2 / span 2; grid-row: 2; }
+.rb-receipt button.rb-r-undo { grid-column: 3; grid-row: 1; min-height: 0; }
+@media (max-width: 340px) {
+  /* a 320 px phone has no room for QUEST COMPLETE and SWIPE TO UNDO on one line: the undo label stands beside the
+     whole title block on two lines, as it stands beside it in the app, and the reward line breaks at its dot */
+  .rb-receipt .rb-r-hero { grid-column: 2; }
+  .rb-receipt button.rb-r-undo { grid-row: 1 / span 2; align-self: center; max-width: 64px; padding: 0; text-align: right; }
+}
 .rb-r-undo { flex: none; margin-left: 8px; font: 600 11px/1.3 var(--mono); letter-spacing: 1.1px; color: var(--mid); }
 .rod-board .rb-r-undo { color: var(--mid); }
 button.rb-r-undo { min-height: 32px; padding: 0 2px; }
 button.rb-r-undo:hover { color: var(--hi); }
-.rb-r-goal { display: flex; align-items: center; gap: 5px; margin-top: 7px; font: 600 11px/1.3 var(--mono); letter-spacing: .3px; color: var(--streak); white-space: nowrap; overflow: hidden; }
-.rb-r-goal svg.ic { --is: 13px; }
-.rb-r-goal span { overflow: hidden; text-overflow: ellipsis; }
+/* the goal thread takes a second line on a narrow phone rather than losing its count */
+.rb-r-goal { display: flex; align-items: flex-start; gap: 5px; margin-top: 7px; font: 600 11px/1.3 var(--mono); letter-spacing: .3px; color: var(--streak); }
+.rb-r-goal svg.ic { --is: 13px; margin-top: .65px; }
+.rb-r-goal span { min-width: 0; overflow-wrap: anywhere; }
+.rb-r-goal .rb-nw { white-space: nowrap; }
 .rb-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .rb-chips:empty { display: none; }
 .rb-rchip { --c: 6px; position: relative; display: inline-flex; align-items: center; gap: 5px; padding: 5px 8px; isolation: isolate; color: var(--cc);
@@ -331,6 +360,7 @@ button.rb-rchip:focus-visible { outline: 1.5px solid rgb(242 205 147 / .78); out
 .rb-door::before { content: ""; position: absolute; inset: 1px; z-index: -1; clip-path: inherit; background: linear-gradient(rgb(224 168 101 / .07), rgb(224 168 101 / .07)), #1b1511; }
 .rb-door svg.ic { --is: 16px; }
 .rb-door .grow { flex: 1; white-space: pre; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 385px) { .rb-door .grow { white-space: nowrap; } } /* one space either side of the dot, so OPTIONAL reads in full */
 .rb-door .chev { --is: 18px; color: var(--lo); }
 .rb-door:active { transform: translateY(2px); }
 .rb-door:focus-visible { outline: 1.5px solid rgb(242 205 147 / .78); outline-offset: 2px; }
@@ -416,6 +446,15 @@ button.rb-rchip:focus-visible { outline: 1.5px solid rgb(242 205 147 / .78); out
 .rb-foot-l svg.ic { --is: 13px; opacity: .82; }
 .rb-foot-l span { overflow: hidden; text-overflow: ellipsis; }
 .rb-foot-l.is-stale { color: var(--lo); }
+@media (max-width: 385px) {
+  /* a narrow phone has no room for the reserve and CLOSE DAY on one line: the reserve breaks at its dot, and the dot
+     falls into the clipped margin, as the receipt's reward line does (" · " is three mono cells of .6em + .58px) */
+  .rb-foot-l > span { display: flex; flex-wrap: wrap; }
+  .rb-foot-l .rb-nw { white-space: pre; }
+  .rb-foot-l .rb-nw:first-child { margin-right: calc(1.8em + 1.74px); }
+  .rb-foot-l .rb-nw2 { margin-left: calc(-1.8em - 1.74px); }
+  .rb-door-day { flex: none; white-space: nowrap; }
+}
 .rb-door-day { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 8px; font: 600 11px/1 var(--mono); letter-spacing: 1.1px; color: var(--xp-light); border-radius: 6px; }
 .rod-board .rb-door-day { color: var(--xp-light); }
 .rb-door-day svg.ic { --is: 16px; }

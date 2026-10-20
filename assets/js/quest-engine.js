@@ -46,27 +46,30 @@
   };
   for (var d = -11; d <= 0; d++) START.history[d] = 1; /* a 12-day run; today's 1 is "Walk after lunch" */
 
-  /* lib/content/messages.dart */
+  /* lib/content/messages.dart. The lines the app's own copy sweep reworded (commit bef3563, "Copy sweep: content library
+     without em dashes or loss words", in every TestFlight build from 1.0.5 (51) on) carry its new wording, copied
+     verbatim; each list keeps its length and order, so a visit picks the same line it always did. */
   var BY_STAT = {
-    Body: ["That’s how strength gets built — one rep at a time.", "Most people skipped their workout today. Not you.", "Your muscles got the memo: we’re leveling up.", "Future-you, mid-hike, says thanks.", "Strong isn’t a look. It’s a stack of days like this.", "The body keeps the receipts. This one’s a deposit."],
-    Care: ["Your future self is already breathing easier :)", "That’s a deposit in the long-game health bank.", "Small healthy choices compound — this one counts.", "Boring, repeatable, powerful. That’s the good stuff.", "Energy tomorrow is built quietly today. Nice.", "The unglamorous wins are the ones that last."],
+    Body: ["That’s how strength gets built, one rep at a time.", "Workout done. Tomorrow’s stairs just got a little easier.", "Your muscles got the memo: we’re leveling up.", "Future-you, mid-hike, says thanks.", "Strength is a stack of days like this one.", "The body keeps the receipts. This one’s a deposit."],
+    Care: ["Your future self is already breathing easier :)", "That’s a deposit in the long-game health bank.", "Small healthy choices compound, and this one counts.", "Boring, repeatable, powerful. That’s the good stuff.", "Energy tomorrow is built quietly today. Nice.", "The unglamorous wins are the ones that last."],
     Mind: ["That keeps you sharp :)", "Pages add up. Readers are dangerous people.", "Your brain just got a little harder to argue with.", "A little smarter than yesterday. That’s the whole trick.", "Curiosity, fed. It’ll pay you back at odd hours.", "Knowledge compounds quieter than money, and longer."],
-    Craft: ["Real focus is rare. You just did it.", "That session puts you ahead of everyone still scrolling.", "Deep work logged — that’s where the good stuff happens.", "You out-sat the urge to check your phone. Respect.", "Attention is the rarest currency. You just spent it well.", "That’s the muscle the modern world tries to steal. Trained."],
-    People: ["You just made someone’s day a little warmer :)", "Connection logged. Hearts level up too.", "People remember this stuff. Nicely done.", "Reaching out is brave more often than it looks.", "Someone out there is glad you exist today.", "Relationships are a stat too — and you just trained it."],
-    Home: ["Your space just got a little more yours.", "A tended home is a quieter mind. You earned some quiet.", "Nobody sees this one but you — which is exactly why it counts.", "Home doesn’t keep itself. Today, you kept it.", "Small upkeep now, no avalanche later. Smart.", "Order, one small act at a time. The room thanks you."]
+    Craft: ["Real focus is rare. You just did it.", "That session puts you ahead of everyone still scrolling.", "Deep work logged. That’s where the good stuff happens.", "You out-sat the urge to check your phone. Respect.", "Attention is the rarest currency. You just spent it well.", "That’s the muscle the modern world tries to steal. Trained."],
+    People: ["You just made someone’s day a little warmer :)", "Connection logged. Hearts level up too.", "People remember this stuff. Nicely done.", "Reaching out is brave more often than it looks.", "Someone out there is glad you exist today.", "Relationships are a stat too, and you just trained it."],
+    Home: ["Your space just got a little more yours.", "A tended home is a quieter mind. You earned some quiet.", "Nobody sees this one but you, which is exactly why it counts.", "Home doesn’t keep itself. Today, you kept it.", "Small upkeep now, no avalanche later. Smart.", "Order, one small act at a time. The room thanks you."]
   };
   var DREAD_LINES = ["The dreaded one. Done. That’s the whole game, right there.", "You did the thing you were avoiding. Everything’s easier now."];
-  var COMEBACK_LINES = ["Back at it after a gap — no guilt, just go. This is the move that counts.", "You returned. That’s rarer and braver than never stopping."];
-  var NIGHT_LINES = ["Whatever today was — you showed up. That’s the part that compounds.", "Rest is part of the build. Tanks need repairs; so do heroes.", "Tomorrow’s you is already grateful for what you did today.", "The day is logged. Nothing left to carry to bed.", "You don’t have to have won today. You only had to not quit.", "Set it down. The fire will be here in the morning.", "Progress isn’t loud. It’s a hundred quiet nights like this.", "Be proud of the small ones. They were the hard ones."];
+  var COMEBACK_LINES = ["Back after a gap, and no guilt needed. This is the move that counts.", "You returned. That’s rarer and braver than never stopping."];
+  var NIGHT_LINES = ["Whatever today was, you showed up. That’s the part that compounds.", "Rest is part of the build. Tanks need repairs; so do heroes.", "Tomorrow’s you is already grateful for what you did today.", "The day is logged. Nothing left to carry to bed.", "Showing up today was plenty. Let that be enough tonight.", "Set it down. The fire will be here in the morning.", "Progress is quiet. It’s a hundred nights like this one.", "Be proud of the small ones. They were the hard ones."];
   /* the lines the App Store account shows on its first day (store frame 02 and the reference renders) */
   var FIRST_DAY = { read: "Pages add up. Readers are dangerous people.", counter: "You did the thing you were avoiding. Everything’s easier now.", message: "Connection logged. Hearts level up too." };
   /* lib/content/quest_companion_copy.dart: the featured quest's line, one step per day */
   var MAIN_LINES = ["Keep this one within reach.", "A good place to begin.", "Let this be the clear thing."];
-  /* lib/content/evidence.dart: the first card for each stat, behind "· WHY" until read */
+  /* lib/content/evidence.dart: the first card for each stat in 1.0.4, behind "· WHY" until read; the card texts carry
+     the same copy sweep's wording */
   var EVIDENCE = {
-    Mind: { title: "Start absurdly small", text: "Behaviors stick when they’re too small to refuse — read one page, do two push-ups. The emotion you feel on finishing is what wires the habit, not the size of the session.", source: "BJ Fogg, Stanford Behavior Design Lab" },
-    Home: { title: "Anchor habits to moments, not clocks", text: "Behaviors repeated in a stable context — after coffee, before the shower — form habits faster than ones tied to arbitrary times.", source: "Habit formation research, PMC6302524" },
-    People: { title: "Connection is a health behavior", text: "One message counts. Reaching out to people you care about protects your mood and your long-term health — social ties rank right alongside exercise in the longevity studies.", source: "Holt-Lunstad meta-analyses" }
+    Mind: { title: "Start absurdly small", text: "Behaviors stick when they’re too small to refuse, like reading one page or doing two push-ups. The emotion you feel on finishing is what wires the habit, not the size of the session.", source: "BJ Fogg, Stanford Behavior Design Lab" },
+    Home: { title: "Anchor habits to moments, not clocks", text: "Behaviors repeated in a stable context, like after coffee or before the shower, form habits faster than ones tied to arbitrary times.", source: "Habit formation research, PMC6302524" },
+    People: { title: "Connection is a health behavior", text: "One message counts. Reaching out to people you care about protects your mood and your long-term health. Social ties rank right alongside exercise in the longevity studies.", source: "Holt-Lunstad meta-analyses" }
   };
   var UNLOCKS = { 2: "STAT DETAILS", 3: "CHARACTER SHEET", 4: "EVIDENCE ARCHIVE", 5: "THEMES", 6: "WEEK-LONG FREEZE RESERVE", 8: "TODAY’S BONUS", 12: "WINDOW VIEWS", 14: "ROOM STYLES+", 15: "GILDED SKIN" };
 
@@ -97,7 +100,9 @@
   function idleDays(s, q) { var last = s.lastDone[q.id]; if (last == null || last === s.day) return 0; return clamp(s.day - last, 0, 30); }
   function isDone(s, id) { return s.done[id] === s.day; }
   function remaining(s) { return QUESTS.filter(function (q) { return !isDone(s, q.id); }).length; }
-  function countToday(s) { return s.history[s.day] || 0; }
+  /* the board's own completions today: how many of today's three are kept. The account's earlier win today ("Walk
+     after lunch", in history for the streak and the sky) is not one of them */
+  function keptToday(s) { return QUESTS.filter(function (q) { return isDone(s, q.id); }).length; }
 
   /* xpPreview: what the card advertises */
   function preview(s, q) {
@@ -111,12 +116,13 @@
   }
 
   function pickMessage(s, q, comeback) {
-    var n = countToday(s) + 1;
+    /* the app's countToday line ("That makes N today") counts only what this board did, so it never claims a fourth
+       completion while the board shows three; with three quests a day it does not come up here */
+    var n = keptToday(s) + 1;
     if (s.day === 0) {
-      /* the reference renders: the level-up run (B01) closes Message with its People line; the plain day (A03) reaches
-         Message as the 4th completion, counting Walk after lunch, and the app's countToday line answers it */
+      /* the account's first day: the lines its App Store frame and the reference renders show (the level-up run, B01,
+         closes Message with its People line) */
       if (s.lines && s.lines[q.id]) return s.lines[q.id];
-      if (q.id === "message" && n >= 4) return "That makes " + n + " today. You’re on a tear.";
       if (FIRST_DAY[q.id]) return FIRST_DAY[q.id];
     }
     var specials = [];
