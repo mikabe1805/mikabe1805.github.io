@@ -392,23 +392,36 @@ body:not([data-world]) .nav-wrap[data-scrim="kuiper"]::before { left: var(--shee
 .transcript .pause { color: var(--accent); font-weight: 600; }
 .player audio { display: none; width: 100%; margin-top: 10px; }
 
-/* ------------------------------------------------------------------ DEVICE STAGE (notes.js) */
+/* ------------------------------------------------------------------ DEVICE STAGE (notes.js)
+   One page on three devices. The chosen device leads at a readable size (the iPad page about 560 px wide at
+   1440 x 900); the other two wait beside it, whole and smaller, and a click brings one forward. Each capture is
+   cropped to what its caption names, so each device keeps its own aspect (--ar). The stage keeps one height
+   whichever device leads, so choosing one never moves the page; the placement is CSS alone (data-active), so the
+   layout is right before the script runs. Below 700 px only the chosen device shows. */
 .devices { position: relative; }
-/* The lineup is sized in CSS from the stage width (no layout shift when the script runs): one shared device
-   height --dh = (width - 40) / 2.8114, at most 380 px, and a stage 14% taller so a chosen device can scale forward. */
-.device-stage { --gap: 16px; container-type: inline-size; position: relative; display: flex; align-items: flex-end; justify-content: center; gap: var(--gap); aspect-ratio: 2.466; max-height: 443px; height: var(--stage-h, auto); padding-bottom: 6px; }
-.device { position: relative; flex: none; height: var(--dh, min((100cqw - 40px) / 2.8114, 380px)); padding: 0; border: 0; cursor: zoom-in; background: #0f0d0c; overflow: hidden; transform-origin: 50% 100%;
+.device-stage { --lead-h: min(704px, calc(100vh - 150px)); --rail-w: clamp(150px, 15vw, 210px); --gap-x: clamp(18px, 2.4vw, 32px); container-type: inline-size; position: relative; display: grid; grid-template-columns: auto var(--rail-w); grid-template-rows: minmax(0, 1fr) auto auto; justify-content: center; gap: 18px var(--gap-x); align-items: end; height: var(--lead-h); }
+.device { position: relative; display: block; width: 100%; aspect-ratio: var(--ar); padding: 0; border: 0; border-radius: var(--r); cursor: zoom-in; background: #0f0d0c; overflow: hidden; transform-origin: 0 0;
   box-shadow: 0 0 0 1px rgb(255 255 255 / .09), 0 0 0 5px #17181b, 0 0 0 6px rgb(255 255 255 / .07), 0 40px 70px -36px rgb(0 0 0 / .95);
-  transition: transform .6s var(--ease), opacity .5s var(--ease), border-radius .5s var(--ease); }
-.device img { width: 100%; height: 100%; object-fit: cover; }
-.device--laptop { --r: 18px; aspect-ratio: 1440 / 900; border-radius: var(--r); }
-.device--ipad { --r: 18px; aspect-ratio: 1024 / 1366; border-radius: var(--r); }
-.device--phone { --r: 28px; aspect-ratio: 430 / 932; border-radius: var(--r); }
-/* the phone shows the page in reading mode in the lineup, and the board-photo sheet when it is chosen on its own */
+  transition: transform .6s var(--ease), opacity .4s var(--ease); }
+.device img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.device--laptop { --ar: 1600 / 1061; --r: 14px; }
+.device--ipad { --ar: 1200 / 1502; --r: 14px; }
+.device--phone { --ar: 900 / 1448; --r: 22px; }
+/* the lead: as large as the stage allows beside the other two, standing on the stage's floor; the group is centred */
+.device-stage[data-active="laptop"] .device--laptop, .device-stage[data-active="ipad"] .device--ipad, .device-stage[data-active="phone"] .device--phone { grid-column: 1; grid-row: 1 / -1; width: calc(var(--lead-h) * var(--ar)); width: min(calc(var(--lead-h) * var(--ar)), calc(100cqw - var(--rail-w) - var(--gap-x))); }
+/* the other two, in a fixed order beside it */
+.device-stage[data-active="ipad"] .device--laptop, .device-stage[data-active="phone"] .device--laptop, .device-stage[data-active="laptop"] .device--ipad { grid-column: 2; grid-row: 2; }
+.device-stage[data-active="ipad"] .device--phone, .device-stage[data-active="laptop"] .device--phone, .device-stage[data-active="phone"] .device--ipad { grid-column: 2; grid-row: 3; }
+.device-stage[data-active="ipad"] .device--phone, .device-stage[data-active="laptop"] .device--phone { justify-self: end; width: 80%; }
+.device-stage .device.is-active { z-index: 1; }
+.js .device-stage .device:not(.is-active) { cursor: pointer; opacity: .74; }
+.js .device-stage .device:not(.is-active):hover { opacity: 1; }
+/* the phone shows the page beside the lead, and the board-photo sheet over the same page when it leads */
 .device--phone .ph-solo { position: absolute; inset: 0; opacity: 0; transition: opacity .5s var(--ease); }
 .device-stage[data-active="phone"] .device--phone .ph-solo { opacity: 1; }
-.device-stage[data-active]:not([data-active="all"]) .device { opacity: .35; transform: translateX(var(--tx, 0)) scale(.94); }
-.device-stage[data-active]:not([data-active="all"]) .device.is-active { opacity: 1; z-index: 2; transform: translateX(var(--tx, 0)) scale(var(--s, 1)); border-radius: calc(var(--r, 18px) / var(--s, 1)); }
+/* below 700 px the chosen device comes in when it replaces the last one (notes.js adds .is-entering) */
+.device.is-entering { animation: device-in .45s var(--ease) backwards; }
+@keyframes device-in { from { opacity: 0; transform: translateY(10px); } }
 .device-caption { display: grid; gap: 4px; margin: 18px 0 0; font-size: 14px; line-height: 1.5; color: var(--text-2); min-height: 4.6em; }
 .device-caption strong { color: var(--text); font-weight: 500; }
 .device-caption small { font-size: 12.5px; color: var(--text-3); }
@@ -683,7 +696,14 @@ body:not([data-world]) .nav-wrap[data-scrim="kuiper"]::before { left: var(--shee
   .seal { left: -22px; }
 }
 @media (max-width: 699px) {
-  .device-stage { aspect-ratio: auto; height: var(--stage-h, 360px); max-height: none; }
+  /* only the chosen device, as wide as the column (the phone a little narrower); the tabs sit above it, so they
+     stay put when a device of another height comes in. Without the script all three show, one under another. */
+  .device-stage { display: block; height: auto; container-type: normal; }
+  .device-stage .device { display: none; }
+  .device-stage[data-active="laptop"] .device--laptop, .device-stage[data-active="ipad"] .device--ipad, .device-stage[data-active="phone"] .device--phone { display: block; width: 100%; margin-inline: auto; }
+  .device-stage[data-active="phone"] .device--phone { width: min(100%, 340px); }
+  html:not(.js) .device-stage .device { display: block; width: 100%; margin: 0 auto 18px; }
+  .devices .device-tabs { order: 0; margin: 0 0 16px; }
   .rod-stage .depth-view { height: 62svh; min-height: 360px; }
   .rod-stage > .quest { margin: 14px auto 0; width: calc(100% - 2 * var(--gutter)); max-width: 367px; }
   .rod-plate { padding: 24px 20px 22px; }

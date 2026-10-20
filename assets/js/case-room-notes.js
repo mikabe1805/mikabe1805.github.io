@@ -1,8 +1,8 @@
 /* Mika Be portfolio: Room Notes case page (projects/room-notes.html).
-   [data-reg]    the hero lineup. Point at the page on one device and the same 900 x 1200 page
-                 coordinate is marked on the other two. The page rectangles were measured from the
-                 captures (page borders and the equation box line up across all three). Plays once on
-                 arrival to show what it does; fine pointers only after that.
+   [data-reg]    the hero lineup. Point at the page on one device (the one leading or either one beside
+                 it) and the same 900 x 1200 page coordinate is marked on the other two. The page
+                 rectangles were measured from the captures (page borders and the equation box line up
+                 across all three). Plays once on arrival to show what it does; fine pointers only after that.
    [data-bench]  the pen-freeze bench: the homepage pad, plus a live trace of the visitor's own strokes
                  that shows Build 30 and Now for the same input. Same timing contract as notes.js:
                  Build 30 holds a new stroke's ink for 1,479 ms when the pause was 1.8 to 2.6 s, then
@@ -17,12 +17,15 @@
 
   /* ================================================================ same spot on every device */
   var PAGE_W = 900, PAGE_H = 1200;
-  /* page rectangle inside each capture, in capture pixels: origin x, y and s pixels per page unit.
-     vis is the last page row in view: the laptop shows the top of the page, the phone's sheet covers the rest. */
+  /* page rectangle inside each capture, in capture pixels: origin x, y and s pixels per page unit. Measured on the
+     renders (laptop 1440 x 900: page at 203.5, 216.5, 1.1489 px per unit; iPad 1024 x 1366: 95.5, 164.5, 0.9256;
+     phone 430 x 932: 32, 259, 0.4056), then carried through each crop and resize (assets/PROVENANCE.md).
+     vis is the last page row in view: the laptop shows the top of the page, the iPad crop ends below the last
+     pen row, and the phone's board-photo sheet covers the rest when the phone leads. */
   var GEO = {
-    laptop: { iw: 1440, ih: 900, x: 203.5, y: 216.5, s: 1.1489, vis: 595 },
-    ipad: { iw: 1024, ih: 1366, x: 95.5, y: 164.5, s: 0.9256, vis: 1200 },
-    phone: { iw: 430, ih: 932, x: 32, y: 259, s: 0.4056, vis: 988, visAll: 1200 } /* the reading-mode face shows the whole page; the photo sheet covers below 988 */
+    laptop: { iw: 1600, ih: 1061, x: 11.45, y: 17.56, s: 1.75405, vis: 595 },
+    ipad: { iw: 1200, ih: 1502, x: 13.43, y: 17.67, s: 1.30827, vis: 1134 },
+    phone: { iw: 900, ih: 1448, x: 66.98, y: 39.77, s: 0.84893, vis: 988, visAll: 1200 } /* beside the lead the phone shows the whole page; leading, its sheet covers below 988 */
   };
   function pct(v, of) { return (v / of * 100).toFixed(3) + "%"; }
 
@@ -46,7 +49,7 @@
     });
     function show(px, py) {
       Object.keys(marks).forEach(function (k) {
-        var m = marks[k], g = m.g, vis = visOf(k, g), off = k === "laptop" && py > vis;
+        var m = marks[k], g = m.g, vis = visOf(k, g), off = k !== "phone" && py > vis;
         /* the marks move by transform only (px of this device's box), so nothing is laid out again */
         var w = m.el.offsetWidth, h = m.el.offsetHeight;
         m.el.style.setProperty("--tx", ((g.x + px * g.s) / g.iw * w).toFixed(1) + "px");
@@ -96,7 +99,7 @@
       var io = new IntersectionObserver(function (es) {
         if (!es[0].isIntersecting) return;
         io.disconnect();
-        if (stage.getAttribute("data-active") === "all") runDemo();
+        runDemo();
       }, { threshold: 0.6 });
       io.observe(stage);
     }
