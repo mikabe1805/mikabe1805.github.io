@@ -69,7 +69,7 @@
           <dl class="arrival-facts">
             <div><dt>Status</dt><dd>Private TestFlight beta</dd></div>
             <div><dt>Devices</dt><dd>iPad, iPhone and laptop</dd></div>
-            <div><dt>Built with</dt><dd>Flutter, Drift (SQLite), Firestore, Cloud Functions, Codemagic CI</dd></div>
+            <div><dt>Built with</dt><dd>Flutter, Objective-C++ (engine patch), Drift (SQLite), Firestore, Cloud Functions, Codemagic CI</dd></div>
             <div><dt>Started</dt><dd>August 2026</dd></div>
           </dl>
         </div>
@@ -144,12 +144,91 @@
       </div>
 
       <div class="wrap">
+        <figure class="rn-loop rn-loop--pen" data-reveal>
+          <svg class="rn-loop-wide" viewBox="0 0 1050 290" role="img" aria-labelledby="loop-title loop-desc">
+            <title id="loop-title">The save and sync loop</title>
+            <desc id="loop-desc">On this device, a stroke or edit commits in one SQLite transaction: the page and its outbox row together. It is published to Firestore as append-only operation documents for the page, plus the account’s catalog document. The catalog comes back to the device that sent it, and the catalog merge runs on the UI thread for every page of the account. In Build 30 the merge encoded every stroke of every page to compare; now it compares page metadata only.</desc>
+            <defs><marker id="rn-ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 z" fill="rgb(236 231 223 / .6)"/></marker></defs>
+            <text class="rn-loop-lane" x="0" y="88">This device</text>
+            <text class="rn-loop-lane" x="0" y="240">Firestore</text>
+            <rect class="rn-loop-box" x="96" y="44" width="164" height="78" rx="12"/>
+            <text class="rn-loop-t" x="112" y="88">A stroke or edit</text>
+            <rect class="rn-loop-box" x="288" y="44" width="220" height="78" rx="12"/>
+            <text class="rn-loop-t" x="304" y="72">One SQLite transaction</text>
+            <text class="rn-loop-s" x="304" y="94">the page and its outbox row</text>
+            <text class="rn-loop-s" x="304" y="111">commit together</text>
+            <rect class="rn-loop-box rn-loop-box--cloud" x="392" y="196" width="280" height="78" rx="12"/>
+            <text class="rn-loop-t" x="408" y="224">Append-only operations</text>
+            <text class="rn-loop-s" x="408" y="246">for the page, plus the account’s</text>
+            <text class="rn-loop-s" x="408" y="263">catalog document</text>
+            <rect class="rn-loop-box" x="576" y="44" width="200" height="78" rx="12"/>
+            <text class="rn-loop-t" x="592" y="72">The echo arrives</text>
+            <text class="rn-loop-s" x="592" y="94">the catalog comes back to</text>
+            <text class="rn-loop-s" x="592" y="111">the device that sent it</text>
+            <rect class="rn-loop-box rn-loop-box--merge" x="800" y="44" width="240" height="78" rx="12"/>
+            <text class="rn-loop-t" x="816" y="72">Catalog merge</text>
+            <text class="rn-loop-s" x="816" y="94">on the UI thread, for every</text>
+            <text class="rn-loop-s" x="816" y="111">page of the account</text>
+            <path class="rn-loop-arrow" d="M260 83 H284" marker-end="url(#rn-ah)"/>
+            <path class="rn-loop-arrow" d="M448 122 V192" marker-end="url(#rn-ah)"/>
+            <text class="rn-loop-note" x="456" y="163">publish</text>
+            <path class="rn-loop-arrow" d="M636 196 V126" marker-end="url(#rn-ah)"/>
+            <text class="rn-loop-note" x="644" y="163">echo</text>
+            <path class="rn-loop-arrow" d="M776 83 H796" marker-end="url(#rn-ah)"/>
+            <path class="rn-loop-rule" d="M816 140 V266"/>
+            <text class="rn-loop-k rn-loop-b30" x="830" y="160">Build 30</text>
+            <text class="rn-loop-s" x="830" y="180">encoded every stroke of</text>
+            <text class="rn-loop-s" x="830" y="197">every page to compare</text>
+            <text class="rn-loop-k rn-loop-now" x="830" y="232">Now</text>
+            <text class="rn-loop-s" x="830" y="252">compares page metadata only</text>
+          </svg>
+          <svg class="rn-loop-tall" viewBox="0 0 340 650" role="img" aria-labelledby="loop-title-2 loop-desc-2">
+            <title id="loop-title-2">The save and sync loop</title>
+            <desc id="loop-desc-2">On this device, a stroke or edit commits in one SQLite transaction: the page and its outbox row together. It is published to Firestore as append-only operation documents for the page, plus the account’s catalog document. The catalog comes back to the device that sent it, and the catalog merge runs on the UI thread for every page of the account. In Build 30 the merge encoded every stroke of every page to compare; now it compares page metadata only.</desc>
+            <defs><marker id="rn-ah-2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 z" fill="rgb(236 231 223 / .6)"/></marker></defs>
+            <text class="rn-loop-lane" x="0" y="13">This device</text>
+            <rect class="rn-loop-box" x="0.5" y="24" width="339" height="46" rx="12"/>
+            <text class="rn-loop-t" x="16" y="53">A stroke or edit</text>
+            <path class="rn-loop-arrow" d="M40 70 V92" marker-end="url(#rn-ah-2)"/>
+            <rect class="rn-loop-box" x="0.5" y="96" width="339" height="70" rx="12"/>
+            <text class="rn-loop-t" x="16" y="123">One SQLite transaction</text>
+            <text class="rn-loop-s" x="16" y="145">the page and its outbox row commit together</text>
+            <path class="rn-loop-arrow" d="M40 166 V202" marker-end="url(#rn-ah-2)"/>
+            <text class="rn-loop-note" x="50" y="189">publish</text>
+            <rect class="rn-loop-box rn-loop-box--cloud" x="24.5" y="206" width="315" height="96" rx="12"/>
+            <text class="rn-loop-lane" x="40" y="228">Firestore</text>
+            <text class="rn-loop-t" x="40" y="250">Append-only operations</text>
+            <text class="rn-loop-s" x="40" y="272">for the page, plus the account’s</text>
+            <text class="rn-loop-s" x="40" y="289">catalog document</text>
+            <path class="rn-loop-arrow" d="M40 302 V338" marker-end="url(#rn-ah-2)"/>
+            <text class="rn-loop-note" x="50" y="325">echo</text>
+            <rect class="rn-loop-box" x="0.5" y="342" width="339" height="86" rx="12"/>
+            <text class="rn-loop-t" x="16" y="369">The echo arrives</text>
+            <text class="rn-loop-s" x="16" y="391">the catalog comes back to the device</text>
+            <text class="rn-loop-s" x="16" y="408">that sent it</text>
+            <path class="rn-loop-arrow" d="M40 428 V450" marker-end="url(#rn-ah-2)"/>
+            <rect class="rn-loop-box rn-loop-box--merge" x="0.5" y="454" width="339" height="86" rx="12"/>
+            <text class="rn-loop-t" x="16" y="481">Catalog merge</text>
+            <text class="rn-loop-s" x="16" y="503">on the UI thread, for every page</text>
+            <text class="rn-loop-s" x="16" y="520">of the account</text>
+            <path class="rn-loop-rule" d="M16 556 V644"/>
+            <text class="rn-loop-k rn-loop-b30" x="30" y="574">Build 30</text>
+            <text class="rn-loop-s" x="30" y="594">encoded every stroke of every page</text>
+            <text class="rn-loop-s" x="30" y="611">to compare</text>
+            <text class="rn-loop-k rn-loop-now" x="30" y="637">Now</text>
+            <text class="rn-loop-s" x="70" y="637">compares page metadata only</text>
+          </svg>
+          <figcaption>The loop each save runs. Build 30’s pen freeze was in the last step: a stroke started while the merge ran waited for it.</figcaption>
+        </figure>
+      </div>
+
+      <div class="wrap">
         <div class="rn-pen-foot" data-reveal>
           <dl class="rn-result" aria-label="Pen held after a pause of about two seconds">
             <div><dt>Build 30</dt><dd><span class="rn-big"><span class="num">1,479 ms</span></span> median, re-run <span class="num">1,462 ms</span></dd></div>
             <div><dt>Now</dt><dd><span class="rn-big"><small>about</small> <span class="num">1.5 ms</span></span> median (the timer’s floor), worst <span class="num">8.3 ms</span></dd></div>
           </dl>
-          <p class="rn-method">Measured in a desktop test that runs the app’s real editor, SQLite repository and sync service against an in-memory Firestore that mimics iOS delivery. Not yet confirmed on the iPad. The pad is a browser replay of the measured timing.</p>
+          <p class="rn-method">Measured in a desktop test that runs the app’s real editor, SQLite repository and sync service against an in-memory Firestore that mimics iOS delivery. Not yet confirmed on the iPad. The pad is a browser replay of the measured timing. The code measured as Now is in TestFlight build&nbsp;33.</p>
         </div>
       </div>
     </section>
@@ -161,33 +240,31 @@
         <p class="body-2 measure">Pages use a fixed 900&nbsp;×&nbsp;1200 coordinate system, so nothing reflows between devices. The iPad is for Apple Pencil writing, the phone for board photos, scans and markup, and the laptop for typed notes, equations and code.</p>
       </div>
 
-      <figure class="wrap devices rn-hero-devices" data-devices data-default="all" data-default-narrow="phone" data-reg>
+      <figure class="wrap devices rn-hero-devices" data-devices data-default="ipad" data-default-narrow="phone" data-reg>
         <span class="lamp devices-lamp" aria-hidden="true"></span>
-        <div class="device-stage" id="device-stage" role="tabpanel" aria-labelledby="dev-all" data-device-stage data-active="all">
-          <button class="device device--laptop" type="button" data-device="laptop" data-zoom="../assets/world/rn-laptop.webp" data-caption="Laptop. Typed text, a rendered convolution integral and a Python block on the page.">
-            <img src="../assets/world/rn-laptop.webp" loading="lazy" alt="Room Notes on a laptop: the page Convolution and impulse response with typed text, a rendered convolution integral and a Python code block." width="1440" height="900" decoding="async" />
+        <div class="device-stage" id="device-stage" role="tabpanel" aria-labelledby="dev-ipad" data-device-stage data-active="ipad">
+          <button class="device device--laptop" type="button" data-device="laptop" data-zoom="../assets/world/rn-laptop.webp" data-caption="Laptop. The top of the same page: typed text, a rendered convolution integral and a Python block.">
+            <img src="../assets/world/rn-laptop.webp" alt="Room Notes on a laptop: the top of the page Convolution and impulse response, with typed text, a rendered convolution integral, a pen stroke and a Python code block." width="1600" height="1061" loading="lazy" decoding="async" />
           </button>
-          <button class="device device--ipad" type="button" data-device="ipad" data-zoom="../assets/world/rn-ipad.webp" data-caption="iPad. The same page, with rows of pen strokes written below it.">
-            <img src="../assets/world/rn-ipad.webp" loading="lazy" alt="Room Notes on an iPad: the same Convolution and impulse response page, with rows of pen strokes written below it." width="1024" height="1366" decoding="async" />
+          <button class="device device--ipad" type="button" data-device="ipad" data-zoom="../assets/world/rn-ipad.webp" data-caption="iPad. The same page, with a scripted stroke in each pen and pencil style written below the code block.">
+            <img src="../assets/world/rn-ipad.webp" alt="Room Notes on an iPad: the same Convolution and impulse response page, with the typed text, the integral and the Python block above rows of strokes labeled ballpoint, fountain, brush, readable, responsive and steady." width="1200" height="1502" loading="lazy" decoding="async" />
           </button>
-          <button class="device device--phone" type="button" data-device="phone" data-zoom="../assets/world/rn-phone-page.webp" data-caption="Phone. The same page, Convolution &amp; impulse response, in reading mode." data-zoom-solo="../assets/world/rn-phone-photo.webp" data-caption-solo="Phone. The same page with the board-photo sheet open. A photo of the board, a slide or a handout becomes its own page after this one.">
-            <img class="ph-page" src="../assets/world/rn-phone-page.webp" loading="lazy" alt="Room Notes on a phone: the same Convolution and impulse response page in reading mode, under the notebook header and toolbar." width="430" height="932" decoding="async" />
-            <img class="ph-solo" src="../assets/world/rn-phone-photo.webp" loading="lazy" alt="" data-alt="Room Notes on a phone: the same page with the Board photo sheet open, offering Take a board photo or Choose from Photos." aria-hidden="true" width="430" height="932" decoding="async" />
+          <button class="device device--phone" type="button" data-device="phone" data-zoom="../assets/world/rn-phone-photo.webp" data-caption="Phone. The board-photo sheet open over the same page. A photo of the board, a slide or a handout becomes its own page after this one.">
+            <img class="ph-page" src="../assets/world/rn-phone-page.webp" alt="Room Notes on a phone: the same page fit to the phone’s width, above the writing tools." width="900" height="1448" loading="lazy" decoding="async" />
+            <img class="ph-solo" src="../assets/world/rn-phone-photo.webp" alt="" data-alt="Room Notes on a phone: the Board photo sheet open over the same page, offering Take a board photo or Choose from Photos, as a new page after Page 1." aria-hidden="true" width="900" height="1448" loading="lazy" decoding="async" />
           </button>
         </div>
         <div class="seg device-tabs" role="tablist" aria-label="Show the page on">
-          <button type="button" role="tab" id="dev-all" data-device-tab="all" aria-selected="true" aria-controls="device-stage">All three</button>
           <button type="button" role="tab" id="dev-laptop" data-device-tab="laptop" aria-selected="false" aria-controls="device-stage" tabindex="-1">Laptop</button>
-          <button type="button" role="tab" id="dev-ipad" data-device-tab="ipad" aria-selected="false" aria-controls="device-stage" tabindex="-1">iPad</button>
+          <button type="button" role="tab" id="dev-ipad" data-device-tab="ipad" aria-selected="true" aria-controls="device-stage">iPad</button>
           <button type="button" role="tab" id="dev-phone" data-device-tab="phone" aria-selected="false" aria-controls="device-stage" tabindex="-1">Phone</button>
           <i class="seg-ink" aria-hidden="true"></i>
         </div>
         <figcaption class="device-caption" aria-live="polite">
-          <span data-device-cap="all"><strong>All three.</strong> One page, Convolution &amp; impulse response, rendered by the app on a laptop, an iPad and a phone.</span>
-          <span data-device-cap="laptop" hidden><strong>Laptop.</strong> Typed text, a rendered convolution integral and a Python block on the page.</span>
-          <span data-device-cap="ipad" hidden><strong>iPad.</strong> The same page, with rows of pen strokes written below it.</span>
-          <span data-device-cap="phone" hidden><strong>Phone.</strong> The same page with the board-photo sheet open. A photo of the board, a slide or a handout becomes its own page after this one.</span>
-          <small>Renders of the current app with sample content and scripted pen input.</small>
+          <span data-device-cap="laptop" hidden><strong>Laptop.</strong> The top of the same page: typed text, a rendered convolution integral and a Python block.</span>
+          <span data-device-cap="ipad"><strong>iPad.</strong> The same page, with a scripted stroke in each pen and pencil style written below the code block.</span>
+          <span data-device-cap="phone" hidden><strong>Phone.</strong> The board-photo sheet open over the same page. A photo of the board, a slide or a handout becomes its own page after this one.</span>
+          <small>Rendered from the code of TestFlight build 33 (October 14, 2026), with sample content and scripted pen input.</small>
         </figcaption>
         <p class="rn-reg-hint" data-reg-hint hidden><span>Point at the page on one device to mark the same spot on the other two.</span> <span class="num rn-reg-read" data-reg-read aria-hidden="true"></span></p>
       </figure>
@@ -196,13 +273,13 @@
         <div class="rn-phones">
           <figure class="rn-phone" data-reveal>
             <button class="phone-frame" type="button" data-zoom="../assets/room-notes/rn-capture-sheet.webp">
-              <img src="../assets/room-notes/rn-capture-sheet.webp" alt="Room Notes on a phone: the Add material sheet over the Convolution and impulse response page, with Import lecture PDF, Scan paper notes, Add photo as a new page, Import pages, Choose an image and Paste from clipboard." width="430" height="932" loading="lazy" decoding="async" />
+              <img src="../assets/room-notes/rn-capture-sheet.webp" alt="Room Notes on a phone: the Add material sheet over the Convolution and impulse response page, with Import lecture PDF, Scan paper notes, Add photo as a new page, Import pages, Choose an image and Paste from clipboard." width="645" height="1398" loading="lazy" decoding="async" />
             </button>
             <figcaption>The phone’s Add material sheet over the same page: import a lecture PDF, scan paper notes, add a photo as a new page, or place an image on the current page.</figcaption>
           </figure>
           <figure class="rn-phone" data-reveal>
             <button class="phone-frame" type="button" data-zoom="../assets/room-notes/rn-phone-markup.webp">
-              <img src="../assets/room-notes/rn-phone-markup.webp" alt="Room Notes on a phone in markup mode: the Convolution and impulse response page with a toolbar of pen, highlighter, eraser, undo and Done." width="430" height="932" loading="lazy" decoding="async" />
+              <img src="../assets/room-notes/rn-phone-markup.webp" alt="Room Notes on a phone in markup mode: the Convolution and impulse response page with a toolbar of pen, highlighter, eraser, undo and Done." width="645" height="1398" loading="lazy" decoding="async" />
             </button>
             <figcaption>The same page in markup mode, with the pen selected and the highlighter, eraser and undo beside it.</figcaption>
           </figure>
@@ -266,7 +343,10 @@
     <section class="case-section rn-pencil" aria-labelledby="pencil-title">
       <div class="wrap rn-text-split">
         <h2 class="case-h2" id="pencil-title">Apple Pencil input</h2>
-        <p class="lead">Apple Pencil reports extra touch samples between display frames. I patched Flutter’s iOS engine so those coalesced samples reach the app, then compiled and signed the custom engine in Codemagic CI. TestFlight build 28, dated September 23, 2026, runs on it.</p>
+        <div class="rn-pencil-copy">
+          <p class="lead">Apple Pencil reports extra touch samples between display frames. I patched Flutter’s iOS engine so those coalesced samples reach the app, then compiled and signed the custom engine in Codemagic CI. TestFlight build 28 (September 23, 2026) ran on it, and so does the latest, build 33 (October 14, 2026).</p>
+          <p class="body-2 rn-wake">When my iPad was slow to respond after waking, the work on it in build 33 also added a wake section to the app’s own Reliability report, with times and counts only, so the next slow wake shows where the time went.</p>
+        </div>
       </div>
     </section>
 
@@ -275,7 +355,42 @@
       <div class="wrap">
         <div class="rn-eng-head">
           <h2 class="case-h2" id="eng-title">Engineering content</h2>
-          <p class="body-2 measure">Logic gates and breadboard parts sit behind the ink as vector stickers, equations are built by tapping each side of a fraction, and code blocks behave like source. A built-in half-adder notebook shows them together.</p>
+          <div class="rn-eng-copy">
+            <p class="body-2 measure">Logic gates and breadboard parts sit behind the ink as vector stickers, equations are built by tapping each side of a fraction, and code blocks behave like source. A built-in half-adder notebook shows them together.</p>
+            <p class="body-2 measure">Since TestFlight build 33 (October 14, 2026), a typed equation can become a graph: tap GRAPH, and a vector graph appears under it and follows the equation as you edit it, computed on the device with no account or network. A Components tray adds 21 circuit parts, from resistors and sources to transistors, an op-amp and a flip-flop, drawn in the pen’s weight; on grid paper each part snaps to the grid, so an ink wire drawn to a pin meets it. New papers: Axes, Semi-log and Polar.</p>
+          </div>
+        </div>
+        <p class="rn-label rn-row-label">In the latest TestFlight build</p>
+        <div class="rn-justify">
+          <figure class="rn-shot" style="--ar: 0.9091" data-reveal>
+            <button class="shot" type="button" data-zoom="../assets/room-notes/rn-graph-rc.webp">
+              <img src="../assets/room-notes/rn-graph-rc.webp" alt="Room Notes on an iPad: a page titled RC step response with the typed equations V = 5, tau = 1.2 and v(t) = V(1 − e^(−t/tau)), and under them a graph of the curve rising to 5, with an ink loop around the plateau and an ink arrow pointing at the knee." width="900" height="990" loading="lazy" decoding="async" />
+              <span class="zoom-hint" aria-hidden="true">View full size</span>
+            </button>
+            <figcaption>A typed equation for an RC step response and the graph that follows it, with a loop and an arrow drawn over it in ink.</figcaption>
+          </figure>
+          <figure class="rn-shot" style="--ar: 1.6154" data-reveal>
+            <button class="shot" type="button" data-zoom="../assets/room-notes/rn-circuit-rc-opamp.webp">
+              <img src="../assets/room-notes/rn-circuit-rc-opamp.webp" alt="Room Notes on an iPad, on grid paper: an AC source and ground, a resistor, a capacitor to ground and an op-amp wired as a follower, with an inductor and a diode wired together at the lower right. Every wire is pen ink." width="1050" height="650" loading="lazy" decoding="async" />
+              <span class="zoom-hint" aria-hidden="true">View full size</span>
+            </button>
+            <figcaption>An AC source, an RC low-pass and an op-amp follower placed from the tray on grid paper and wired in ink, with an inductor and a diode beside them.</figcaption>
+          </figure>
+        </div>
+        <div class="rn-b33-pair">
+          <figure class="rn-shot rn-tray" style="--ar: 1.2222" data-reveal>
+            <div class="rn-tray-scroll" data-swipe-label="The Components tray. Scroll sideways for the rest of it." data-swipe-role="region">
+              <button class="shot" type="button" data-zoom="../assets/room-notes/rn-components-tray.webp">
+                <img src="../assets/room-notes/rn-components-tray.webp" alt="The Room Notes Components tray, titled Place the part, then wire over it, with the sections Logic, Passive, Sources, Semiconductors and Digital: gates, a resistor, capacitors, an inductor, a switch, ground, three sources, diodes, transistors, an op-amp, XNOR, a buffer, a D flip-flop, a 2:1 mux and a breadboard." width="1100" height="900" loading="lazy" decoding="async" />
+                <span class="zoom-hint" aria-hidden="true">View full size</span>
+              </button>
+            </div>
+            <figcaption>The Components tray on the iPad: 28 parts in five sections, from logic gates to a breadboard.</figcaption>
+          </figure>
+          <article class="matte rn-migrate" aria-labelledby="migrate-title" data-reveal>
+            <h3 id="migrate-title">New features without a migration</h3>
+            <p class="body-2">Graphs and gates drawn in the pen’s line fit inside the existing block format: a graph rides in the field the gate stickers already use, and the new gate look is one added field. A device still on an older build keeps a graph byte for byte and draws a new gate as the classic one instead of hiding it, so no schema, local database or sync-rules version had to change.</p>
+          </article>
         </div>
         <p class="rn-label rn-row-label">The built-in half-adder notebook</p>
         <div class="rn-justify">
@@ -338,13 +453,16 @@
         <div class="rn-close-col my-part">
           <h2 class="case-h2" id="mine">My part</h2>
           <p class="body-2">I set the product direction from my own lectures and decided what each device is for. I started lecturer mode on my own initiative, run the release chain through Codemagic, TestFlight and Firebase, and test each build on my own iPad, iPhone and laptop.</p>
-          <p class="body-2">Most changes pass a verification gate I specified: evidence tied to file hashes, and separate verdicts for code, visuals and my own acceptance on device.</p>
+          <p class="body-2">Each change has to pass tests I specify and a visual review, then waits for my own check on my devices.</p>
         </div>
       </div>
     </section>
 
     <nav class="wrap case-foot" aria-label="More work">
-      <a href="knowsy.html">Next room: Knowsy Breadboard Lab <span class="arr arr--fwd" aria-hidden="true">→</span></a>
+      <div class="case-next">
+        <a href="knowsy.html">Next room: Knowsy Breadboard Lab <span class="arr arr--fwd" aria-hidden="true">→</span></a>
+        <p class="case-contact">Contact: <a href="mailto:mika.be@rutgers.edu">mika.be@rutgers.edu</a> · <a href="../Mika-Be_Resume.pdf" target="_blank" rel="noopener">Résumé<span class="arr" aria-hidden="true">↗</span></a></p>
+      </div>
       <a class="back" href="../index.html#work"><span aria-hidden="true">←</span> All work</a>
     </nav>
   </main>

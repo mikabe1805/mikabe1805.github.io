@@ -1,5 +1,5 @@
 /* Mika Be portfolio: Room Notes components.
-   [data-devices]   one page on three devices; tabs pick one, which scales forward
+   [data-devices]   one page on three devices; tabs pick the one that leads, the other two wait beside it
    [data-pen-pad]   a browser replay of the measured pen freeze (BENCHMARKS.md survivors only)
    [data-erase-grid] 2,000 dots, one per stroke, lit when a single erase re-records them
    Markup and options: build/SYSTEM.md. */
@@ -8,65 +8,72 @@
   var MB = window.MB;
   if (!MB) return;
 
-  /* ================================================================ device stage */
+  /* ================================================================ device stage
+     The chosen device leads and the other two wait beside it; site.css places them from data-active alone. A
+     change of lead slides each device from where it was to where it lands (transform only, FLIP); below 700 px,
+     where only the lead shows, the new one fades up. Only the lead opens the full-size view: a click on a device
+     beside it brings that device forward instead. */
   MB.$$("[data-devices]").forEach(function (root) {
     var stage = MB.$("[data-device-stage]", root);
     var list = MB.$('[role="tablist"]', root);
     var frames = MB.$$("[data-device]", stage);
     var caps = MB.$$("[data-device-cap]", root);
     var move = MB.inkFor(list);
-    var active = "all";
-    /* the lineup is sized in CSS (container units); this only covers browsers without them */
-    var cq = window.CSS && CSS.supports && CSS.supports("width", "1cqw");
-    function size() {
-      if (cq) return;
-      var w = stage.clientWidth, gap = 16, narrow = innerWidth < 700;
-      var dh = Math.min((w - 2 * gap - 8) / 2.8114, 380);
-      stage.style.setProperty("--dh", dh.toFixed(1) + "px");
-      stage.style.setProperty("--stage-h", (narrow ? 360 : Math.min(443, Math.round(w / 2.466))) + "px");
+    var active = stage.getAttribute("data-active"), ready = false;
+    /* the phone has two faces: the page beside the lead, the board-photo sheet over the same page when it leads */
+    function face(f) {
+      var solo = MB.$(".ph-solo", f), main = MB.$(".ph-page", f);
+      if (!solo || !main) return;
+      if (main._alt == null) main._alt = main.alt;
+      var lead = f.getAttribute("data-device") === active;
+      solo.alt = lead ? solo.getAttribute("data-alt") : ""; solo.setAttribute("aria-hidden", String(!lead));
+      main.alt = lead ? "" : main._alt; if (lead) main.setAttribute("aria-hidden", "true"); else main.removeAttribute("aria-hidden");
     }
-    function place() {
-      size();
-      if (active === "all") { frames.forEach(function (f) { f.classList.remove("is-active"); f.style.removeProperty("--tx"); f.style.removeProperty("--s"); }); return; }
-      var sw = stage.clientWidth, sh = stage.clientHeight;
+    function enter(f) {
+      f.classList.remove("is-entering"); void f.offsetWidth; f.classList.add("is-entering");
+    }
+    frames.forEach(function (f) { f.addEventListener("animationend", function () { f.classList.remove("is-entering"); }); });
+    function flip(before) {
+      frames.forEach(function (f, i) {
+        var a = before[i], b = f.getBoundingClientRect();
+        if (!b.width) return;
+        if (!a.width) { enter(f); return; }
+        var dx = a.left - b.left, dy = a.top - b.top, s = a.width / b.width;
+        if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5 && Math.abs(s - 1) < 0.002) return;
+        f.style.transition = "none";
+        f.style.transform = "translate(" + dx.toFixed(1) + "px, " + dy.toFixed(1) + "px) scale(" + s.toFixed(4) + ")";
+        void f.offsetWidth;
+        f.style.transition = ""; f.style.transform = "";
+      });
+    }
+    function pick(tab) {
+      var next = tab.getAttribute("data-device-tab");
+      var before = ready && next !== active && !MB.reduced() ? frames.map(function (f) { return f.getBoundingClientRect(); }) : null;
+      active = next;
+      stage.setAttribute("data-active", active);
+      if (tab.id) stage.setAttribute("aria-labelledby", tab.id);
       frames.forEach(function (f) {
         var on = f.getAttribute("data-device") === active;
         f.classList.toggle("is-active", on);
-        var cx = f.offsetLeft + f.offsetWidth / 2;
-        var tx = sw / 2 - cx;
-        f.style.setProperty("--tx", (on ? tx : tx * 0.18).toFixed(1) + "px");
-        if (on) {
-          var s = Math.min((sh - 12) / f.offsetHeight, (sw * 0.94) / f.offsetWidth);
-          f.style.setProperty("--s", Math.max(1, s).toFixed(3));
-        }
+        f.tabIndex = on ? 0 : -1;
+        face(f);
       });
-    }
-    /* a device with a second face (the phone's board-photo sheet) shows it, and zooms to it, only when chosen alone */
-    function soloFace(f) {
-      var solo = MB.$(".ph-solo", f), main = MB.$(".ph-page", f);
-      if (!solo || !main) return;
-      if (!f._zoomAll) { f._zoomAll = [f.getAttribute("data-zoom"), f.getAttribute("data-caption")]; f._altMain = main.alt; }
-      var alone = active === f.getAttribute("data-device");
-      f.setAttribute("data-zoom", alone ? f.getAttribute("data-zoom-solo") : f._zoomAll[0]);
-      f.setAttribute("data-caption", alone ? f.getAttribute("data-caption-solo") : f._zoomAll[1]);
-      solo.alt = alone ? solo.getAttribute("data-alt") : ""; solo.setAttribute("aria-hidden", String(!alone));
-      main.alt = alone ? "" : f._altMain; if (alone) main.setAttribute("aria-hidden", "true"); else main.removeAttribute("aria-hidden");
-    }
-    function pick(tab) {
-      active = tab.getAttribute("data-device-tab");
-      stage.setAttribute("data-active", active);
-      if (tab.id) stage.setAttribute("aria-labelledby", tab.id);
-      frames.forEach(function (f) { f.tabIndex = active === "all" || f.getAttribute("data-device") === active ? 0 : -1; });
       caps.forEach(function (c) { c.hidden = c.getAttribute("data-device-cap") !== active; });
-      frames.forEach(soloFace);
-      place(); move();
+      if (before) flip(before);
+      MB.invalidate();
+      move();
     }
     var tl = MB.tablist(list, pick);
-    var narrow = innerWidth < 700 && root.getAttribute("data-default-narrow");
-    var want = narrow ? root.getAttribute("data-default-narrow") : (root.getAttribute("data-default") || "all");
-    var first = MB.$('[data-device-tab="' + want + '"]', list) || tl.tabs[0];
-    tl.select(first, false);
-    MB.onLayout(place);
+    stage.addEventListener("click", function (e) {
+      var f = e.target.closest ? e.target.closest("[data-device]") : null;
+      if (!f || f.getAttribute("data-device") === active) return;
+      e.preventDefault(); e.stopPropagation();
+      var t = MB.$('[data-device-tab="' + f.getAttribute("data-device") + '"]', list);
+      if (t) tl.select(t, false);
+    }, true);
+    var want = (innerWidth < 700 && root.getAttribute("data-default-narrow")) || root.getAttribute("data-default") || active;
+    tl.select(MB.$('[data-device-tab="' + want + '"]', list) || tl.tabs[0], false);
+    ready = true;
   });
 
   /* ================================================================ pen pad

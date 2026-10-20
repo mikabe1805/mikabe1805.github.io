@@ -192,7 +192,8 @@
 
 /* ================================================================== ROOM NOTES (slate and grid paper)
    The room starts on the paper sheet's edge, inside its own lamp pool. Its lit object leads: the cream pad,
-   the world's own paper. The one page on three devices follows, large, with the lamp behind the frames. */
+   the world's own paper. The one page on three devices follows: the chosen device large, under the lamp, with the
+   other two beside it. */
 .notes { --pool-x: 66%; --pool-y: 9%; background: #10151c; margin-top: calc(-1 * var(--sheet-r)); padding: calc(var(--sheet-r) + var(--nav-top) + var(--nav-h) + clamp(30px, 3.4vw, 56px)) 0 clamp(64px, 6vw, 92px); }
 .notes-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr); gap: clamp(28px, 4.4vw, 72px); align-items: start; }
 .notes-copy h2 { margin-bottom: 18px; }
@@ -216,7 +217,7 @@
 .notes-devices .device-stage { grid-column: 1; grid-row: 1; order: 0; }
 .notes-devices .device-tabs { grid-column: 1; grid-row: 2; order: 0; justify-self: start; margin-top: 18px; }
 .notes-devices .device-caption { grid-column: 2; grid-row: 1 / span 2; order: 0; align-self: end; margin: 0; min-height: 0; gap: 10px; }
-.notes-devices .devices-lamp { left: -6%; right: 14%; top: -20%; height: 130%; background: radial-gradient(closest-side, rgb(150 180 225 / .20), rgb(120 152 200 / .06) 58%, transparent); }
+.notes-devices .devices-lamp { left: -6%; right: 24%; top: -14%; height: 118%; background: radial-gradient(closest-side, rgb(150 180 225 / .20), rgb(120 152 200 / .06) 58%, transparent); }
 .device-why { color: var(--text-2); font-size: 14.5px; line-height: 1.55; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
 .device-caps { display: block; }
 .notes-more { margin-top: clamp(44px, 4.4vw, 68px); }
@@ -404,9 +405,12 @@
   .pen-stage .pen-instr { font-size: 13.5px; }
   .pen-stage .pen-ref-tag { display: none; }
   .erase-text { font-size: 14px; }
-  .facts3-list { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 80%; gap: 12px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); margin-inline: calc(var(--gutter) * -1); padding: 2px var(--gutter) 6px; scrollbar-width: none; }
-  .facts3-list::-webkit-scrollbar { display: none; }
-  .facts3 p { scroll-snap-align: start; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: rgb(255 252 246 / .03); }
+  /* the three facts stack: each is short, and a sideways strip hid two of them behind a 60 px peek */
+  .facts3-list { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .facts3 p { padding-top: 14px; }
+  /* the lineup: the tabs above the chosen device, so they stay put when a device of another height comes in */
+  .notes-devices .device-tabs { grid-row: 1; margin: 0 0 16px; }
+  .notes-devices .device-stage { grid-row: 2; }
   /* Knowsy: the role and audit text are on the case page; the three facts compact */
   .bench-role { display: none; }
   /* About: each fact as a label over its value */

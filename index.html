@@ -397,36 +397,34 @@
         </div>
       </div>
 
-      <figure class="wrap devices notes-devices" data-devices data-default="all" data-default-narrow="phone">
+      <figure class="wrap devices notes-devices" data-devices data-default="ipad" data-default-narrow="phone">
         <span class="lamp devices-lamp" aria-hidden="true"></span>
-        <div class="device-stage" id="device-stage" role="tabpanel" aria-labelledby="dev-all" data-device-stage data-active="all">
-          <button class="device device--laptop" type="button" data-device="laptop" data-zoom="assets/world/rn-laptop.webp" data-caption="Laptop. Typed text, a rendered convolution integral and a Python block on the page.">
-            <img src="assets/world/rn-laptop.webp" alt="Room Notes on a laptop: the page Convolution and impulse response with typed text, a rendered convolution integral and a Python code block." width="1440" height="900" loading="lazy" decoding="async" />
+        <div class="device-stage" id="device-stage" role="tabpanel" aria-labelledby="dev-ipad" data-device-stage data-active="ipad">
+          <button class="device device--laptop" type="button" data-device="laptop" data-zoom="assets/world/rn-laptop.webp" data-caption="Laptop. The top of the same page: typed text, a rendered convolution integral and a Python block.">
+            <img src="assets/world/rn-laptop.webp" alt="Room Notes on a laptop: the top of the page Convolution and impulse response, with typed text, a rendered convolution integral, a pen stroke and a Python code block." width="1600" height="1061" loading="lazy" decoding="async" />
           </button>
-          <button class="device device--ipad" type="button" data-device="ipad" data-zoom="assets/world/rn-ipad.webp" data-caption="iPad. The same page, with rows of pen strokes written below it.">
-            <img src="assets/world/rn-ipad.webp" alt="Room Notes on an iPad: the same Convolution and impulse response page, with rows of pen strokes written below it." width="1024" height="1366" loading="lazy" decoding="async" />
+          <button class="device device--ipad" type="button" data-device="ipad" data-zoom="assets/world/rn-ipad.webp" data-caption="iPad. The same page, with a scripted stroke in each pen and pencil style written below the code block.">
+            <img src="assets/world/rn-ipad.webp" alt="Room Notes on an iPad: the same Convolution and impulse response page, with the typed text, the integral and the Python block above rows of strokes labeled ballpoint, fountain, brush, readable, responsive and steady." width="1200" height="1502" loading="lazy" decoding="async" />
           </button>
-          <button class="device device--phone" type="button" data-device="phone" data-zoom="assets/world/rn-phone-page.webp" data-caption="Phone. The same page, Convolution &amp; impulse response, in reading mode." data-zoom-solo="assets/world/rn-phone-photo.webp" data-caption-solo="Phone. The same page with the board-photo sheet open. A photo of the board, a slide or a handout becomes its own page after this one.">
-            <img class="ph-page" src="assets/world/rn-phone-page.webp" alt="Room Notes on a phone: the same Convolution and impulse response page in reading mode, under the notebook header and toolbar." width="430" height="932" loading="lazy" decoding="async" />
-            <img class="ph-solo" src="assets/world/rn-phone-photo.webp" alt="" data-alt="Room Notes on a phone: the same page with the Board photo sheet open, offering Take a board photo or Choose from Photos." aria-hidden="true" width="430" height="932" loading="lazy" decoding="async" />
+          <button class="device device--phone" type="button" data-device="phone" data-zoom="assets/world/rn-phone-photo.webp" data-caption="Phone. The board-photo sheet open over the same page. A photo of the board, a slide or a handout becomes its own page after this one.">
+            <img class="ph-page" src="assets/world/rn-phone-page.webp" alt="Room Notes on a phone: the same page fit to the phone’s width, above the writing tools." width="900" height="1448" loading="lazy" decoding="async" />
+            <img class="ph-solo" src="assets/world/rn-phone-photo.webp" alt="" data-alt="Room Notes on a phone: the Board photo sheet open over the same page, offering Take a board photo or Choose from Photos, as a new page after Page 1." aria-hidden="true" width="900" height="1448" loading="lazy" decoding="async" />
           </button>
         </div>
         <div class="seg device-tabs" role="tablist" aria-label="Show the page on">
-          <button type="button" role="tab" id="dev-all" data-device-tab="all" aria-selected="true" aria-controls="device-stage">All three</button>
           <button type="button" role="tab" id="dev-laptop" data-device-tab="laptop" aria-selected="false" aria-controls="device-stage" tabindex="-1">Laptop</button>
-          <button type="button" role="tab" id="dev-ipad" data-device-tab="ipad" aria-selected="false" aria-controls="device-stage" tabindex="-1">iPad</button>
+          <button type="button" role="tab" id="dev-ipad" data-device-tab="ipad" aria-selected="true" aria-controls="device-stage">iPad</button>
           <button type="button" role="tab" id="dev-phone" data-device-tab="phone" aria-selected="false" aria-controls="device-stage" tabindex="-1">Phone</button>
           <i class="seg-ink" aria-hidden="true"></i>
         </div>
         <figcaption class="device-caption">
           <span class="device-why">Pages use a fixed 900&nbsp;×&nbsp;1200 coordinate system, so a diagram drawn on the iPad sits in the same place on the laptop and never reflows. I started Room Notes in August 2026 because my lectures were split between GoodNotes on the iPad and Google Docs on my laptop, and I take my own notes in it.</span>
           <span class="device-caps" aria-live="polite">
-            <span data-device-cap="all"><strong>All three.</strong> One page, Convolution &amp; impulse response, rendered by the app on a laptop, an iPad and a phone.</span>
-            <span data-device-cap="laptop" hidden><strong>Laptop.</strong> Typed text, a rendered convolution integral and a Python block on the page.</span>
-            <span data-device-cap="ipad" hidden><strong>iPad.</strong> The same page, with rows of pen strokes written below it.</span>
-            <span data-device-cap="phone" hidden><strong>Phone.</strong> The same page with the board-photo sheet open. A photo of the board, a slide or a handout becomes its own page after this one.</span>
+            <span data-device-cap="laptop" hidden><strong>Laptop.</strong> The top of the same page: typed text, a rendered convolution integral and a Python block.</span>
+            <span data-device-cap="ipad"><strong>iPad.</strong> The same page, with a scripted stroke in each pen and pencil style written below the code block.</span>
+            <span data-device-cap="phone" hidden><strong>Phone.</strong> The board-photo sheet open over the same page. A photo of the board, a slide or a handout becomes its own page after this one.</span>
           </span>
-          <small>Renders of the current app with sample content and scripted pen input.</small>
+          <small>Rendered from the code of TestFlight build 33 (October 14, 2026), with sample content and scripted pen input.</small>
         </figcaption>
       </figure>
 
