@@ -1,4 +1,4 @@
-/* Mika Be portfolio: the Knowsy probe. A sketch of the lab engine's net rule
+/* Mika Be portfolio: the Knowsy probe (homepage). A sketch of the lab engine's net rule
    (modules/bits-and-gates/breadboard-lab/simulate.js) applied to the Lab 1 circuit:
    strong beats weak, equal levels merge, disagreeing strong drivers are a CONFLICT, and an inverter
    with a FLOAT or CONFLICT input gives a FLOAT output (invertOnce). Meter readings follow probe.js:
@@ -55,8 +55,76 @@
   var MB = root.MB;
   MB.Probe = Probe;
 
+  /* the lab's own board in the probe's state (homepage): one capture per state of the three parts, taken through the
+     lab's share links, named by switch, pull-up, stray ("state-010" is open, in, off), as on the Knowsy case page
+     (case-knowsy.js). Only the first is in the markup, as a deferred image; the others load on demand (the neighbours
+     of the shown state once the visitor reaches for the probe), and a new one fades in over the old once it has
+     decoded, taking the caption, the alt text and the zoom target with it. Captures only: no lab code. */
+  var LIT = { "1 1 0": true, "1 0 0": true }; /* the LED is lit in exactly these two captures */
+  function shots(fig) {
+    var frame = fig && MB.$(".probe-shot-frame", fig), stack = fig && MB.$(".probe-shot-stack", fig);
+    var cap = fig && MB.$("[data-probe-shot-cap]", fig), first = stack && MB.$("img", stack);
+    if (!frame || !first || !cap) return null;
+    var doc = document, shown = first.getAttribute("data-shot"), want = shown, imgs = {}, tidyT = 0;
+    imgs[shown] = first;
+    function file(k) { return (MB.base || "") + "assets/knowsy-lab1-state-" + k.replace(/ /g, "") + "-20261019.webp"; }
+    function text(k) {
+      var v = k.split(" ").map(function (x) { return x === "1"; }), led = LIT[k] ? "lit" : "dark";
+      return {
+        cap: (v[0] ? "switch closed" : "switch open") + ", " + (v[1] ? "pull-up in" : "pull-up out") + ", " +
+          (v[2] ? "stray wire from input A to the + rail" : "no stray wire") + ". The LED is " + led + ".",
+        alt: "Capture of the Knowsy lab’s Lab 1 board with the switch " + (v[0] ? "closed" : "open") + ", the 4.7 kilohm pull-up " +
+          (v[1] ? "in place" : "removed") + " and " + (v[2] ? "a stray wire from input A to the + rail" : "no stray wire") + ". The LED is " + led + "."
+      };
+    }
+    function get(k) {
+      if (imgs[k]) return imgs[k];
+      var im = doc.createElement("img");
+      im.alt = ""; im.setAttribute("aria-hidden", "true"); im.width = 1230; im.height = 465; im.decoding = "async";
+      im.setAttribute("data-shot", k); im.src = file(k);
+      stack.appendChild(im);
+      return (imgs[k] = im);
+    }
+    function ready(im, fn) {
+      if (im.hasAttribute("data-src")) MB.loadImg(im);
+      function go() { if (im.decode) im.decode().then(fn, fn); else fn(); }
+      if (im.complete && im.naturalWidth) go(); else im.addEventListener("load", go, { once: true });
+    }
+    function around(k) {
+      var v = k.split(" ");
+      v.forEach(function (x, i) { var n = v.slice(); n[i] = x === "1" ? "0" : "1"; get(n.join(" ")); });
+    }
+    function swap(k) {
+      var im = imgs[k];
+      Object.keys(imgs).forEach(function (x) { imgs[x].classList.remove("is-top"); });
+      im.classList.add("is-top", "is-on");
+      im.alt = text(k).alt; im.removeAttribute("aria-hidden");
+      if (imgs[shown] && shown !== k) { imgs[shown].alt = ""; imgs[shown].setAttribute("aria-hidden", "true"); }
+      shown = k;
+      /* the old capture stays under the new one until the fade is done, so the board never dims between them */
+      clearTimeout(tidyT);
+      tidyT = setTimeout(function () { Object.keys(imgs).forEach(function (x) { if (x !== shown) imgs[x].classList.remove("is-on"); }); }, MB.reduced() ? 0 : 500);
+      cap.textContent = text(k).cap;
+      frame.setAttribute("data-zoom", file(k));
+      frame.setAttribute("data-alt", im.alt);
+      around(k);
+    }
+    return {
+      show: function (k) {
+        if (k === want) return;
+        want = k;
+        var im = get(k);
+        ready(im, function () { if (want === k && shown !== k) swap(k); });
+      },
+      warm: function () { around(shown); },
+      current: function () { return { state: shown, want: want, src: file(shown), caption: cap.textContent, alt: imgs[shown].alt }; }
+    };
+  }
+
   MB.$$("[data-probe]").forEach(function (el) {
     var st = { switch: false, pullup: true, stray: false };
+    var shot = shots(MB.$("[data-probe-shot]", el));
+    if (shot) ["pointerenter", "focusin", "touchstart"].forEach(function (t) { el.addEventListener(t, shot.warm, { once: true, passive: true }); });
     var WORD = { switch: ["open", "closed"], pullup: ["out", "in"], stray: ["off", "on"] };
     function render() {
       var r = solve(st);
@@ -74,6 +142,7 @@
       var n = MB.$("[data-probe-note]", el); if (n) n.textContent = r.note;
       var glow = el.closest("[data-probe-room]");
       if (glow) glow.setAttribute("data-led", r.led ? "on" : "off");
+      if (shot) shot.show((st.switch ? "1" : "0") + " " + (st.pullup ? "1" : "0") + " " + (st.stray ? "1" : "0"));
     }
     MB.$$("[data-toggle]", el).forEach(function (b) {
       b.addEventListener("click", function () {
@@ -84,7 +153,7 @@
         render();
       });
     });
-    el._probe = { state: st, render: render };
+    el._probe = { state: st, render: render, shot: function () { return shot ? shot.current() : null; } };
     render();
   });
 })(typeof window !== "undefined" ? window : null);

@@ -2,8 +2,11 @@
    A port of lib/widgets/quest_depth_room.dart: four registered planes on one 1635 x 962 camera,
    each moved per unit of tilt (far 3.0/2.0, wall 7.2/4.6, furniture 14.0/8.3, foreground 24.0/13.5),
    all overscaled 1.08, offsets scaled by cameraWidth/1584. The camera lerps at 0.075 and the light
-   at 0.2 per 16.7 ms, framerate-normalised. Used by the homepage stage, the Room of Days door and
-   the case page arrival. Markup and data attributes: build/SYSTEM.md. */
+   at 0.2 per 16.7 ms, framerate-normalised. Used by the homepage stage, the four hall doors and
+   the case page arrival. A hall door other than Room of Days is a fitted room (data-cam="fit"): two or three
+   planes of its own world (the surface, the lit object, its light) with the same coefficients, scaled as the
+   Room of Days door is at the same height, so one pointer moves all four rooms as one hall.
+   Markup and data attributes: build/SYSTEM.md. */
 (function () {
   "use strict";
   var MB = window.MB;
@@ -40,6 +43,10 @@
     this.liveFire = d.fire === "live";
     this.fireMargin = parseFloat(d.fireMargin || "40");
     this.moonMargin = parseFloat(d.moonMargin || "8");
+    /* a fitted room's camera is its frame; its unit is the Room of Days camera's at the same height */
+    this.fit = d.cam === "fit";
+    /* data-ignite: the hall door's hearth lights this many ms after the hall's arrival starts (core.js MB.hall) */
+    this.ignite = d.ignite != null ? (parseFloat(d.ignite) || 900) : null;
     this.target = { x: 0, y: 0 }; this.cam = { x: 0, y: 0 }; this.light = { x: 0, y: 0 };
     this.scroll = 0; this.unit = 1; this.visible = false; this.geo = null;
     this.layout();
@@ -55,6 +62,11 @@
   Room.prototype.geometry = function (ax, ay, leftAt, zoom) {
     var w = this.view.clientWidth, h = this.view.clientHeight, aspect = CAM_W / CAM_H, cw, ch, z = zoom || 1;
     if (!w || !h) return null;
+    if (this.fit) {
+      var su = h * aspect; /* the width a Room of Days camera would have in a frame this tall */
+      return { w: w, h: h, cw: w, ch: h, left: 0, top: 0, X: function (cx) { return cx; }, Y: function (cy) { return cy; },
+        travel: 3.0 * (su / APP_W) * this.kScale, ax: ax, ay: ay, zoom: 1, su: su };
+    }
     if (w / h > aspect) { cw = w * z; ch = cw / aspect; } else { ch = h * z; cw = ch * aspect; }
     var left = leftAt != null ? leftAt : (w - cw) * ax, top = (h - ch) * ay;
     var sx = cw / CAM_W, sy = ch / CAM_H;
@@ -70,13 +82,13 @@
     var a = this.narrow() ? this.anchorNarrow : this.anchor;
     var g = this.geometry(a[0], a[1]);
     if (!g) return;
-    var res = this.frameRules(g);
+    var res = this.fit ? { g: g, moon: null, plateLeft: null } : this.frameRules(g);
     g = res.g;
     this.moonMode = res.moon;
     this.geo = g;
     var c = this.camera.style;
     c.width = g.cw + "px"; c.height = g.ch + "px"; c.left = g.left + "px"; c.top = g.top + "px";
-    this.unit = (g.cw / APP_W) * this.kScale;
+    this.unit = ((g.su || g.cw) / APP_W) * this.kScale;
     if (this.plate) {
       var shift = 0;
       if (res.plateLeft != null) shift = Math.max(0, res.plateLeft - this.wrapLeft());
@@ -244,8 +256,17 @@
       }));
     };
     if (!el.hasAttribute("data-arrive")) {
-      el.classList.add("is-lit");
-      if (live && !MB.reduced()) decoded().then(function () { el.classList.add("is-burning"); });
+      var ign = this.ignite;
+      /* the hall door: unlit while the hall's lights come up, then the hearth catches at the app's 900 ms and the
+         crossfade starts 900 ms later; at once when the hall does not arrive (reduced motion, a return, a deep link) */
+      var light = function (t0) {
+        var wait = t0 == null || ign == null ? 0 : Math.max(0, t0 + ign - performance.now());
+        setTimeout(function () {
+          el.classList.add("is-lit");
+          if (live && !MB.reduced()) decoded().then(function () { setTimeout(function () { el.classList.add("is-burning"); }, wait ? 900 : 0); });
+        }, wait);
+      };
+      if (ign != null && MB.hall && !MB.reduced()) MB.hall.when(light); else light(null);
       return;
     }
     if (MB.reduced()) { el.classList.add("is-arrived", "is-lit"); return; }

@@ -17,12 +17,12 @@
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="The hall of Mika Be’s portfolio: his name, “Applied AI and software engineering”, and four lit doors for Room of Days, Kuiper TTS, Room Notes and Knowsy." />
+  <meta property="og:image:alt" content="The hall of Mika Be’s portfolio: his name, “Software engineering and applied AI”, and four lit doors for Room of Days, Kuiper TTS, Room Notes and Knowsy." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Page not found | Mika Be" />
   <meta name="twitter:description" content="This page doesn’t exist. Mika Be’s portfolio has four projects: Room of Days, Kuiper TTS, Room Notes and the Knowsy Breadboard Lab." />
   <meta name="twitter:image" content="https://mikabe1805.github.io/assets/social-preview.jpg" />
-  <meta name="twitter:image:alt" content="The hall of Mika Be’s portfolio: his name, “Applied AI and software engineering”, and four lit doors for Room of Days, Kuiper TTS, Room Notes and Knowsy." />
+  <meta name="twitter:image:alt" content="The hall of Mika Be’s portfolio: his name, “Software engineering and applied AI”, and four lit doors for Room of Days, Kuiper TTS, Room Notes and Knowsy." />
   <!-- Root-relative paths on purpose: GitHub Pages serves this page for a missing URL at any depth
        (preview it with build/tools/serve.js, which does the same). It reuses the homepage hall (home.css). -->
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -41,6 +41,8 @@
     .lost-path code { font: 600 13px/1.5 var(--mono); color: var(--text-2); }
     @media (max-width: 1099px) { .lost-hall .hall-intro { grid-column: 1 / -1; } }
   </style>
+  <!-- the hall's arrival plays once a visit, before anything else is drawn (core.js MB.hall; storage inside try/catch) -->
+  <script>(function () { var seen = false; try { seen = !!sessionStorage.getItem("mb-hall"); } catch (e) {} if (!seen && !location.hash && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) document.documentElement.classList.add("hall-arrive"); })();</script>
   <script src="/assets/js/core.js" defer></script>
   <script src="/assets/js/depth-room.js" defer></script>
 </head>
@@ -79,9 +81,10 @@
       </div>
 
       <nav class="wrap doors" aria-label="Projects">
+        <span class="hall-wall" aria-hidden="true"></span>
         <a class="door door--rod" href="/projects/room-of-days.html" data-peek="rod" style="--i: 0">
           <span class="door-window">
-            <span class="depth-room door-depth" data-depth-room data-pointer="window" data-anchor="0.72 0.58" data-anchor-narrow="1 0.58" data-narrow="1100" data-fire="live" data-fire-margin="12" data-moon="141,292,190,348" data-moon-margin="12" aria-hidden="true">
+            <span class="depth-room door-depth" data-depth-room data-pointer="window" data-anchor="0.72 0.58" data-anchor-narrow="1 0.58" data-narrow="1100" data-fire="live" data-fire-margin="12" data-moon="141,292,190,348" data-moon-margin="12" data-ignite="900" aria-hidden="true">
               <span class="depth-view"><span class="depth-dolly"><span class="depth-camera">
                 <span class="plane" data-k="3.0,2.0,1.0"><img src="/assets/world/rod-depth-base.webp" alt="" width="1635" height="962" decoding="async" /></span>
                 <span class="plane" data-k="3.0,2.0,1.0"><span class="hearth-glow"></span><span class="depth-fire"><span class="fire-flare"><span class="fire-sway">
@@ -94,24 +97,49 @@
                 <span class="plane" data-k="24.0,13.5,6.2"><img src="/assets/world/rod-depth-foreground.webp" data-src-2x="/assets/world/rod-depth-foreground@2x.webp" alt="" width="1635" height="962" decoding="async" /></span>
               </span></span></span>
             </span>
+            <span class="door-jamb door-jamb--l" aria-hidden="true"></span><span class="door-jamb door-jamb--r" aria-hidden="true"></span>
           </span>
           <span class="door-sill" aria-hidden="true"></span>
-          <span class="door-text"><strong>Room of Days</strong><small>iPhone app on the App Store · 5.0 from 5 ratings · 10+ active users</small></span>
+          <span class="door-text"><strong>Room of Days</strong><small>iPhone app on the App Store · 5.0 from 5 ratings · 10+ active users</small><small class="door-role">Solo developer&nbsp;· Flutter, Firebase, Swift WidgetKit</small></span>
         </a>
         <a class="door door--paper" href="/projects/kuiper-tts.html" data-peek="kuiper" style="--i: 1">
-          <span class="door-window"><img class="door-obj" src="/assets/world/kuiper-door.webp" alt="" width="420" height="543" decoding="async" /></span>
+          <span class="door-window">
+            <span class="depth-room door-depth door-depth--fit" data-depth-room data-pointer="window" data-cam="fit" aria-hidden="true">
+              <span class="depth-view"><span class="depth-dolly"><span class="depth-camera">
+                <span class="plane door-ground" data-k="3.0,2.0,1.0"><span class="door-cast"></span></span>
+                <span class="plane" data-k="14.0,8.3,3.8"><img class="door-obj" src="/assets/world/kuiper-door.webp" alt="" width="420" height="543" decoding="async" /></span>
+              </span></span></span>
+            </span>
+            <span class="door-jamb door-jamb--l" aria-hidden="true"></span><span class="door-jamb door-jamb--r" aria-hidden="true"></span>
+          </span>
           <span class="door-sill" aria-hidden="true"></span>
-          <span class="door-text"><strong>Kuiper TTS</strong><small>Speech research for blind and low-vision readers</small></span>
+          <span class="door-text"><strong>Kuiper TTS</strong><small>Speech research for blind and low-vision readers</small><small class="door-role">Research lead, 18-member team&nbsp;· Python, PyTorch Lightning, ONNX</small></span>
         </a>
         <a class="door door--notes" href="/projects/room-notes.html" data-peek="notes" style="--i: 2">
-          <span class="door-window"><img class="door-obj" src="/assets/world/rn-door-page.webp" alt="" width="480" height="638" decoding="async" /></span>
+          <span class="door-window">
+            <span class="depth-room door-depth door-depth--fit" data-depth-room data-pointer="window" data-cam="fit" aria-hidden="true">
+              <span class="depth-view"><span class="depth-dolly"><span class="depth-camera">
+                <span class="plane door-ground" data-k="3.0,2.0,1.0"><span class="door-cast"></span></span>
+                <span class="plane" data-k="14.0,8.3,3.8"><img class="door-obj" src="/assets/world/rn-door-page.webp" alt="" width="480" height="638" decoding="async" /></span>
+              </span></span></span>
+            </span>
+            <span class="door-jamb door-jamb--l" aria-hidden="true"></span><span class="door-jamb door-jamb--r" aria-hidden="true"></span>
+          </span>
           <span class="door-sill" aria-hidden="true"></span>
-          <span class="door-text"><strong>Room Notes</strong><small>Cross-device notebook · private beta</small></span>
+          <span class="door-text"><strong>Room Notes</strong><small>Cross-device notebook, private beta&nbsp;· traced a 1.5&nbsp;s pen freeze</small><small class="door-role">Solo developer&nbsp;· Flutter, SQLite, Firestore, patched iOS engine</small></span>
         </a>
         <a class="door door--knowsy" href="/projects/knowsy.html" data-peek="knowsy" style="--i: 3">
-          <span class="door-window"><img class="door-img" src="/assets/world/knowsy-door.webp" alt="" width="560" height="760" decoding="async" /></span>
+          <span class="door-window">
+            <span class="depth-room door-depth door-depth--fit" data-depth-room data-pointer="window" data-cam="fit" aria-hidden="true">
+              <span class="depth-view"><span class="depth-dolly"><span class="depth-camera">
+                <span class="plane door-ground" data-k="3.0,2.0,1.0"></span>
+                <span class="plane" data-k="7.2,4.6,2.0"><span class="door-board"><img class="door-img" src="/assets/world/knowsy-door.webp" alt="" width="560" height="760" decoding="async" /><span class="door-led"></span></span></span>
+              </span></span></span>
+            </span>
+            <span class="door-jamb door-jamb--l" aria-hidden="true"></span><span class="door-jamb door-jamb--r" aria-hidden="true"></span>
+          </span>
           <span class="door-sill" aria-hidden="true"></span>
-          <span class="door-text"><strong>Knowsy Breadboard Lab</strong><small>Browser breadboard for Rutgers ECE labs</small></span>
+          <span class="door-text"><strong>Knowsy Breadboard Lab</strong><small>Browser breadboard for Rutgers ECE labs&nbsp;· built its circuit solver</small><small class="door-role">Technical lead, three-person team&nbsp;· JavaScript, Verilog export</small></span>
         </a>
       </nav>
     </section>

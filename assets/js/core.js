@@ -114,9 +114,29 @@
   var nav = MB.$(".nav");
   var chip = MB.$(".nav-room"), chipText = chip && MB.$("span", chip);
   var current = "";
+  /* the rooms this visitor has entered (a room counts once it reaches the middle of the screen, as the light and the
+     nav chip change, or once its case page opens). Kept for the visit in sessionStorage inside try/catch; without
+     storage it lasts this page view. The homepage's closing row of sills lights one sill per room entered. */
+  var ROOMS = { rod: 1, kuiper: 1, notes: 1, knowsy: 1 }, visited = {};
+  try { (JSON.parse(window.sessionStorage.getItem("mb-rooms") || "[]") || []).forEach(function (w) { if (ROOMS[w]) visited[w] = 1; }); } catch (e) { /* storage blocked */ }
+  function paintSills() {
+    MB.$$("[data-sill]").forEach(function (s) {
+      var on = !!visited[s.getAttribute("data-sill")];
+      s.classList.toggle("is-visited", on);
+      var st = MB.$("[data-sill-state]", s); if (st) st.textContent = on ? ", entered" : "";
+    });
+  }
+  function markVisited(world) {
+    if (!ROOMS[world] || visited[world]) return;
+    visited[world] = 1;
+    try { window.sessionStorage.setItem("mb-rooms", JSON.stringify(Object.keys(visited))); } catch (e) { /* storage blocked */ }
+    paintSills();
+  }
+  MB.visited = function () { return Object.keys(visited); };
   MB.setWorld = function (world, name) {
     if (world === current) return;
     current = world;
+    markVisited(world);
     var layer = LIGHT_FOR[world] || "shell";
     lightLayers.forEach(function (l) { l.classList.toggle("on", l.getAttribute("data-light") === layer); });
     /* the pill's material follows the room under it (the scrim loop below); with no rooms, the page's world */
@@ -138,6 +158,7 @@
   }
   var startWorld = doc.body.getAttribute("data-world") || (worldSections[0] && worldSections[0].getAttribute("data-world")) || "hall";
   MB.setWorld(startWorld, doc.body.getAttribute("data-room") || "");
+  paintSills();
 
   /* nav scrim: a band behind the pill in the colour of whatever room lies under it, so no text ever reads
      above or around the pill. It follows the section under the nav, not the one at the viewport centre. */
@@ -280,9 +301,44 @@
     door.addEventListener("focus", function () { if (door.matches(":focus-visible")) peek(door, true); });
     door.addEventListener("blur", function () { peek(door, false); });
   });
+  /* the hall's arrival, once: the openings' lights come up left to right in about a second and the Room of Days
+     hearth catches last, at the app's 900 ms (depth-room.js, data-ignite). The page's head script decides before the
+     first paint (html.hall-arrive: motion allowed, no #room in the address, not yet seen this visit), so the openings
+     start dark instead of flashing lit; here the lights come up once the door art has decoded (at most 1.2 s), and
+     only if the hall is on screen. Otherwise (reduced motion, a return, a deep link) the hall is at rest from the
+     first paint. home.css holds the timings. */
+  var hallDoors = MB.$(".doors"), hallQ = [];
+  MB.hall = { arriving: !!hallDoors && root.classList.contains("hall-arrive"), t0: null };
+  MB.hall.when = function (fn) { if (!MB.hall.arriving) fn(null); else if (MB.hall.t0 != null) fn(MB.hall.t0); else hallQ.push(fn); };
+  if (MB.hall.arriving) {
+    var hb = hallDoors.getBoundingClientRect();
+    if (MB.reduced() || hb.bottom < 0 || hb.top > innerHeight) { root.classList.remove("hall-arrive"); MB.hall.arriving = false; }
+    else {
+      var hallStart = function () {
+        if (MB.hall.t0 != null) return;
+        MB.hall.t0 = performance.now();
+        hallDoors.classList.add("is-on");
+        try { window.sessionStorage.setItem("mb-hall", "1"); } catch (e) { /* storage blocked: the hall arrives on every load */ }
+        hallQ.splice(0).forEach(function (fn) { fn(MB.hall.t0); });
+        /* the hearth catches with the hall even when its door is less than the 35% on screen a room needs to arrive */
+        var ign = MB.$("[data-ignite]", hallDoors), room = ign && MB.DepthRoom && MB.DepthRoom.get(ign);
+        if (room) room.arrive();
+        setTimeout(function () { root.classList.remove("hall-arrive"); MB.hall.arriving = false; }, 2600);
+      };
+      Promise.all(MB.$$("img", hallDoors).map(function (img) {
+        return img.decode ? img.decode().catch(function () {}) : Promise.resolve();
+      })).then(function () { requestAnimationFrame(hallStart); });
+      setTimeout(hallStart, 1200);
+    }
+  }
+
   /* door light on the hall floor: each door's spill brightens as a fine pointer comes near it.
      Only --near-js changes; CSS takes the larger of it and the hover or focus force (--force) and turns that
-     into an opacity, eased by a transition. */
+     into an opacity, eased by a transition. The same pass places the viewer for the openings' inner faces (rv,
+     -1..1): standing to the right of an opening you see its left jamb, to the left its right one. The viewer is the
+     pointer when there is one, otherwise the middle of the screen; under reduced motion always the middle. Each jamb
+     takes its scaleX directly (a custom property on the door would restyle its whole depth room on every move); the
+     first placement is not eased, so the jambs are in place from the first frame. */
   var doorList = MB.$$(".door");
   if (doorList.length) {
     var nearDirty = true;
@@ -293,20 +349,32 @@
     MB.loop.add(function () {
       if (!nearDirty) return false;
       nearDirty = false;
-      var p = MB.pointer, live = p.active && MB.fine();
+      var p = MB.pointer, live = p.active && MB.fine(), still = MB.reduced();
       doorList.forEach(function (d) {
         var w = d._win || (d._win = MB.$(".door-window", d) || d);
-        var n = 0;
-        if (live) {
-          var r = MB.rect(w);
-          if (r.bottom > -200 && r.top < MB.vh + 200) {
-            var dx = Math.max(r.left - p.x, 0, p.x - r.right), dy = Math.max(r.top - p.y, 0, p.y - r.bottom);
-            n = MB.clamp(1 - Math.sqrt(dx * dx + dy * dy) / 220, 0, 1);
-            n = n * n * (3 - 2 * n);
-          }
+        var r = MB.rect(w), n = 0, near = r.bottom > -200 && r.top < MB.vh + 200;
+        if (live && near) {
+          var dx = Math.max(r.left - p.x, 0, p.x - r.right), dy = Math.max(r.top - p.y, 0, p.y - r.bottom);
+          n = MB.clamp(1 - Math.sqrt(dx * dx + dy * dy) / 220, 0, 1);
+          n = n * n * (3 - 2 * n);
         }
-        var v = n.toFixed(2);
+        var vx = live && !still ? p.x : MB.vw / 2;
+        var rv = r.width ? Math.round(MB.clamp((vx - (r.left + r.width / 2)) / (MB.vw * 0.5), -1, 1) * 50) / 50 : 0;
+        /* --near-js in twentieths: fewer writes (each restyles the door and its lights, home.css @property), and the lights ease anyway */
+        var v = (Math.round(n * 20) / 20).toFixed(2), rs = rv.toFixed(2);
         if (d._near !== v) { d._near = v; d.style.setProperty("--near-js", v); }
+        if (d._rv !== rs && (near || d._rv === undefined)) {
+          var jl = d._jl || (d._jl = MB.$(".door-jamb--l", d)), jr = d._jr || (d._jr = MB.$(".door-jamb--r", d));
+          if (jl && jr) {
+            if (d._rv === undefined) {
+              jl.style.transition = jr.style.transition = "none";
+              requestAnimationFrame(function () { requestAnimationFrame(function () { jl.style.transition = jr.style.transition = ""; }); });
+            }
+            jl.style.transform = "scaleX(" + Math.max(0, rv).toFixed(2) + ")";
+            jr.style.transform = "scaleX(" + Math.max(0, -rv).toFixed(2) + ")";
+          }
+          d._rv = rs;
+        }
       });
       return false;
     });
@@ -405,12 +473,13 @@
     };
     var fly2 = function () {
       var to = portalTarget(sel, section), b = to ? to.getBoundingClientRect() : { left: 0, top: 0, width: innerWidth, height: innerHeight };
-      var s = portalScale(a, b), wide = s > PORTAL_MAX + 0.2;
+      var s = portalScale(a, b), wide = s > PORTAL_MAX + 0.2, narrow = innerWidth < 700;
       var dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = b.top + b.height / 2 - (a.top + a.height / 2);
       var t = "translate(" + dx + "px," + dy + "px) scale(" + (wide ? PORTAL_MAX : s) + ")";
-      /* the copy is gone by 60% of the flight (by 30%, never past 1.6x, when the frame is much larger than the door) */
-      var f = fly.animate(wide
-        ? [{ transform: "none", opacity: 1 }, { transform: t, opacity: 0, offset: 0.3 }, { transform: t, opacity: 0 }]
+      /* the copy is gone by 60% of the flight (by 30%, never past 1.6x, when the frame is much larger than the door;
+         by 18% on a phone, so the room never shows twice) */
+      var f = fly.animate(wide || narrow
+        ? [{ transform: "none", opacity: 1 }, { transform: t, opacity: 0, offset: narrow ? 0.18 : 0.3 }, { transform: t, opacity: 0 }]
         : [{ transform: "none", opacity: 1 }, { opacity: 1, offset: 0.35 }, { transform: t, opacity: 0, offset: 0.6 }, { transform: t, opacity: 0 }],
         { duration: 760, easing: ease, fill: "forwards" });
       f.onfinish = function () { fly.remove(); };
@@ -432,9 +501,12 @@
       e.preventDefault();
       peekLayers.forEach(function (l) { l.classList.remove("on"); });
       if (history.pushState && location.hash !== "#" + id) { history.pushState({ mbFrom: true }, "", "#" + id); arrivedFrom = a; }
+      /* a click with a pointer has detail >= 1; Enter on a focused link has detail 0. A pointer arrival keeps focus on
+         the heading (so Tab continues from the room) without the ring WebKit draws for programmatic focus */
+      var how = e.detail > 0 ? "pointer" : "key";
       var land = function () {
         var h = MB.$("[data-room-heading]", target) || MB.$("h2", target);
-        if (h) { if (!h.hasAttribute("tabindex")) h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+        if (h) { if (!h.hasAttribute("tabindex")) h.setAttribute("tabindex", "-1"); h.setAttribute("data-arrived", how); h.focus({ preventScroll: true }); }
       };
       if (a.classList.contains("door")) { MB.portal(a, target, land); return; }
       target.scrollIntoView({ behavior: MB.reduced() ? "auto" : "smooth", block: "start" });
