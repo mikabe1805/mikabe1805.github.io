@@ -129,6 +129,7 @@ a:hover .arr--down { transform: translateY(2px); }
 .rules { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); gap: 24px clamp(28px, 5vw, 88px); align-items: start; }
 .rules h2 { max-width: 7em; }
 .rules-head .caption { margin: 18px 0 0; max-width: 22em; color: var(--text-3); }
+.rules-head .rules-lead { margin: 18px 0 0; max-width: 24em; font-size: 16px; line-height: 1.55; color: var(--text-2); }
 .rules-list { margin: 0; border-bottom: 1px solid var(--line); }
 .rules-list > div { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 6px 24px; align-items: baseline; padding: 18px 0; border-top: 1px solid var(--line); }
 .rules-list dt { font: 500 24px/1.1 var(--serif); color: var(--text); }

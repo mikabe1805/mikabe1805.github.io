@@ -1,7 +1,7 @@
 /* Room of Days case page. Runs after quest-ui.js (it reads the engine instance quest-ui made). The theme's
    waveform ("rod-lamp-left-on") is in data.js, so the shared player in listen.js draws it.
      1. beside the shared Quest board (quest-ui.js): the beat list, the days, the history sky
-     2. live readouts in "Five stats change a rule"
+     2. live readouts in "Why six stats"
      3. the six rooms: plates crossfade, the app's fire sits at each room's hearth
      4. the App Store film strip and the tap and completion sounds */
 (function () {
