@@ -254,7 +254,7 @@
       <div class="wrap kt-voice-grid">
         <div class="kt-voice-copy">
           <h2 id="voice-title" class="case-h2">A voice trained on my own recordings</h2>
-          <p class="body-2">I designed a coverage-balanced recording corpus and a pronunciation testbench, then recorded 886 clips of my own voice, about 41 minutes, with a terminal recording tool I built. A one-command pipeline on the lab’s Jetstream2 allocation trims silence, normalizes loudness and rejects clipped or noisy takes. It then fine-tunes Piper’s pretrained VITS voice on my clips with PyTorch Lightning, resuming from checkpoints, and exports the result to ONNX; version 5 ran 15,000 steps.</p>
+          <p class="body-2">I designed a coverage-balanced recording corpus and a pronunciation testbench, then recorded 886 clips of my own voice, about 41 minutes, with a terminal recording tool I built. A one-command pipeline on the lab’s Jetstream2 allocation trims silence, normalizes loudness and rejects clipped or noisy takes. It then trains a Piper (VITS) voice on my clips with PyTorch Lightning, resuming from checkpoints, and exports the result to ONNX; version 5 ran 15,000 steps.</p>
           <p class="body-2">I turned the pipeline into a step-by-step guide; another student recorded 341 clips with it, and I trained a second voice from them.</p>
         </div>
         <div class="voice-players kt-voice-players">

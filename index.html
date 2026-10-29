@@ -309,8 +309,8 @@
         <div class="voice" data-reveal>
           <div class="voice-copy">
             <h3>A voice trained on my own recordings</h3>
-            <p class="body-2">I recorded 886 clips, about 41 minutes, with a terminal recording tool I built that stops on silence and lets me keep or redo each take. A one-command pipeline on the lab’s Jetstream2 GPU allocation trims and normalizes the audio, rejects clipped or noisy takes, fine-tunes a pretrained Piper (VITS) voice on my clips with PyTorch Lightning and exports it to ONNX.</p>
-            <p class="body-2">When one version developed audible pitch jumps, I traced them to an augmentation step that resampled the audio and shifted its pitch by about a semitone. I replaced it with time-stretching and retrained<span data-flag="voiceV5">; version 5 is the voice after that fix, fine-tuned for 15,000&nbsp;steps</span>.</p>
+            <p class="body-2">I recorded 886 clips, about 41 minutes, with a terminal recording tool I built that stops on silence and lets me keep or redo each take. A one-command pipeline on the lab’s Jetstream2 GPU allocation trims and normalizes the audio, rejects clipped or noisy takes, trains a Piper (VITS) voice on my clips with PyTorch Lightning and exports it to ONNX.</p>
+            <p class="body-2">When one version developed audible pitch jumps, I traced them to an augmentation step that resampled the audio and shifted its pitch by about a semitone. I replaced it with time-stretching and retrained<span data-flag="voiceV5">; version 5 is the voice after that fix, trained for 15,000&nbsp;steps</span>.</p>
           </div>
           <div class="voice-players">
             <div class="player" data-player data-clip="voice-v3-gaussian" data-label="version 3 of my voice reading the Gaussian integral">
